@@ -1,0 +1,17 @@
+@font-face {
+  font-family: Inter-Black;
+  src: url("../src/assets/fonts/Inter_28pt-Black.ttf");
+}
+@theme {
+  --font-Inter-Black: Inter-Black, sans-serif;
+}
+
+@font-face {
+  font-family: Inter-Medium;
+  src: url("../src/assets/fonts/Inter_24pt-Medium.ttf");
+}
+@theme {
+  --font-Inter-Medium: Inter-Medium, sans-serif;
+}
+
+@import "tailwindcss";
