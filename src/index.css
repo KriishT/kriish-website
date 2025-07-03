@@ -14,4 +14,20 @@
   --font-Inter-Medium: Inter-Medium, sans-serif;
 }
 
+@font-face {
+  font-family: Inter-Regular;
+  src: url("../src/assets/fonts/Inter_28pt-Regular.ttf");
+}
+@theme {
+  --font-Inter-Regular: Inter-Regular, sans-serif;
+}
+
+@font-face {
+  font-family: Sora-ExtraBold;
+  src: url("../src/assets/fonts/Sora-ExtraBold.ttf");
+}
+@theme {
+  --font-Sora-ExtraBold: Sora-ExtraBold, sans-serif;
+}
+
 @import "tailwindcss";
