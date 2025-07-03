@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import myImage from "./assets/images/WhatsApp Image 2023-12-31 at 5.32.58 AM.jpeg";
 import AiCoach from "./assets/images/Screenshot 2025-07-03 182415.png";
