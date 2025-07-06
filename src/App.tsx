@@ -78,9 +78,10 @@ export default function PortfolioHomepage() {
       category: "Software Engineering",
       title: "DART Academy",
       image: DART,
-      shortDesc: "Next.js 15, Tailwind CSS, ShadCn UI, Prisma, JWT Auth, ",
-      fullDesc:
-        "An AI-driven expense management platform built on Next.js 15 and TypeScript, featuring secure Server Components, Server Actions, and an optimized App Router. It offers drag-and-drop receipt uploads (powered by DND Kit), OCR-based data extraction, and AI-agent–driven categorization—all wrapped in a responsive Tailwind CSS/Shadcn UI with smooth animations and robust error handling. Authentication and user management are handled by Clerk; subscription plans, feature flags (via Schematic HQ), usage-based pricing, and permission gating ensure a scalable SaaS model with clear upgrade paths. Continuous event orchestration with Inngest ties it all together for reliable, end-to-end processing.",
+      shortDesc:
+        "React 19, Next.js 15, Tailwind CSS, ShadCn UI, Prisma, NeonDB, JWT Auth",
+      fullDesc: `An AI-driven expense management platform built on Next.js 15 and TypeScript, featuring secure Server Components, Server Actions, and an optimized App Router. It offers drag-and-drop receipt uploads (powered by DND Kit), OCR-based data extraction, and AI-agent–driven categorization—all wrapped in a responsive Tailwind CSS/Shadcn UI with smooth animations and robust error handling. Authentication and user management are handled by Clerk; subscription plans, feature flags (via Schematic HQ), usage-based pricing, and permission gating ensure a scalable SaaS model with clear upgrade paths. Continuous event orchestration with Inngest ties it all together for reliable, end-to-end processing. 
+                  `,
       github: "",
       live: "https://test.dartacademy.net/",
     },
@@ -488,10 +489,24 @@ export default function PortfolioHomepage() {
             <p className="text-lg text-[#5c5c5c]">Software Engineer Intern</p>
             <p className="text-sm text-[#8a817c]">Sept 2024 – Present</p>
             <p className="text-[#5c5c5c] w-150 break-words whitespace-normal max-w-xs sm:max-w-full">
-              Worked with a cross-functional team to convert the UI designed to
-              frontend and implemented multiple features like bulk enrollement,
-              presenter notes etc.
+              As a Software Engineering intern at DART Collective, I converted
+              static UI mockups into an accessible React frontend—integrating
+              ARIA attributes, keyboard navigation, and color-contrast
+              enhancements.
             </p>
+            <p className="text-[#5c5c5c] w-150 break-words whitespace-normal max-w-xs sm:max-w-full">
+              Built a CSV bulk-enrollment feature with real-time validation and
+              rollback, and developed a synchronized presenter-notes pane tied
+              to each slide.
+            </p>
+            <p className="text-[#5c5c5c] w-150 break-words whitespace-normal max-w-xs sm:max-w-full">
+              Reduced page-load time by 20%, raised accessibility audit scores
+              to 95%, cut group enrollment time from 30 min to 5 min (80%+
+              faster), eliminated data-entry errors, boosted presenter adoption
+              by 40%, and decreased on-air mistakes by 30%.
+            </p>
+
+            <p>Improved the </p>
             <a
               href="https://test.dartacademy.net/"
               target="_blank"
