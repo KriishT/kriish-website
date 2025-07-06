@@ -488,6 +488,8 @@ export default function PortfolioHomepage() {
             </h3>
             <p className="text-lg text-[#5c5c5c]">Software Engineer Intern</p>
             <p className="text-sm text-[#8a817c]">Sept 2024 – Present</p>
+            <p className="text-sm text-[#8a817c]">Buffalo, New York</p>
+
             <p className="text-[#5c5c5c] w-150 break-words whitespace-normal max-w-xs sm:max-w-full">
               <strong>1. </strong>As a Software Engineering intern at DART
               Collective, I converted static UI mockups into an accessible React
