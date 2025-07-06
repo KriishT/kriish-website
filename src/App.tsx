@@ -79,7 +79,7 @@ export default function PortfolioHomepage() {
       title: "DART Academy",
       image: DART,
       shortDesc:
-        "React 19, Next.js 15, Tailwind CSS, ShadCn UI, Prisma, NeonDB, JWT Auth",
+        "React 19, Next.js 15, Tailwind CSS, ShadCn UI, Prisma, NeonDB, OAuth",
       fullDesc: `An AI-driven expense management platform built on Next.js 15 and TypeScript, featuring secure Server Components, Server Actions, and an optimized App Router. It offers drag-and-drop receipt uploads (powered by DND Kit), OCR-based data extraction, and AI-agent–driven categorization—all wrapped in a responsive Tailwind CSS/Shadcn UI with smooth animations and robust error handling. Authentication and user management are handled by Clerk; subscription plans, feature flags (via Schematic HQ), usage-based pricing, and permission gating ensure a scalable SaaS model with clear upgrade paths. Continuous event orchestration with Inngest ties it all together for reliable, end-to-end processing. 
                   `,
       github: "",
