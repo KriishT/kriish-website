@@ -489,24 +489,23 @@ export default function PortfolioHomepage() {
             <p className="text-lg text-[#5c5c5c]">Software Engineer Intern</p>
             <p className="text-sm text-[#8a817c]">Sept 2024 – Present</p>
             <p className="text-[#5c5c5c] w-150 break-words whitespace-normal max-w-xs sm:max-w-full">
-              As a Software Engineering intern at DART Collective, I converted
-              static UI mockups into an accessible React frontend—integrating
-              ARIA attributes, keyboard navigation, and color-contrast
-              enhancements.
+              <strong>1. </strong>As a Software Engineering intern at DART
+              Collective, I converted static UI mockups into an accessible React
+              frontend—integrating ARIA attributes, keyboard navigation, and
+              color-contrast enhancements.
             </p>
             <p className="text-[#5c5c5c] w-150 break-words whitespace-normal max-w-xs sm:max-w-full">
-              Built a CSV bulk-enrollment feature with real-time validation and
-              rollback, and developed a synchronized presenter-notes pane tied
-              to each slide.
+              <strong>2. </strong>Built a CSV bulk-enrollment feature with
+              real-time validation and rollback, and developed a synchronized
+              presenter-notes pane tied to each slide.
             </p>
             <p className="text-[#5c5c5c] w-150 break-words whitespace-normal max-w-xs sm:max-w-full">
-              Reduced page-load time by 20%, raised accessibility audit scores
-              to 95%, cut group enrollment time from 30 min to 5 min (80%+
-              faster), eliminated data-entry errors, boosted presenter adoption
-              by 40%, and decreased on-air mistakes by 30%.
+              <strong>3. </strong>Reduced page-load time by 20%, raised
+              accessibility audit scores to 95%, cut group enrollment time from
+              30 min to 5 min (80%+ faster), eliminated data-entry errors,
+              boosted presenter adoption by 40%, and decreased on-air mistakes
+              by 30%.
             </p>
-
-            <p>Improved the </p>
             <a
               href="https://test.dartacademy.net/"
               target="_blank"
