@@ -30,4 +30,16 @@
   --font-Sora-ExtraBold: Sora-ExtraBold, sans-serif;
 }
 
+@keyframes scanlines {
+  0% {
+    background-position-y: 0;
+  }
+  100% {
+    background-position-y: 2px;
+  }
+}
+.animate-scanlines {
+  animation: scanlines 0.05s linear infinite;
+}
+
 @import "tailwindcss";
