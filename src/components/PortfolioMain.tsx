@@ -390,7 +390,7 @@ export default function PortfolioMain() {
             className="relative grid grid-cols-6 gap-6 p-4 rounded-[6px]
        border border-[#b7b3ac] bg-[#f5f3f1] shadow-inner auto-rows-min"
           >
-            {filtered.map((p, i) => {
+            {filtered.map((_, i) => {
               const reorderedProjects = [...filtered].sort((a, b) => {
                 if (a.title === "DART Academy") return -1;
                 if (b.title === "DART Academy") return 1;
