@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import AiCoach from "../assets/images/Screenshot 2025-07-03 182415.png";
 import ReceiptTracker from "../assets/images/Screenshot 2025-07-03 182825.png";
 import DART from "../assets/images/Screenshot 2025-07-03 185521.png";
 import DARTlogo from "../assets/images/dart.svg";
-import aryan from "../assets/images/aryan.png";
 
 import {
   SiTypescript,
@@ -19,17 +18,11 @@ import {
   SiVercel,
   SiTailwindcss,
 } from "react-icons/si";
-import { FaGithub } from "react-icons/fa";
-import { FiExternalLink } from "react-icons/fi";
 
 /* ------------------ motion helpers ------------------ */
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.18 } },
 };
 
 /* ------------------ types ------------------ */
@@ -44,49 +37,12 @@ interface Project {
   live: string;
 }
 
-/* ------------------ tiny window card ------------------ */
-function Window({
-  title,
-  children,
-  className = "",
-}: {
-  title: string;
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`relative rounded-[6px] border border-[#b9b3a4] bg-[#fffdfa] shadow-[6px_6px_0_#c3baa5] overflow-hidden ${className}`}
-    >
-      {/* top bar */}
-      <div className="flex items-center justify-between px-3 py-2 border-b border-[#cfc8b9] bg-[#efe9dc]">
-        <div className="flex items-center gap-1.5">
-          <span className="w-3 h-3 rounded-full bg-[#ec6a5e]" />
-          <span className="w-3 h-3 rounded-full bg-[#f4bd50]" />
-          <span className="w-3 h-3 rounded-full bg-[#61c554]" />
-        </div>
-        <p className="text-[11px] font-['Press_Start_2P'] tracking-wider text-[#535046]">
-          {title}
-        </p>
-        <span className="text-xs text-[#9a9587]">▢</span>
-      </div>
-
-      {/* subtle scanlines overlay */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.07] [background:repeating-linear-gradient(0deg,rgba(0,0,0,.5)_0_1px,transparent_1px_3px)]" />
-
-      <div className="relative p-5">{children}</div>
-    </div>
-  );
-}
-
 /* ===================================================== */
 
 export default function PortfolioMain() {
   const [selectedCategory, setSelectedCategory] = useState<
     "All" | "Software Engineering" | "UI/UX" | "Others"
   >("All");
-
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   const projects: Project[] = [
     {
