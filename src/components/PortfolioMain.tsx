@@ -44,6 +44,8 @@ export default function PortfolioMain() {
     "All" | "Software Engineering" | "UI/UX" | "Others"
   >("All");
 
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
   const projects: Project[] = [
     {
       id: 1,
@@ -134,9 +136,9 @@ export default function PortfolioMain() {
           transition={{ delay: 1.6, duration: 1 }}
           className="max-w-lg text-sm sm:text-base text-[#555] mt-6 leading-relaxed"
         >
-          I’m a computer-science student and full-stack developer passionate
-          about creating human-centered products that combine logic, aesthetics
-          and motion.
+          I’m a computer science student at UB and a full-stack developer
+          passionate about creating human-centered products that combine logic,
+          design, and user experience.
         </motion.p>
 
         <motion.div
@@ -224,11 +226,12 @@ export default function PortfolioMain() {
             </div>
 
             <div className="p-5 text-[#1a1a1a] font-['IBM_Plex_Mono'] leading-relaxed">
-              I’m Krish Tiwari, a sophomore majoring in Computer Science at the
-              University at Buffalo. I’m passionate about full-stack development
-              and building intuitive, user-first applications. I love
-              collaborating — every partnership is a chance to learn and ship
-              better.
+              I’m Kriish Tiwari, a junior majoring in Computer Science at the
+              University at Buffalo. I’m passionate about full-stack
+              development, product management, and UI/UX design — turning ideas
+              into thoughtful, user-first products. I love collaborating; every
+              project is a chance to learn, refine, and build experiences that
+              truly connect.
             </div>
           </div>
 
@@ -253,15 +256,15 @@ export default function PortfolioMain() {
                 <p className="text-lg font-serif">University at Buffalo</p>
                 <p className="text-sm text-[#444]">Aug 2023 - Dec 2026</p>
                 <p className="text-sm text-[#666]">
-                  B.S. in Computer Science & Engineering — 2023–Present
+                  B.S. in Computer Science & Engineering
                 </p>
                 <p className="text-sm text-[#666]">
-                  Systems Programming, Algorithms, Data Structures, Computer
-                  Organization
+                  Intro to AI, Web development, Systems Programming, Algorithms,
+                  Data Structures, Computer Organization
                 </p>
               </div>
               <div>
-                <p className="text-lg font-serif">Gravity High School</p>
+                <p className="text-lg font-serif">Gravity </p>
                 <p className="text-sm text-[#444]">2021–2023</p>
                 <p className="text-sm text-[#666]">
                   Physics, Chemistry, Linear Algebra, Mathematics
@@ -470,12 +473,92 @@ export default function PortfolioMain() {
                           Live Demo
                         </a>
                       )}
+                      <button
+                        onClick={() => setSelectedProject(project)}
+                        className="mt-2 text-[11px] text-[#004bb5] underline hover:text-[#003b92]"
+                      >
+                        Read More
+                      </button>
                     </div>
                   </div>
                 </motion.div>
               );
             })}
           </motion.div>
+          {selectedProject && (
+            <div
+              className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+              onClick={() => setSelectedProject(null)}
+            >
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className="w-[90%] md:w-[800px] lg:w-[900px] bg-[#e6e6e6] border-2 border-[#b3b3b3]
+                 rounded-[8px] shadow-[12px_12px_0_#999] relative font-['Chicago'] text-[#1a1a1a]
+                 animate-fadeIn"
+              >
+                {/* title bar */}
+                <div className="flex items-center justify-between bg-[#c3c3c3] border-b border-[#9a9a9a] px-5 py-[6px]">
+                  <p className="text-[14px] font-semibold text-[#2d2b29] tracking-tight">
+                    📁 {selectedProject.title}
+                  </p>
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className="text-[18px] leading-none text-[#2d2b29] hover:text-[#7a7a7a]"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                {/* body */}
+                <div className="p-8 text-[14px] flex flex-col items-center">
+                  <div className="w-[220px] h-[220px] border border-[#9a9a9a] bg-white flex items-center justify-center overflow-hidden mb-6 rounded-[6px]">
+                    <img
+                      src={selectedProject.image}
+                      alt={selectedProject.title}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+
+                  <p className="text-center leading-relaxed text-[#2f2f2f] max-w-[750px] mb-8">
+                    {selectedProject.fullDesc}
+                  </p>
+
+                  {/* buttons */}
+                  <div className="flex justify-center gap-5 mt-2">
+                    {selectedProject.github && (
+                      <a
+                        href={selectedProject.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-6 py-2 bg-[#b0b0b0] border border-[#7f7f7f] rounded-[4px]
+                         hover:bg-[#a0a0a0] active:bg-[#8f8f8f] transition text-[13px]"
+                      >
+                        GitHub
+                      </a>
+                    )}
+                    {selectedProject.live && (
+                      <a
+                        href={selectedProject.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-6 py-2 bg-[#0055ff] border border-[#003eb8] rounded-[4px]
+                         text-white hover:bg-[#0045d9] active:bg-[#003ab8] transition text-[13px]"
+                      >
+                        Visit
+                      </a>
+                    )}
+                    <button
+                      onClick={() => setSelectedProject(null)}
+                      className="px-6 py-2 bg-[#b0b0b0] border border-[#7f7f7f] rounded-[4px]
+                       hover:bg-[#a0a0a0] active:bg-[#8f8f8f] transition text-[13px]"
+                    >
+                      OK
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
       <section
@@ -550,22 +633,29 @@ export default function PortfolioMain() {
 
               <div className="space-y-3 text-[#cfe3f5]">
                 <p>
-                  ▒ Built accessibility-driven AI e-learning modules using{" "}
+                  ▒ Software Engineering intern at DART Collective, I converted
+                  static UI mockups into an accessible{" "}
                   <span className="text-[#00d1ff]">React 19</span> and{" "}
-                  <span className="text-[#00d1ff]">Next.js 15</span>.
+                  frontend—integrating ARIA attributes, keyboard navigation, and
+                  color-contrast enhancements.
                 </p>
                 <p>
-                  ▒ Improved user flow for older adults — fully{" "}
-                  <span className="text-[#00d1ff]">WCAG compliant</span>.
+                  ▒ Built a CSV bulk-enrollment feature with real-time
+                  validation and rollback, reducing enrollement times by{" "}
+                  <span className="text-[#00d1ff]">85%</span> and developed a
+                  synchronized presenter-notes pane tied to each slide.
                 </p>
                 <p>
-                  ▒ Integrated{" "}
-                  <span className="text-[#00d1ff]">Clerk Auth</span> with{" "}
-                  <span className="text-[#00d1ff]">NeonDB</span> for secure
-                  logins.
+                  ▒ Reduced page-load time by{" "}
+                  <span className="text-[#00d1ff]">20%</span>, raised
+                  accessibility audit scores to{" "}
+                  <span className="text-[#00d1ff]">95%</span>, cut group
+                  enrollment time from 30 min to 5 min (80%+ faster), eliminated
+                  data-entry errors, boosted presenter adoption by 40%, and
+                  decreased on-air mistakes by 30%.
                 </p>
                 <p>
-                  ▒ Developed analytics dashboards for live learner progress
+                  ▒ Developed admin dashboards for live learner progress
                   tracking.
                 </p>
               </div>
