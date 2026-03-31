@@ -4,6 +4,9 @@ import AiCoach from "../assets/images/Screenshot 2025-07-03 182415.png";
 import ReceiptTracker from "../assets/images/Screenshot 2025-07-03 182825.png";
 import DART from "../assets/images/Screenshot 2025-07-03 185521.png";
 import DARTlogo from "../assets/images/dart.svg";
+import Drishya from "../assets/images/Drishya.ai2.png";
+import Studio23 from "../assets/images/Studio23Labs.png";
+import ESCLogo from "../assets/images/ESCLogo.png";
 
 import {
   SiTypescript,
@@ -82,6 +85,17 @@ export default function PortfolioMain() {
         "An AI-driven e-learning platform built for DART Collective using React 19, Next.js 15, Tailwind CSS, Prisma, and NeonDB. Optimized for accessibility, modular design, and instructor workflow.",
       github: "",
       live: "https://app.dartacademy.net/about",
+    },
+    {
+      id: 4,
+      category: "Software Engineering",
+      title: "Drishya.ai",
+      image: Drishya,
+      shortDesc: "React, Anthropic API",
+      fullDesc:
+        "An interactive AI-powered algorithm visualization platform built with React, featuring step-by-step execution, real-time state tracking, and playback controls. Improves understanding of algorithms through dynamic, user-driven exploration. Currently supports only array questions and Python code,",
+      github: "https://github.com/KriishT/Drishya.ai",
+      live: "https://drishya-ai-henna.vercel.app/",
     },
   ];
 
@@ -394,23 +408,15 @@ export default function PortfolioMain() {
        border border-[#b7b3ac] bg-[#f5f3f1] shadow-inner auto-rows-min"
           >
             {filtered.map((_, i) => {
-              const reorderedProjects = [...filtered].sort((a, b) => {
-                if (a.title === "DART Academy") return -1;
-                if (b.title === "DART Academy") return 1;
-                if (a.title === "AI Career Coach") return -1;
-                if (b.title === "AI Career Coach") return 1;
-                return 0;
-              });
+              const order = ["Drishya.ai", "DART Academy", "AI Career Coach", "Receipt Tracker SaaS"];
+              const reorderedProjects = [...filtered].sort(
+                (a, b) => order.indexOf(a.title) - order.indexOf(b.title)
+              );
 
               const project = reorderedProjects[i];
               if (!project) return null;
 
-              const gridStyles =
-                project.title === "DART Academy"
-                  ? "col-span-3 row-span-3"
-                  : project.title === "AI Career Coach"
-                  ? "col-span-3 row-span-2"
-                  : "col-span-2 row-span-2";
+              const gridStyles = "col-span-6 sm:col-span-3 row-span-2";
 
               return (
                 <motion.div
@@ -426,20 +432,20 @@ export default function PortfolioMain() {
        ${gridStyles} cursor-grab flex flex-col h-auto`}
                 >
                   {/* header */}
-                  <div className="flex items-center justify-between bg-[#dcd9d3] px-3 py-1 border-b border-[#b7b3ac]">
-                    <p className="text-[11px] font-semibold text-[#2d2b29] truncate pr-2">
+                  <div className="flex items-center justify-between bg-[#dcd9d3] px-4 py-2 border-b border-[#b7b3ac]">
+                    <p className="text-sm font-semibold text-[#2d2b29] truncate pr-2">
                       {project.title}
                     </p>
-                    <div className="flex gap-1">
-                      <span className="w-2.5 h-2.5 bg-[#ff605c] rounded-full" />
-                      <span className="w-2.5 h-2.5 bg-[#ffbd44] rounded-full" />
-                      <span className="w-2.5 h-2.5 bg-[#00ca4e] rounded-full" />
+                    <div className="flex gap-1.5">
+                      <span className="w-3 h-3 bg-[#ff605c] rounded-full" />
+                      <span className="w-3 h-3 bg-[#ffbd44] rounded-full" />
+                      <span className="w-3 h-3 bg-[#00ca4e] rounded-full" />
                     </div>
                   </div>
 
                   {/* content */}
-                  <div className="p-3 flex flex-col h-full">
-                    <div className="w-full h-[160px] rounded-[4px] overflow-hidden">
+                  <div className="p-5 flex flex-col h-full gap-3">
+                    <div className="w-full h-[220px] rounded-[4px] overflow-hidden">
                       <img
                         src={project.image}
                         alt={project.title}
@@ -447,18 +453,17 @@ export default function PortfolioMain() {
                       />
                     </div>
 
-                    <p className="text-xs text-[#4b4a47] mt-3 leading-snug line-clamp-4">
+                    <p className="text-[13px] text-[#4b4a47] leading-relaxed">
                       {project.shortDesc}
                     </p>
 
-                    {/* tighter buttons section */}
-                    <div className="flex gap-3 mt-2 mb-1">
+                    <div className="flex gap-3 mt-auto items-center flex-wrap">
                       {project.github && (
                         <a
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[11px] px-3 py-1 bg-[#004bb5] text-white rounded-full hover:bg-[#003b92] transition shrink-0"
+                          className="text-[12px] px-4 py-1.5 bg-[#004bb5] text-white rounded-full hover:bg-[#003b92] transition shrink-0"
                         >
                           GitHub
                         </a>
@@ -468,14 +473,14 @@ export default function PortfolioMain() {
                           href={project.live}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[11px] px-3 py-1 bg-[#6b705c] text-white rounded-full hover:bg-[#5a6350] transition shrink-0"
+                          className="text-[12px] px-4 py-1.5 bg-[#6b705c] text-white rounded-full hover:bg-[#5a6350] transition shrink-0"
                         >
                           Live Demo
                         </a>
                       )}
                       <button
                         onClick={() => setSelectedProject(project)}
-                        className="mt-2 text-[11px] text-[#004bb5] underline hover:text-[#003b92]"
+                        className="text-[12px] text-[#004bb5] underline hover:text-[#003b92]"
                       >
                         Read More
                       </button>
@@ -563,12 +568,12 @@ export default function PortfolioMain() {
       </section>
       <section
         id="experience"
-        className="min-h-screen py-28 px-6 border-t border-[#cfc8b9]
+        className="py-28 px-6 border-t border-[#cfc8b9]
              bg-[#1b1f2a] relative overflow-hidden text-[#dfe7ef]"
       >
         {/* faint digital grid background */}
         <div
-          className="absolute inset-0 opacity-[0.06] pointer-events-none 
+          className="absolute inset-0 opacity-[0.06] pointer-events-none
     [background:repeating-linear-gradient(0deg,rgba(0,255,255,.1)_0_1px,transparent_1px_3px),
      repeating-linear-gradient(90deg,rgba(0,255,255,.08)_0_1px,transparent_1px_3px)]"
         />
@@ -583,115 +588,173 @@ export default function PortfolioMain() {
           </span>
         </div>
 
-        <div className="max-w-5xl mx-auto relative z-10 flex flex-col items-center mt-14">
+        <div className="max-w-6xl mx-auto relative z-10 flex flex-col items-center mt-14">
           <h2 className="text-center text-2xl font-mono text-[#6cb8ff] mb-12">
             {"<"}work_experience.log{">"}
           </h2>
 
-          {/* terminal window */}
-          <div
-            className="rounded-[10px] border border-[#2b3242] bg-[#0d1117]/95
-                 shadow-[0_0_25px_rgba(0,255,255,0.15)] overflow-hidden
-                 w-[92%] md:w-[80%] max-w-3xl"
-          >
-            {/* top bar */}
-            <div className="flex items-center justify-between bg-[#101621] border-b border-[#2b3242] px-4 py-2">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-[#ff5555]" />
-                <span className="w-3 h-3 rounded-full bg-[#f1fa8c]" />
-                <span className="w-3 h-3 rounded-full bg-[#50fa7b]" />
-              </div>
-              <p className="text-[12px] text-[#6cb8ff] font-mono">
-                kali@localhost:~/Experience/DART_Collective
-              </p>
-            </div>
-
-            {/* content */}
-            <div className="p-8 font-mono text-sm leading-relaxed text-[#d9e4ee]">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-6">
-                <img
-                  src={DARTlogo}
-                  alt="DART Collective Logo"
-                  className="w-20 h-20 object-contain rounded-[6px] border border-[#3a4b60]
-                     shadow-[0_0_10px_rgba(0,200,255,0.25)]"
-                />
-                <div>
-                  <p className="text-[#8bd8ff]">
-                    {"$"} <span className="text-[#00d1ff]">Organization:</span>{" "}
-                    DART Collective
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+            {[
+              {
+                company: "Studio23labs",
+                role: "Software Engineering Intern",
+                location: "Toronto, Canada",
+                duration: "Jan 2026 – Present",
+                active: true,
+                path: "Studio23labs",
+                logo: Studio23,
+                links: { live: "https://studio23labs.com/" },
+                bullets: [
+                  { metric: "65%", text: "Reduced average first-response time by consolidating chat, email, SMS, and voice into a single real-time WebSocket operator view for a multi-tenant SaaS platform." },
+                  { metric: null, text: "Accelerated support resolution by integrating an OpenAI/Claude AI Assistant with per-channel context, tone config, and custom escalation rules, cutting repetitive agent workload." },
+                ],
+              },
+              {
+                company: "UB ESC",
+                role: "Software Engineering Intern — Mobile",
+                location: "Buffalo, NY",
+                duration: "Dec 2025 – Present",
+                active: true,
+                path: "UB_ESC",
+                logo: ESCLogo,
+                links: { linkedin: "https://www.linkedin.com/company/embedded-sensing-and-computing-lab" },
+                bullets: [
+                  { metric: "9 games", text: "Engineered a React Native app with 9 AI-powered mini-games across 4 biometric dimensions measuring eye-tracking, motor coordination, and speech clarity — a non-invasive alternative to field sobriety tests." },
+                  { metric: null, text: "Improved assessment scalability by deploying a cloud-based AI inference pipeline supporting concurrent multi-user sessions across all 4 biometric scoring dimensions." },
+                ],
+              },
+              {
+                company: "DART Collective",
+                role: "UX Researcher",
+                location: "Buffalo, NY",
+                duration: "Jan 2026 – Present",
+                active: true,
+                path: "DART_UX",
+                logo: DARTlogo,
+                links: { linkedin: "", live: "https://app.dartacademy.net/about" },
+                bullets: [
+                  { metric: "73%", text: "Measured average knowledge retention rate across 60+ older adult users via structured post-session focus groups evaluating scam-awareness and digital literacy modules." },
+                  { metric: "12", text: "Identified critical usability friction points by leading in-person sessions with 60+ users, directly resulting in UI fixes that reduced task-completion failures by 35%." },
+                ],
+              },
+              {
+                company: "DART Collective",
+                role: "Software Engineering Intern",
+                location: "Buffalo, NY",
+                duration: "Sept 2024 – Aug 2025",
+                active: false,
+                path: "DART_SWE",
+                logo: DARTlogo,
+                links: { linkedin: "", live: "https://test.dartacademy.net/" },
+                bullets: [
+                  { metric: "85%", text: "Cut admin processing time by engineering a CSV bulk-enrollment workflow with real-time validation and rollback on a Next.js 15 / PostgreSQL platform serving 1,000+ users." },
+                  { metric: "50%", text: "Increased learner engagement by building a WebSocket-powered live presenter-notes pane enabling real-time sync between instructors and learners." },
+                ],
+              },
+            ].map((exp, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 0.5 }}
+                className="rounded-[10px] border border-[#2b3242] bg-[#0d1117]/95
+                   shadow-[0_0_28px_rgba(0,255,255,0.1)] overflow-hidden flex flex-col"
+              >
+                {/* terminal title bar */}
+                <div className="flex items-center justify-between bg-[#101621] border-b border-[#2b3242] px-5 py-3 shrink-0">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3.5 h-3.5 rounded-full bg-[#ff5555]" />
+                    <span className="w-3.5 h-3.5 rounded-full bg-[#f1fa8c]" />
+                    <span className="w-3.5 h-3.5 rounded-full bg-[#50fa7b]" />
+                  </div>
+                  <p className="text-[11px] text-[#6cb8ff] font-mono truncate mx-3 flex-1 text-center">
+                    ~/Experience/{exp.path}
                   </p>
-                  <p className="text-[#8bd8ff] mt-1">
-                    {"$"} <span className="text-[#00d1ff]">Role:</span> Software
-                    Engineer Intern
-                  </p>
-                  <p className="text-[#8bd8ff] mt-1">
-                    {"$"} <span className="text-[#00d1ff]">Duration:</span> Jun
-                    2025 – Present
-                  </p>
+                  {exp.active && (
+                    <span className="flex items-center gap-1.5 text-[11px] text-[#50fa7b] font-mono shrink-0">
+                      <motion.span
+                        className="w-2 h-2 rounded-full bg-[#50fa7b] inline-block"
+                        animate={{ opacity: [1, 0.2, 1] }}
+                        transition={{ repeat: Infinity, duration: 1.5 }}
+                      />
+                      ACTIVE
+                    </span>
+                  )}
                 </div>
-              </div>
 
-              <div className="space-y-3 text-[#cfe3f5]">
-                <p>
-                  ▒ Software Engineering intern at DART Collective, I converted
-                  static UI mockups into an accessible{" "}
-                  <span className="text-[#00d1ff]">React 19</span> and{" "}
-                  frontend—integrating ARIA attributes, keyboard navigation, and
-                  color-contrast enhancements.
-                </p>
-                <p>
-                  ▒ Built a CSV bulk-enrollment feature with real-time
-                  validation and rollback, reducing enrollement times by{" "}
-                  <span className="text-[#00d1ff]">85%</span> and developed a
-                  synchronized presenter-notes pane tied to each slide.
-                </p>
-                <p>
-                  ▒ Reduced page-load time by{" "}
-                  <span className="text-[#00d1ff]">20%</span>, raised
-                  accessibility audit scores to{" "}
-                  <span className="text-[#00d1ff]">95%</span>, cut group
-                  enrollment time from 30 min to 5 min (80%+ faster), eliminated
-                  data-entry errors, boosted presenter adoption by 40%, and
-                  decreased on-air mistakes by 30%.
-                </p>
-                <p>
-                  ▒ Developed admin dashboards for live learner progress
-                  tracking.
-                </p>
-              </div>
+                {/* card content */}
+                <div className="p-7 font-mono leading-relaxed text-[#d9e4ee] flex flex-col flex-1 gap-5">
+                  {/* header: logo + title */}
+                  <div className="flex items-start gap-4">
+                    {exp.logo ? (
+                      <img
+                        src={exp.logo}
+                        alt={exp.company}
+                        className="w-12 h-12 object-contain rounded-[6px] border border-[#3a4b60] shrink-0 mt-0.5"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 rounded-[6px] border border-[#3a4b60] shrink-0 mt-0.5 bg-[#1a2235] flex items-center justify-center text-[22px]">
+                        💻
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-[#00d1ff] font-bold text-base">{exp.company}</p>
+                      <p className="text-[#8bd8ff] text-sm mt-1">{exp.role}</p>
+                      <p className="text-[#6cb8ff]/70 text-xs mt-1">
+                        📅 {exp.duration} · {exp.location}
+                      </p>
+                    </div>
+                  </div>
 
-              {/* buttons */}
-              <div className="flex gap-4 mt-8">
-                <a
-                  href="https://test.dartacademy.net/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[12px] px-3 py-1.5 rounded-md border border-[#00d1ff]
-                     text-[#00d1ff] hover:bg-[#00d1ff]/10 transition"
-                >
-                  🌐 Live Site
-                </a>
-                <a
-                  href="https://github.com/KriishT/DART-Collective"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[12px] px-3 py-1.5 rounded-md border border-[#8bd8ff]
-                     text-[#8bd8ff] hover:bg-[#8bd8ff]/10 transition"
-                >
-                  🧠 GitHub
-                </a>
-              </div>
+                  {/* bullets */}
+                  <div className="space-y-3 text-[#cfe3f5] text-[13px] flex-1">
+                    {exp.bullets.map((b, bi) => (
+                      <p key={bi} className="leading-relaxed">
+                        <span className="text-[#50fa7b]">▒</span>{" "}
+                        {b.metric && (
+                          <span className="text-[#00d1ff] font-bold">[{b.metric}] </span>
+                        )}
+                        {b.text}
+                      </p>
+                    ))}
+                  </div>
 
-              {/* footer */}
-              <div className="mt-8 text-[11px] text-[#00ffb7] opacity-70">
-                {"$"} log updated at 18:03 — system running smoothly.
-              </div>
-            </div>
+                  {/* link buttons */}
+                  {"links" in exp && (
+                    <div className="flex gap-3 flex-wrap pt-1 border-t border-[#2b3242]">
+                      {(exp.links as any).live && (
+                        <a
+                          href={(exp.links as any).live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] px-3 py-1.5 rounded-md border border-[#00d1ff]
+                             text-[#00d1ff] hover:bg-[#00d1ff]/10 transition font-mono"
+                        >
+                          🌐 Live Demo
+                        </a>
+                      )}
+                      {(exp.links as any).linkedin && (
+                        <a
+                          href={(exp.links as any).linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] px-3 py-1.5 rounded-md border border-[#8bd8ff]
+                             text-[#8bd8ff] hover:bg-[#8bd8ff]/10 transition font-mono"
+                        >
+                          🔗 LinkedIn
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            ))}
           </div>
 
           {/* soft glowing cursor animation */}
           <motion.div
-            className="text-[#00d1ff] font-mono text-lg mt-16"
+            className="text-[#00d1ff] font-mono text-lg mt-12"
             animate={{ opacity: [0, 1, 0] }}
             transition={{ repeat: Infinity, duration: 1.1 }}
           >
