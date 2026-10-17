@@ -529,7 +529,6 @@ export default function PortfolioMain() {
         >
           SOFTWARE ENGINEER — DESIGNER — BUILDER
         </motion.h3>
-        <video src="loophole-ransom-skate-shop-xerox-1080x1350.mp4" autoPlay muted loop playsInline poster="loophole-ransom-skate-shop-xerox-1080x1350-poster.png" width="1080" height="1350"></video>
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
