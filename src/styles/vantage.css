@@ -168,6 +168,13 @@ main:focus {
   flex-basis: 100%;
 }
 
+/* paint goes on the wall; everything else hangs in front of it, so drifting fragments
+   pass behind text and images instead of over them */
+main :where(p, ol, ul, dl, figure, aside, table, .todo):not(.painted, .painted *) {
+  position: relative;
+  z-index: 1;
+}
+
 /* ---------- primitives ---------- */
 .button,
 .copy-email button {
