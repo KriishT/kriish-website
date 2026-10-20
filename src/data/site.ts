@@ -17,7 +17,7 @@ export const site = {
 
 // The homepage statement, and the live site's real headline it replaces.
 export const headline = {
-  now: "designs and builds software, then tests it with the people who use it.",
+  now: "designs and builds software, then tests it with the people who use it.",
   was: {
     greeting: "Hi, I’m ",
     rest: ". I’m a computer science student at the University at Buffalo and a full-stack developer passionate about creating human-centered products that combine logic, design, and user experience.",

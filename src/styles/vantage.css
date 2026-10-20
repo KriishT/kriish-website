@@ -62,6 +62,10 @@ a:hover {
 a:active {
   color: var(--ink);
 }
+/* visited: a dotted underline, so a reader can see which work they've already opened */
+main a:visited:not(:hover) {
+  text-decoration-style: dotted;
+}
 :focus-visible {
   outline: 2px solid var(--paint);
   outline-offset: 3px;
@@ -209,12 +213,6 @@ main :where(p, ol, ul, dl, figure, aside, table, .todo):not(.painted, .painted *
   min-width: 4ch;
 }
 
-.kicker {
-  font-family: var(--display);
-  font-size: var(--step--1);
-  font-weight: 600;
-  color: var(--shade);
-}
 .meta {
   font-family: var(--display);
   font-size: var(--step--1);

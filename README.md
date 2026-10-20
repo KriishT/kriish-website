@@ -2,6 +2,8 @@
 
 The portfolio of Kriish Tiwari, live at [kriisht.vercel.app](https://kriisht.vercel.app).
 
+This branch is version **D, Vantage: headings painted across four depths that resolve at their vantage point**. See `docs/build-report.md` for what was built, why, and what is still open.
+
 A static [Astro](https://astro.build) site. There's no client framework: the little interaction there is runs as small TypeScript modules.
 
 ## Run it

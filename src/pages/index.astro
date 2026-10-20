@@ -13,7 +13,7 @@ const archive = work.filter((w) => !w.data.flagship);
 <Base person>
   <section class="hero frame grid" aria-label="Introduction">
     <Painted as="h1" size="xl" top class="hero__name">Kriish <br />Tiwari</Painted>
-    <p class="hero__statement"><strong>Designs and builds software,</strong> then tests it with the people who use it.</p>
+    <p class="hero__statement"><strong>Designs and builds software,</strong> then tests it with the people who use&nbsp;it.</p>
     <p class="hero__lede">{lede}</p>
     <p class="hero__hint">Every heading here is painted across four depths and reads from one point only. Scroll, and it comes apart.</p>
   </section>
@@ -142,7 +142,6 @@ const archive = work.filter((w) => !w.data.flagship);
     object-fit: cover;
     object-position: top left;
     outline: 1px solid var(--rule);
-    transition: outline-color var(--dur-micro) var(--ease-out);
   }
   .work__text {
     grid-column: 8 / -1;
@@ -186,9 +185,6 @@ const archive = work.filter((w) => !w.data.flagship);
   .work:hover .work__title,
   .work:focus-within .work__title {
     color: var(--paint);
-  }
-  .work:hover .work__shot img {
-    outline-color: var(--paint);
   }
   .work:focus-within {
     outline: 2px solid var(--paint);

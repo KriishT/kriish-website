@@ -15,7 +15,8 @@ export default defineConfig({
       provider: fontProviders.fontsource(),
       name: "Schibsted Grotesk",
       cssVariable: "--font-display",
-      weights: ["400 900"],
+      // static weights, not the variable file: some WebKit builds ignore the weight axis
+      weights: [500, 600, 700, 800, 900],
       styles: ["normal"],
       subsets: ["latin"],
       fallbacks: ["sans-serif"],
@@ -24,7 +25,7 @@ export default defineConfig({
       provider: fontProviders.fontsource(),
       name: "Literata",
       cssVariable: "--font-text",
-      weights: ["300 700"],
+      weights: [400, 600],
       styles: ["normal", "italic"],
       subsets: ["latin"],
       fallbacks: ["serif"],
