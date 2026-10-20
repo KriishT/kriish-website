@@ -1,9 +1,297 @@
 ---
+import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
+import Painted from "../components/Painted.astro";
+import CopyEmail from "../components/CopyEmail.astro";
+import Todo from "../components/Todo.astro";
+import cover from "../assets/work/dart-academy.png";
+
+const colours = [
+  { name: "Wall", token: "--wall", hex: "#f2f1ec", role: "Ground for every page" },
+  { name: "Paint", token: "--paint", hex: "#1f2bb8", role: "Painted headings, links on hover, focus, selection" },
+  { name: "Ink", token: "--ink", hex: "#161616", role: "Body text and headings" },
+  { name: "Shade", token: "--shade", hex: "#4b4a46", role: "Secondary text, captions, meta" },
+  { name: "Rule", token: "--rule", hex: "#d9d7cf", role: "1px rules and image outlines only. Never text." },
+];
+const lum = (hex: string) => {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+const ratio = (a: string, b: string) => {
+  const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
+  return (x + 0.05) / (y + 0.05);
+};
+const pairs = [
+  ["Ink", "#161616", "Wall", "#f2f1ec"],
+  ["Paint", "#1f2bb8", "Wall", "#f2f1ec"],
+  ["Shade", "#4b4a46", "Wall", "#f2f1ec"],
+  ["Wall", "#f2f1ec", "Paint", "#1f2bb8"],
+].map(([fn, f, bn, b]) => ({ fn, bn, f, b, r: ratio(f, b) }));
+
+const steps = [
+  { token: "--step--1", use: "Meta, captions, nav", face: "display" },
+  { token: "--step-0", use: "Body text", face: "text" },
+  { token: "--step-1", use: "Lede, role titles", face: "text" },
+  { token: "--step-2", use: "Statements, summaries", face: "display" },
+  { token: "--step-3", use: "Section and project titles", face: "display" },
+];
+const space = ["--s-1", "--s-2", "--s-3", "--s-4", "--s-5", "--s-6", "--s-7", "--s-8", "--s-9", "--s-10", "--s-11"];
+const motion = [
+  ["--dur-micro", "160ms", "Link and button colour, outlines"],
+  ["--dur-ui", "280ms", "State changes"],
+  ["--dur-signature", "700ms", "A heading resolving on arrival"],
+  ["--ease-out", "cubic-bezier(0.2, 0.7, 0.2, 1)", "Everything that answers a user action"],
+  ["--ease-paint", "cubic-bezier(0.3, 0.6, 0.2, 1)", "Planes settling into alignment"],
+];
 ---
-<Base title="System" description="Design tokens and primitives." noindex>
-  <article class="system">
-    <h1>System</h1>
-    <p>Each version documents its own tokens here.</p>
-  </article>
+<Base title="System" description="The Vantage design system: tokens and primitives." noindex>
+  <div class="sys frame">
+    <Painted as="h1" top>System</Painted>
+    <p class="lede sys__intro">One paint on a whitewashed wall. Every value the site uses is defined once as a custom property in <code>src/styles/tokens.css</code> and shown here.</p>
+
+    <section aria-labelledby="c">
+      <h2 id="c">Colour</h2>
+      <ul class="swatches">
+        {colours.map((c) => (
+          <li>
+            <span class="swatch" style={`background:${c.hex}`}></span>
+            <strong>{c.name}</strong> <code>{c.token}</code> <code>{c.hex}</code>
+            <p class="meta">{c.role}</p>
+          </li>
+        ))}
+      </ul>
+      <h3>Text pairs (WCAG 2.2)</h3>
+      <table class="pairs">
+        <thead><tr><th scope="col">Text</th><th scope="col">On</th><th scope="col">Ratio</th><th scope="col">Passes</th></tr></thead>
+        <tbody>
+          {pairs.map((p) => (
+            <tr>
+              <td><span class="chip" style={`background:${p.b};color:${p.f}`}>Aa</span> {p.fn}</td>
+              <td>{p.bn}</td>
+              <td>{p.r.toFixed(2)}:1</td>
+              <td>{p.r >= 7 ? "AAA" : p.r >= 4.5 ? "AA" : p.r >= 3 ? "AA large only" : "Fails"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="meta">One theme only. A dark wall would need its own paint, and a half-designed dark mode is worse than none.</p>
+    </section>
+
+    <section aria-labelledby="t">
+      <h2 id="t">Type</h2>
+      <p>Schibsted Grotesk (Bakken &amp; Bæck, OFL) paints the headings and sets the interface. Literata (TypeTogether, OFL) carries the reading. Both are self-hosted, Latin-subset, <code>font-display: swap</code>; only the display face is preloaded. Body text holds a {`65ch`} measure.</p>
+      <div class="specimens">
+        <div class="spec-paint">
+          <p class="meta"><code>--paint-xl</code> and <code>--paint-l</code>: painted headings, weight 900, tracking −0.045em, leading 0.86</p>
+          <p class="paint-sample">Aa Gg</p>
+        </div>
+        {steps.map((s) => (
+          <div class="spec-row">
+            <p class="meta"><code>{s.token}</code> {s.use}</p>
+            <p style={`font-size:var(${s.token});font-family:var(--${s.face})`}>Designs and builds software, then tests it with the people who use it.</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section aria-labelledby="s">
+      <h2 id="s">Space and grid</h2>
+      <ul class="space">
+        {space.map((t) => <li><code>{t}</code><span style={`width:var(${t})`}></span></li>)}
+      </ul>
+      <p>Twelve columns, a {`1.5rem`} gutter ({`1rem`} under 52rem), margins of <code>clamp(1rem, 5vw, 4.5rem)</code>, content to 90rem. No radius and no elevation: paint on a wall is flat. Rules are 1px in <code>--rule</code>.</p>
+      <div class="grid gridshow" aria-hidden="true">{Array.from({ length: 12 }, (_, i) => <span>{i + 1}</span>)}</div>
+    </section>
+
+    <section aria-labelledby="m">
+      <h2 id="m">Motion</h2>
+      <table class="pairs">
+        <thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Use</th></tr></thead>
+        <tbody>{motion.map(([t, v, u]) => <tr><td><code>{t}</code></td><td><code>{v}</code></td><td>{u}</td></tr>)}</tbody>
+      </table>
+      <ol class="rules">
+        <li>Only the four planes of a painted heading move, and only by transform.</li>
+        <li>Their offset is proportional to the heading’s distance from its alignment line: the top of the page for a page title, 18% down the viewport for a section.</li>
+        <li>Moving the pointer over the hero adds misalignment that decays by 7% a frame, so it always re-forms in about 0.6s.</li>
+        <li>On arrival, a page title starts slightly apart and resolves in 700ms. Content is readable throughout.</li>
+        <li>Nothing else moves. No fades on scroll, no parallax on content.</li>
+      </ol>
+      <p><strong>Reduced motion:</strong> every heading is solid type at its vantage point from the first frame, and nothing drifts. The 404’s heading stays permanently apart, because that state is static.</p>
+      <div class="demo">
+        <label for="mis">Misalign a heading by <output id="mis-out">0</output>px</label>
+        <input id="mis" type="range" min="0" max="160" value="0" />
+        <div class="demo__stage" id="demo"><Painted as="p">Vantage</Painted></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="p">
+      <h2 id="p">Primitives</h2>
+      <div class="prims">
+        <div><h3>Link</h3><p>Read <a href="#p">the case study</a> or <a href="#p">write to me</a>.</p></div>
+        <div><h3>Button</h3><p><button class="button" type="button">Copy</button></p></div>
+        <div><h3>Copy email</h3><p><CopyEmail /></p></div>
+        <div><h3>Gap to fill</h3><Todo>Something only Kriish can write.</Todo></div>
+        <div class="wide"><h3>Figure with caption</h3>
+          <figure class="figure"><Image src={cover} alt="DART Academy About page" widths={[480, 800]} sizes="(min-width: 52rem) 40rem, 100vw" /><figcaption>A caption sits in Shade, set in the display face.</figcaption></figure>
+        </div>
+        <div class="wide"><h3>Painted heading</h3><Painted as="p">Work</Painted></div>
+      </div>
+    </section>
+  </div>
 </Base>
+
+<script>
+  const input = document.getElementById("mis") as HTMLInputElement;
+  const out = document.getElementById("mis-out") as HTMLOutputElement;
+  const planes = [...document.querySelectorAll<HTMLElement>("#demo .painted__plane")];
+  const depth = [[0, 0], [0.55, -0.1], [-0.42, -0.24], [0.26, -0.4]];
+  input.addEventListener("input", () => {
+    const d = Number(input.value);
+    out.value = String(d);
+    planes[0].classList.toggle("is-split", d > 0);
+    planes.forEach((p, i) => (p.style.transform = `translate(${depth[i][0] * d}px, ${depth[i][1] * d}px)`));
+  });
+</script>
+
+<style>
+  .sys {
+    padding-top: var(--s-8);
+  }
+  .sys__intro {
+    margin-top: var(--s-6);
+    max-width: 50ch;
+  }
+  section {
+    margin-top: var(--s-10);
+    position: relative;
+    z-index: 1;
+  }
+  section > h2 {
+    font-size: var(--step-3);
+    font-weight: 800;
+    margin-bottom: var(--s-5);
+  }
+  section > h3,
+  .prims h3 {
+    font-size: var(--step-0);
+    font-weight: 700;
+    letter-spacing: 0;
+    margin: var(--s-6) 0 var(--s-3);
+  }
+  section > p {
+    max-width: var(--measure);
+    margin-top: var(--s-4);
+  }
+  code {
+    font-family: var(--display);
+    font-size: 0.85em;
+    color: var(--shade);
+  }
+  .swatches {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: var(--s-5);
+  }
+  .swatch {
+    display: block;
+    height: var(--s-9);
+    outline: 1px solid var(--rule);
+    margin-bottom: var(--s-3);
+  }
+  .pairs {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 48rem;
+    font-family: var(--display);
+    font-size: var(--step--1);
+  }
+  .pairs th,
+  .pairs td {
+    text-align: left;
+    padding: var(--s-2) var(--s-3) var(--s-2) 0;
+    border-bottom: var(--border);
+  }
+  .chip {
+    display: inline-block;
+    padding: 0 var(--s-2);
+    font-weight: 700;
+    outline: 1px solid var(--rule);
+  }
+  .specimens {
+    display: grid;
+    gap: var(--s-6);
+    margin-top: var(--s-6);
+  }
+  .paint-sample {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: var(--paint-l);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--track-paint);
+    color: var(--paint);
+  }
+  .spec-row p:last-child {
+    max-width: 40ch;
+  }
+  .space {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--s-2);
+  }
+  .space li {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    align-items: center;
+  }
+  .space span {
+    display: block;
+    height: var(--s-3);
+    background: var(--paint);
+  }
+  .gridshow {
+    margin-top: var(--s-5);
+  }
+  .gridshow span {
+    background: color-mix(in srgb, var(--paint) 12%, transparent);
+    text-align: center;
+    padding-block: var(--s-6);
+    font-family: var(--display);
+    font-size: var(--step--1);
+    color: var(--paint);
+  }
+  .rules {
+    max-width: var(--measure);
+    margin-top: var(--s-5);
+  }
+  .rules li + li {
+    margin-top: var(--s-2);
+  }
+  .demo {
+    margin-top: var(--s-6);
+    display: grid;
+    gap: var(--s-3);
+    font-family: var(--display);
+  }
+  .demo input {
+    width: min(24rem, 100%);
+    accent-color: var(--paint);
+  }
+  .demo__stage {
+    padding-block: var(--s-6);
+  }
+  .prims {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: var(--s-5) var(--gutter);
+  }
+  .prims .wide {
+    grid-column: 1 / -1;
+  }
+  .prims .figure {
+    max-width: 40rem;
+  }
+</style>

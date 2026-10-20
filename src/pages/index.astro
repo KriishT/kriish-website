@@ -2,45 +2,268 @@
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import { site, headline, lede } from "../data/site";
+import Painted from "../components/Painted.astro";
+import CopyEmail from "../components/CopyEmail.astro";
+import { lede } from "../data/site";
 
 const work = (await getCollection("work")).sort((a, b) => a.data.order - b.data.order);
 const flagships = work.filter((w) => w.data.flagship);
 const archive = work.filter((w) => !w.data.flagship);
 ---
 <Base person>
-  <section class="hero" aria-labelledby="hero-title">
-    <h1 id="hero-title">{site.name} {headline.now}</h1>
-    <p class="lede">{lede}</p>
+  <section class="hero frame grid" aria-label="Introduction">
+    <Painted as="h1" size="xl" top class="hero__name">Kriish <br />Tiwari</Painted>
+    <p class="hero__statement"><strong>Designs and builds software,</strong> then tests it with the people who use it.</p>
+    <p class="hero__lede">{lede}</p>
+    <p class="hero__hint">Every heading here is painted across four depths and reads from one point only. Scroll, and it comes apart.</p>
   </section>
 
-  <section id="work" aria-labelledby="work-title">
-    <h2 id="work-title">Work</h2>
-    <ol class="flagships">
-      {flagships.map((w) => (
-        <li>
-          <a href={`/work/${w.id}/`}>
-            {w.data.cover && <Image src={w.data.cover} alt={w.data.coverAlt ?? ""} widths={[480, 800, 1200]} sizes="(min-width: 60rem) 50vw, 100vw" />}
-            <h3>{w.data.title}</h3>
-            <p>{w.data.summary}</p>
-            <span>Read the case study</span>
-          </a>
+  <section id="work" class="section frame" aria-labelledby="work-title">
+    <Painted id="work-title">Work</Painted>
+    <ol class="works">
+      {flagships.map((w, i) => (
+        <li class="work grid">
+          {w.data.cover && (
+            <div class="work__shot">
+              <Image src={w.data.cover} alt={w.data.coverAlt ?? ""} widths={[480, 800, 1200]} sizes="(min-width: 52rem) 55vw, 100vw" loading={i === 0 ? "eager" : "lazy"} />
+            </div>
+          )}
+          <div class="work__text">
+            <p class="meta">{w.data.kind}{w.data.when && `, ${w.data.when}`}</p>
+            <h3 class="work__title"><a href={`/work/${w.id}/`} class="work__link">{w.data.title}</a></h3>
+            <p class="work__summary">{w.data.summary}</p>
+            <p class="work__more" aria-hidden="true">Read the case study</p>
+          </div>
         </li>
       ))}
     </ol>
 
-    <h3>Also built</h3>
-    <table class="archive">
-      <thead><tr><th scope="col">Project</th><th scope="col">What it is</th><th scope="col">Links</th></tr></thead>
-      <tbody>
-        {archive.map((w) => (
-          <tr>
-            <th scope="row">{w.data.title}</th>
-            <td>{w.data.summary}</td>
-            <td>{w.data.links.map((l) => <a href={l.href}>{l.label}</a>)}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <h3 class="archive__title">Also built</h3>
+    <ul class="archive">
+      {archive.map((w) => (
+        <li class="archive__row">
+          <span class="archive__name">{w.data.title}</span>
+          <span class="archive__what">{w.data.summary}</span>
+          <span class="archive__links">{w.data.links.map((l) => <a href={l.href}>{l.label}<span class="visually-hidden"> for {w.data.title}</span></a>)}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section frame grid" aria-labelledby="about-title">
+    <Painted id="about-title" class="span-all">About</Painted>
+    <p class="section__body">I build web, mobile and desktop software, and I’ve sat on the other side of the screen too, running usability sessions with the people it’s for. Right now that means research apps at the ESC Lab and usability research at DART, both at the University at Buffalo.</p>
+    <p class="section__more"><a href="/about">Where I’ve worked, and what I study</a></p>
+  </section>
+
+  <section class="section frame grid" aria-labelledby="contact-title">
+    <Painted id="contact-title" class="span-all">Contact</Painted>
+    <p class="section__body">Email is the fastest way to reach me.</p>
+    <p class="section__email"><CopyEmail /></p>
   </section>
 </Base>
+
+<style>
+  .hero {
+    padding-top: var(--s-8);
+    row-gap: var(--s-6);
+  }
+  .hero__name {
+    grid-column: 1 / -1;
+  }
+  .hero__statement {
+    grid-column: 1 / span 6;
+    font-family: var(--display);
+    font-size: var(--step-2);
+    line-height: 1.15;
+    letter-spacing: var(--track-heading);
+  }
+  .hero__statement strong {
+    font-weight: 800;
+  }
+  .hero__lede {
+    grid-column: 1 / span 5;
+    font-size: var(--step-1);
+    color: var(--shade);
+    max-width: 36ch;
+  }
+  .hero__hint {
+    grid-column: 9 / -1;
+    grid-row: 2;
+    align-self: start;
+    padding-top: var(--s-2);
+    font-size: var(--step--1);
+    color: var(--shade);
+    max-width: 34ch;
+  }
+  .section {
+    margin-top: var(--s-11);
+  }
+  .span-all {
+    grid-column: 1 / -1;
+  }
+  .section__body {
+    grid-column: 1 / span 7;
+    margin-top: var(--s-6);
+    font-size: var(--step-1);
+    line-height: 1.45;
+    max-width: 44ch;
+  }
+  .section__more,
+  .section__email {
+    grid-column: 1 / span 7;
+    margin-top: var(--s-4);
+    font-family: var(--display);
+    font-size: var(--step-1);
+    font-weight: 600;
+  }
+
+  /* work: content hangs in front of the paint, so drifting fragments pass behind it */
+  .works {
+    list-style: none;
+    margin: var(--s-7) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--s-9);
+    position: relative;
+    z-index: 1;
+  }
+  .work {
+    position: relative;
+    align-items: start;
+  }
+  .work__shot {
+    grid-column: 1 / span 7;
+    background: var(--wall);
+  }
+  .work__shot img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top left;
+    outline: 1px solid var(--rule);
+    transition: outline-color var(--dur-micro) var(--ease-out);
+  }
+  .work__text {
+    grid-column: 8 / -1;
+    display: grid;
+    gap: var(--s-3);
+    align-content: start;
+  }
+  .work__title {
+    font-size: var(--step-3);
+    font-weight: 800;
+  }
+  .work__link {
+    text-decoration: none;
+  }
+  /* the whole row is one target */
+  .work__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+  .work__summary {
+    max-width: 40ch;
+  }
+  .work__more {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: var(--step--1);
+    text-decoration: underline;
+    text-decoration-color: var(--paint);
+    text-underline-offset: 0.25em;
+  }
+  /* every other row turns round, so the list reads as a sequence, not a stack of cards */
+  .work:nth-child(even) .work__shot {
+    grid-column: 6 / -1;
+    grid-row: 1;
+  }
+  .work:nth-child(even) .work__text {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+  }
+  .work:hover .work__title,
+  .work:focus-within .work__title {
+    color: var(--paint);
+  }
+  .work:hover .work__shot img {
+    outline-color: var(--paint);
+  }
+  .work:focus-within {
+    outline: 2px solid var(--paint);
+    outline-offset: var(--s-3);
+  }
+  .work__link:focus-visible {
+    outline: none;
+  }
+
+  .archive__title {
+    margin-top: var(--s-10);
+    font-size: var(--step-2);
+    font-weight: 800;
+    position: relative;
+    z-index: 1;
+  }
+  .archive {
+    list-style: none;
+    margin: var(--s-5) 0 0;
+    padding: 0;
+    border-top: var(--border);
+    position: relative;
+    z-index: 1;
+    background: var(--wall);
+  }
+  .archive__row {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr);
+    gap: var(--gutter);
+    padding-block: var(--s-4);
+    border-bottom: var(--border);
+  }
+  .archive__name {
+    font-family: var(--display);
+    font-weight: 700;
+  }
+  .archive__what {
+    color: var(--shade);
+  }
+  .archive__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    font-family: var(--display);
+    font-size: var(--step--1);
+    font-weight: 500;
+    justify-content: end;
+  }
+
+  @media (max-width: 52rem) {
+    .hero__statement,
+    .hero__lede,
+    .hero__hint,
+    .section__body,
+    .section__more,
+    .section__email,
+    .work__shot,
+    .work__text,
+    .work:nth-child(even) .work__shot,
+    .work:nth-child(even) .work__text {
+      grid-column: 1 / -1;
+      grid-row: auto;
+    }
+    .hero__hint {
+      grid-row: auto;
+    }
+    .work {
+      row-gap: var(--s-4);
+    }
+    .archive__row {
+      grid-template-columns: 1fr;
+      gap: var(--s-1);
+    }
+    .archive__links {
+      justify-content: start;
+    }
+  }
+</style>

@@ -1,0 +1,104 @@
+---
+// A heading painted across four depth planes, Varini-style. Plane 1 holds the real text;
+// planes 2 to 4 are copies hidden from assistive tech. Each plane keeps one band of a set
+// of concentric rings, so the words only read when all four planes line up.
+interface Props {
+  as?: "h1" | "h2" | "p";
+  size?: "xl" | "l";
+  id?: string;
+  href?: string;
+  /** align at scroll 0 instead of at the alignment line (the first heading on a page) */
+  top?: boolean;
+  /** never lines up: there is no vantage point for a page that doesn't exist */
+  lost?: boolean;
+  class?: string;
+}
+
+const { as: Tag = "h2", size = "l", id, href, top = false, lost = false } = Astro.props;
+const Inner = href ? "a" : "span";
+const html = await Astro.slots.render("default");
+---
+<Tag
+  id={id}
+  class:list={["painted", `painted--${size}`, Astro.props.class]}
+  data-painted
+  data-top={top ? "" : undefined}
+  data-lost={lost ? "" : undefined}
+>
+  <Inner class="painted__inner" href={href}>
+    <span class="painted__plane" set:html={html} />
+    <span class="painted__plane" aria-hidden="true" set:html={html} />
+    <span class="painted__plane" aria-hidden="true" set:html={html} />
+    <span class="painted__plane" aria-hidden="true" set:html={html} />
+  </Inner>
+</Tag>
+
+<style>
+  .painted {
+    position: relative;
+    z-index: 0;
+    font-family: var(--display);
+    font-weight: 900;
+    color: var(--paint);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--track-paint);
+    text-wrap: initial;
+    --cx: 34%;
+    --cy: 52%;
+  }
+  .painted--xl {
+    font-size: var(--paint-xl);
+  }
+  .painted--l {
+    font-size: var(--paint-l);
+    --cx: 22%;
+  }
+  .painted__inner {
+    position: relative;
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+  }
+  .painted__plane {
+    display: block;
+    will-change: transform;
+  }
+  .painted__plane + .painted__plane {
+    position: absolute;
+    inset: 0;
+  }
+  /* each plane keeps one band in four; the bands overlap slightly so no seam shows */
+  .painted__plane:nth-child(1) {
+    mask-image: repeating-radial-gradient(circle at var(--cx) var(--cy), #000 0 calc(var(--band) + 1.2px), transparent calc(var(--band) + 1.2px) calc(var(--band) * 4));
+  }
+  .painted__plane:nth-child(2) {
+    mask-image: repeating-radial-gradient(circle at var(--cx) var(--cy), transparent 0 calc(var(--band) - 1.2px), #000 calc(var(--band) - 1.2px) calc(var(--band) * 2 + 1.2px), transparent calc(var(--band) * 2 + 1.2px) calc(var(--band) * 4));
+  }
+  .painted__plane:nth-child(3) {
+    mask-image: repeating-radial-gradient(circle at var(--cx) var(--cy), transparent 0 calc(var(--band) * 2 - 1.2px), #000 calc(var(--band) * 2 - 1.2px) calc(var(--band) * 3 + 1.2px), transparent calc(var(--band) * 3 + 1.2px) calc(var(--band) * 4));
+  }
+  .painted__plane:nth-child(4) {
+    mask-image: repeating-radial-gradient(circle at var(--cx) var(--cy), transparent 0 calc(var(--band) * 3 - 1.2px), #000 calc(var(--band) * 3 - 1.2px) calc(var(--band) * 4));
+  }
+  /* at the vantage point the wall plane is simply solid type. This is also the state
+     without JavaScript and under reduced motion. */
+  .painted:not([data-lost]) .painted__plane:first-child:not(.is-split) {
+    mask-image: none;
+  }
+
+  a.painted__inner:hover,
+  a.painted__inner:focus-visible {
+    color: var(--ink);
+  }
+
+  /* the 404: permanently off its vantage point */
+  .painted[data-lost] .painted__plane:nth-child(2) {
+    transform: translate(0.32em, -0.05em);
+  }
+  .painted[data-lost] .painted__plane:nth-child(3) {
+    transform: translate(-0.24em, -0.11em);
+  }
+  .painted[data-lost] .painted__plane:nth-child(4) {
+    transform: translate(0.14em, -0.18em);
+  }
+</style>

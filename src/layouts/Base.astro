@@ -1,8 +1,9 @@
 ---
+import { Font } from "astro:assets";
 import Seo from "../components/Seo.astro";
 import CopyEmail from "../components/CopyEmail.astro";
 import { site } from "../data/site";
-import "../styles/base.css";
+import "../styles/vantage.css";
 
 interface Props {
   title?: string;
@@ -24,32 +25,38 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f2f1ec" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-text" />
     <Seo {...Astro.props} />
     <slot name="head" />
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="site-header">
-      <a class="wordmark" href="/" aria-current={path === "/" ? "page" : undefined}>{site.name}</a>
-      <nav aria-label="Primary">
+    <div class="site">
+      <a class="skip" href="#main">Skip to content</a>
+      <header class="site-header frame">
+        <a class="wordmark" href="/" aria-current={path === "/" ? "page" : undefined}>{site.name}</a>
+        <nav aria-label="Primary">
+          <ul>
+            {nav.map((item) => (
+              <li><a href={item.href} aria-current={path === item.href ? "page" : undefined}>{item.label}</a></li>
+            ))}
+            {site.resume && <li><a href={site.resume}>Résumé</a></li>}
+          </ul>
+        </nav>
+      </header>
+      <main id="main" tabindex="-1">
+        <slot />
+      </main>
+      <footer class="site-footer frame">
+        <p>Write to me: <CopyEmail /></p>
         <ul>
-          {nav.map((item) => (
-            <li><a href={item.href} aria-current={path === item.href ? "page" : undefined}>{item.label}</a></li>
-          ))}
-          {site.resume && <li><a href={site.resume}>Résumé</a></li>}
+          {site.links.map((l) => <li><a href={l.href} rel="me">{l.label}</a></li>)}
+          {site.resume && <li><a href={site.resume}>Résumé (PDF)</a></li>}
         </ul>
-      </nav>
-    </header>
-    <main id="main" tabindex="-1">
-      <slot />
-    </main>
-    <footer class="site-footer">
-      <p>Write to me: <CopyEmail /></p>
-      <ul>
-        {site.links.map((l) => <li><a href={l.href} rel="me">{l.label}</a></li>)}
-        {site.resume && <li><a href={site.resume}>Résumé (PDF)</a></li>}
-      </ul>
-    </footer>
+        <p class="colophon-line">Set in Schibsted Grotesk and Literata. Painted in one colour, ultramarine.</p>
+      </footer>
+    </div>
   </body>
 </html>

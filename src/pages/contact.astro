@@ -1,19 +1,53 @@
 ---
 import Base from "../layouts/Base.astro";
+import Painted from "../components/Painted.astro";
 import CopyEmail from "../components/CopyEmail.astro";
 import Todo from "../components/Todo.astro";
 import { site } from "../data/site";
 ---
 <Base title="Contact" description="How to reach Kriish Tiwari: email, LinkedIn, GitHub and résumé.">
-  <article class="contact">
-    <h1>Contact</h1>
-    <p class="lede">Email is the fastest way to reach me.</p>
-    <Todo>Say what you’re looking for and from when (roles, locations, start date).</Todo>
-    <p class="email"><CopyEmail /></p>
-    <ul class="links">
+  <article class="contact frame grid">
+    <Painted as="h1" top class="span-all">Contact</Painted>
+    <p class="lede contact__lede">Email is the fastest way to reach me.</p>
+    <p class="contact__email"><CopyEmail /></p>
+    <ul class="contact__links">
       {site.links.map((l) => <li><a href={l.href} rel="me">{l.label}</a></li>)}
       {site.resume ? <li><a href={site.resume}>Résumé (PDF)</a></li> : null}
     </ul>
-    {!site.resume && <Todo>Add your résumé as <code>public/resume.pdf</code>. The links appear on every page once the file exists.</Todo>}
+    <div class="contact__todo">
+      <Todo>Say what you’re looking for and from when (roles, locations, start date).</Todo>
+      {!site.resume && <Todo>Add your résumé as <code>public/resume.pdf</code>. The links appear on every page once the file exists.</Todo>}
+    </div>
   </article>
 </Base>
+
+<style>
+  .contact {
+    padding-top: var(--s-8);
+    row-gap: var(--s-6);
+  }
+  .span-all,
+  .contact__lede,
+  .contact__email,
+  .contact__links,
+  .contact__todo {
+    grid-column: 1 / -1;
+  }
+  .contact__email {
+    font-family: var(--display);
+    font-size: var(--step-2);
+    font-weight: 700;
+    letter-spacing: var(--track-heading);
+  }
+  .contact__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3) var(--s-6);
+    font-family: var(--display);
+    font-size: var(--step-1);
+    font-weight: 600;
+  }
+</style>

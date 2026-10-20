@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
+import Painted from "../components/Painted.astro";
 import Todo from "../components/Todo.astro";
 import { education } from "../data/site";
 
@@ -10,38 +11,122 @@ const academic = roles.filter((r) => r.data.academic);
 ---
 <Base title="About" description="About Kriish Tiwari: work history, research and education.">
   <article class="about">
-    <h1>About</h1>
-    <p class="lede">I’m a computer science senior at the University at Buffalo, graduating in December 2026. I build web, mobile and desktop software, and I’ve sat on the other side of the screen too, running usability sessions with the people it’s for.</p>
-    <Todo>Two or three sentences only you can write: what you care about in your work, and something specific about you outside it.</Todo>
+    <header class="frame grid about__head">
+      <Painted as="h1" top class="span-all">About</Painted>
+      <p class="lede about__lede">I’m a computer science senior at the University at Buffalo, graduating in December 2026. I build web, mobile and desktop software, and I’ve sat on the other side of the screen too, running usability sessions with the people it’s for.</p>
+      <div class="about__todo"><Todo>Two or three sentences only you can write: what you care about in your work, and something specific about you outside it.</Todo></div>
+    </header>
 
-    <section aria-labelledby="roles-title">
-      <h2 id="roles-title">Where I’ve worked</h2>
-      {work.map((r) => (
-        <article class="role">
-          <h3>{r.data.role}</h3>
-          <p class="meta">{r.data.org}, {r.data.where}. {r.data.when}.</p>
-          <ul>{r.data.points.map((p) => <li>{p}</li>)}</ul>
-          {r.data.work && <p><a href={`/work/${r.data.work}/`}>Read the case study</a></p>}
-        </article>
-      ))}
-      {academic.map((r) => (
-        <article class="role">
-          <h3>{r.data.role}</h3>
-          <p class="meta">{r.data.org}. {r.data.when}.</p>
-          <ul>{r.data.points.map((p) => <li>{p}</li>)}</ul>
-        </article>
-      ))}
+    <section class="frame about__section" aria-labelledby="roles-title">
+      <h2 id="roles-title" class="about__h2">Where I’ve worked</h2>
+      <ol class="roles">
+        {[...work, ...academic].map((r) => (
+          <li class="role grid">
+            <div class="role__who">
+              <h3>{r.data.role}</h3>
+              <p class="meta">{r.data.org}</p>
+              <p class="meta">{r.data.when}{r.data.academic ? "" : `, ${r.data.where}`}</p>
+            </div>
+            <div class="role__what">
+              <ul>{r.data.points.map((p) => <li>{p}</li>)}</ul>
+              <p class="meta role__tools">{r.data.tools.join(", ")}</p>
+              {r.data.work && <p class="role__case"><a href={`/work/${r.data.work}/`}>Read the case study</a></p>}
+            </div>
+          </li>
+        ))}
+      </ol>
     </section>
 
-    <section aria-labelledby="edu-title">
-      <h2 id="edu-title">Education</h2>
-      {education.map((e) => (
-        <article class="role">
-          <h3>{e.school}</h3>
-          <p class="meta">{e.what}. {e.when}.</p>
-          <p>{e.detail}</p>
-        </article>
-      ))}
+    <section class="frame about__section" aria-labelledby="edu-title">
+      <h2 id="edu-title" class="about__h2">Education</h2>
+      <ol class="roles">
+        {education.map((e) => (
+          <li class="role grid">
+            <div class="role__who">
+              <h3>{e.school}</h3>
+              <p class="meta">{e.what}</p>
+              <p class="meta">{e.when}</p>
+            </div>
+            <div class="role__what"><p>{e.detail}</p></div>
+          </li>
+        ))}
+      </ol>
     </section>
   </article>
 </Base>
+
+<style>
+  .about__head {
+    padding-top: var(--s-8);
+    row-gap: var(--s-6);
+  }
+  .span-all {
+    grid-column: 1 / -1;
+  }
+  .about__lede {
+    grid-column: 1 / span 8;
+    max-width: 44ch;
+  }
+  .about__todo {
+    grid-column: 1 / span 8;
+  }
+  .about__section {
+    margin-top: var(--s-10);
+    position: relative;
+    z-index: 1;
+  }
+  .about__h2 {
+    font-size: var(--step-3);
+    font-weight: 800;
+  }
+  .roles {
+    list-style: none;
+    margin: var(--s-6) 0 0;
+    padding: 0;
+    border-top: var(--border);
+  }
+  .role {
+    padding-block: var(--s-6);
+    border-bottom: var(--border);
+    row-gap: var(--s-4);
+  }
+  .role__who {
+    grid-column: 1 / span 4;
+  }
+  .role__who h3 {
+    font-size: var(--step-1);
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-bottom: var(--s-2);
+  }
+  .role__what {
+    grid-column: 6 / -1;
+    max-width: var(--measure);
+  }
+  .role__what ul {
+    margin: 0;
+    padding-left: 1.1em;
+  }
+  .role__what li + li {
+    margin-top: var(--s-2);
+  }
+  .role__what li::marker {
+    color: var(--paint);
+  }
+  .role__tools {
+    margin-top: var(--s-4);
+  }
+  .role__case {
+    margin-top: var(--s-3);
+    font-family: var(--display);
+    font-weight: 600;
+  }
+  @media (max-width: 52rem) {
+    .about__lede,
+    .about__todo,
+    .role__who,
+    .role__what {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
