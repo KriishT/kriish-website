@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tile F: Marked Proof</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* Throwaway style tile. Not production code. */
+:root{--galley:#F7F7F4; --ink:#141414; --blue:#2348C4; --graphite:#5C5C58; --rule:#DCDCD6}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--galley);color:var(--ink);font-family:"Spectral",Georgia,serif;font-size:19px;line-height:1.5}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{position:relative;max-width:1440px;margin:0 auto;padding:22px clamp(16px,5vw,72px) 64px}
+header{display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:17px}
+header nav{display:flex;gap:24px;align-items:center}
+header a{text-decoration:none}
+header nav a:hover,header nav a:focus-visible{text-decoration:underline;text-underline-offset:4px}
+.toggle{font:inherit;font-size:15px;color:var(--blue);background:none;border:1.5px solid var(--blue);border-radius:999px;padding:3px 14px;cursor:pointer}
+.toggle[aria-pressed=false]{color:var(--graphite);border-color:var(--graphite)}
+
+.sheet{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;margin-top:clamp(40px,8vh,96px)}
+.galley{grid-column:1/9}
+.margin{grid-column:10/13;position:relative}
+
+/* the proof marks */
+.proof{font-weight:300}
+.proof del{text-decoration:none;color:var(--graphite);
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0 6 C 12 4.6, 25 6.8, 38 5.4 S 63 4.4, 76 6 S 92 6.6, 100 5' fill='none' stroke='%232348C4' stroke-width='2.2' vector-effect='non-scaling-stroke' stroke-linecap='round'/%3E%3C/svg%3E") 0 58%/100% .5em no-repeat;
+  transition:font-size .38s cubic-bezier(.6,0,.2,1),opacity .2s,letter-spacing .38s}
+/* the dele mark: a looped tail where a cut ends */
+.proof del::after{content:"";display:inline-block;width:.42em;height:.62em;margin-left:.04em;vertical-align:.38em;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 30'%3E%3Cpath d='M2 26 C 10 26, 16 18, 12 10 C 9 4, 3 6, 5 12 C 7 18, 16 16, 18 4' fill='none' stroke='%232348C4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.proof ins{text-decoration:none;color:var(--blue);font-style:italic;font-weight:400;transition:color .38s}
+/* the caret where something goes in */
+.proof ins::before{content:"";display:inline-block;width:.42em;height:.42em;margin-right:.08em;vertical-align:-.12em;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M2 18 L10 3 L18 18' fill='none' stroke='%232348C4' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;transition:width .38s,opacity .2s}
+.clean .proof del{font-size:0;opacity:0;letter-spacing:-.1em}
+.clean .proof ins{color:var(--ink);font-style:normal;font-weight:300}
+.clean .proof ins::before{width:0;opacity:0;margin:0}
+.clean .note,.clean #leaders{opacity:0}
+
+h1{margin:0;font-weight:300;font-size:clamp(34px,3.9vw,60px);line-height:1.08;letter-spacing:-.018em;text-wrap:pretty}
+.lede{margin:32px 0 0;font-size:clamp(19px,1.5vw,22px);max-width:56ch;color:var(--graphite)}
+
+.note{position:absolute;left:0;right:0;font-style:italic;font-size:17px;line-height:1.35;color:var(--blue);transition:opacity .3s}
+#leaders{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;transition:opacity .3s}
+#leaders path{fill:none;stroke:var(--blue);stroke-width:1.2;stroke-linecap:round;stroke-dasharray:var(--L);stroke-dashoffset:var(--L);animation:pen .7s cubic-bezier(.4,.1,.2,1) forwards}
+@keyframes pen{to{stroke-dashoffset:0}}
+
+.row{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;margin-top:clamp(48px,8vh,88px);border-top:1px solid var(--rule);padding-top:26px;align-items:start}
+.work{grid-column:1/9;display:grid;grid-template-columns:1fr 1.15fr;gap:28px;text-decoration:none}
+.work img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top left;display:block;outline:1px solid var(--rule)}
+.work h2{font-weight:600;font-size:30px;line-height:1.1;margin:0 0 10px}
+.work p{margin:0 0 12px;font-size:18px}
+.work .go{font-weight:600;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.spec{grid-column:1/9;display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px;font-size:14px;color:var(--graphite)}
+.spec h3{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--graphite)}
+.aa{font-size:56px;line-height:1;color:var(--ink);font-weight:300}
+.aa i{color:var(--blue)}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.chips span{display:block;height:26px;margin-bottom:4px;outline:1px solid var(--rule)}
+.chips div{font-size:12.5px;line-height:1.25}
+
+@media (max-width:860px){
+  .sheet,.row{grid-template-columns:1fr}
+  .galley,.margin,.work,.spec{grid-column:1}
+  .margin{display:none}
+  .work{grid-template-columns:1fr}
+  .spec{margin-top:32px;grid-template-columns:1fr}
+  header{flex-wrap:wrap}
+  header nav{gap:14px;font-size:15px;flex-wrap:wrap}
+  /* on phones the notes sit inline, after the line they mark */
+  .inline-note{display:block;font-style:italic;color:var(--blue);font-size:16px;margin-top:10px}
+}
+@media (min-width:861px){.inline-note{display:none}}
+@media (prefers-reduced-motion:reduce){
+  .proof del,.proof ins,.proof ins::before,.note,#leaders{transition:none}
+  #leaders path{animation:none;stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+  <header>
+    <a href="#">Kriish Tiwari</a>
+    <nav aria-label="Primary"><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a><a href="#">Résumé</a>
+      <button class="toggle" id="toggle" type="button" aria-pressed="true">Edits shown</button></nav>
+  </header>
+
+  <div class="sheet">
+    <div class="galley">
+      <h1>
+        <span class="sr">Kriish Tiwari designs and builds software, then tests it with the people who use it.</span>
+        <span class="proof" aria-hidden="true"><del id="d1">Hi, I’m </del>Kriish Tiwari<del id="d2">. I’m a computer science student at the University at Buffalo and a full-stack developer passionate about creating human-centered products that combine logic, design, and user experience.</del> <ins id="i1">designs and builds software, then tests it with the people who use it.</ins></span>
+      </h1>
+      <p class="inline-note">Not a greeting. Everyone is “passionate”: say what you do.</p>
+      <p class="lede">Computer science at the University at Buffalo, graduating December 2026. Every page on this site was edited by hand, and you can see the edits.</p>
+    </div>
+    <div class="margin" id="margin">
+      <p class="note" data-for="d1">It’s a portfolio, not a greeting card.</p>
+      <p class="note" data-for="d2">Everyone is “passionate”. Say what you do. School moves to the next line.</p>
+      <p class="note" data-for="i1">Keep. It’s true: 60+ usability sessions at DART.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <a class="work" href="#">
+      <img src="/src/assets/images/Screenshot 2025-07-03 185521.png" alt="DART Academy About page welcoming learners as Digital Agents for Reducing Trickery">
+      <div>
+        <h2>DART Academy</h2>
+        <p class="proof"><del id="d3">A digital-literacy and scam-awareness learning platform for older adults, built with DART Collective. </del><ins id="i2">Scam-awareness courses for older adults. I built the learning interfaces as an intern, then came back as a researcher and tested them with 60+ learners.</ins></p>
+        <span class="go">Read the case study</span>
+      </div>
+    </a>
+    <div class="spec">
+      <div><h3>Type</h3><div class="aa">Aa <i>Aa</i></div><p>Spectral throughout (Production Type, OFL): a typeface drawn for documents, set light for the proof.</p></div>
+      <div><h3>Colour</h3><div class="chips">
+        <div><span style="background:#F7F7F4"></span>Galley #F7F7F4</div>
+        <div><span style="background:#141414"></span>Ink #141414</div>
+        <div><span style="background:#2348C4"></span>Blue pencil #2348C4</div>
+        <div><span style="background:#5C5C58"></span>Graphite #5C5C58</div>
+      </div></div>
+    </div>
+  </div>
+  <svg id="leaders" aria-hidden="true"></svg>
+</div>
+
+<script>
+// Marked Proof: margin notes are set beside the line they mark, with a hand-drawn leader to the mark.
+const wrap = document.getElementById("wrap"), svg = document.getElementById("leaders");
+const notes = [...document.querySelectorAll(".note")];
+const extra = [{ for: "i2", text: "Built by whom? Say “I”. And give the number." }];
+const margin = document.getElementById("margin");
+// the project note lives in the same margin column, further down
+for (const e of extra) { const p = document.createElement("p"); p.className = "note"; p.dataset.for = e.for; p.textContent = e.text; margin.appendChild(p); notes.push(p); }
+
+function layout() {
+  if (getComputedStyle(margin).display === "none") { svg.replaceChildren(); return; }
+  const o = wrap.getBoundingClientRect(), m = margin.getBoundingClientRect();
+  let floor = 0;
+  svg.replaceChildren();
+  for (const n of notes) {
+    const t = document.getElementById(n.dataset.for);
+    // attach the leader to the line end nearest the margin, so it only ever crosses blank paper
+    const rects = [...t.getClientRects()], first = rects[0], last = rects.reduce((a, b) => (b.right > a.right ? b : a));
+    // set the note level with the start of its mark, never overlapping the note above
+    const top = Math.max(first.top - m.top - 4, floor);
+    n.style.top = top + "px";
+    floor = top + n.offsetHeight + 14;
+    const nb = n.getBoundingClientRect();
+    const x1 = nb.left - o.left - 10, y1 = nb.top - o.top + 12;
+    const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    const g = t.closest(".galley, .work div").getBoundingClientRect();
+    if (g.right - last.right < 140) {
+      // the mark ends near the margin: run straight in to the end of the line
+      const x2 = last.right - o.left + 6, y2 = last.top - o.top + last.height * .55, mx = (x1 + x2) / 2;
+      p.setAttribute("d", `M${x1},${y1} C${mx},${y1 - 8} ${mx},${y2 + 10} ${x2},${y2}`);
+    } else {
+      // the mark ends mid-line: come in above the line and drop onto the mark, never through words
+      const x2 = last.right - o.left - 4, y2 = last.top - o.top + 2, ya = last.top - o.top - 14;
+      p.setAttribute("d", `M${x1},${y1} C${x1 - 60},${y1} ${x2 + 80},${ya} ${x2 + 10},${ya} S${x2},${ya + 4} ${x2},${y2}`);
+    }
+    svg.appendChild(p);
+    const L = p.getTotalLength(); p.style.setProperty("--L", L);
+  }
+}
+const btn = document.getElementById("toggle");
+btn.addEventListener("click", () => {
+  const on = btn.getAttribute("aria-pressed") === "true";
+  btn.setAttribute("aria-pressed", String(!on));
+  btn.textContent = on ? "Edits hidden" : "Edits shown";
+  wrap.classList.toggle("clean", on);
+  if (!on) setTimeout(layout, 400);
+});
+addEventListener("keydown", e => { if ((e.key === "e" || e.key === "E") && !e.ctrlKey && !e.metaKey) btn.click(); });
+if (new URLSearchParams(location.search).has("clean")) btn.click();
+document.fonts.ready.then(layout);
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(layout, 100); });
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tile G: Endpaper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+<style>
+/* Throwaway style tile. Not production code. */
+:root{--wove:#F4F1EA; --black:#1B1A18; --prussian:#1F3A6B; --ochre:#CF9A2E; --verte:#5E7A5A; --graphite:#56534D; --rule:#D9D4C8}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--wove);color:var(--black);font-family:"Newsreader",Georgia,serif;font-size:19px;line-height:1.5}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--prussian);outline-offset:3px}
+.paper{position:relative;height:min(80vh,760px);min-height:460px;overflow:hidden;background:var(--prussian);touch-action:pan-y;cursor:crosshair}
+.paper canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+header{position:absolute;top:0;left:0;right:0;z-index:2;display:flex;justify-content:flex-end;padding:18px clamp(16px,5vw,72px);pointer-events:none}
+header nav{display:flex;gap:6px;pointer-events:auto}
+header a{text-decoration:none;background:var(--wove);padding:4px 12px;font-size:16px;border-radius:2px}
+header a:hover,header a:focus-visible{background:var(--black);color:var(--wove)}
+
+/* the bookplate: the one calm zone, pasted onto the endpaper */
+.plate{position:absolute;z-index:2;left:clamp(16px,6vw,96px);bottom:clamp(24px,8vh,88px);width:min(440px,calc(100% - 32px));background:var(--wove);padding:26px 28px 22px;
+  box-shadow:0 1px 0 rgba(0,0,0,.2),0 14px 30px -18px rgba(0,0,0,.6);cursor:auto}
+.plate::before{content:"";position:absolute;inset:8px;border:1px solid var(--black);pointer-events:none}
+.plate::after{content:"";position:absolute;inset:11px;border:.5px solid var(--black);pointer-events:none}
+.plate .ex{margin:0;font-style:italic;font-size:16px;color:var(--graphite)}
+.plate h1{margin:2px 0 10px;font-family:"Young Serif",serif;font-weight:400;font-size:clamp(40px,4.6vw,60px);line-height:1;letter-spacing:-.01em}
+.plate p{margin:0;font-size:18px;line-height:1.4}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;position:relative;z-index:1}
+.tools button{font:inherit;font-size:15px;background:none;border:1px solid var(--black);padding:3px 12px;cursor:pointer;border-radius:2px}
+.tools button:hover,.tools button:focus-visible{background:var(--black);color:var(--wove)}
+.no{margin-top:10px!important;font-size:14px!important;color:var(--graphite)}
+.cue{position:absolute;z-index:2;right:clamp(16px,5vw,72px);bottom:18px;margin:0;background:var(--wove);padding:3px 10px;font-size:14px;font-style:italic}
+
+.page{max-width:1440px;margin:0 auto;padding:40px clamp(16px,5vw,72px) 72px}
+.head{display:flex;justify-content:space-between;font-size:14px;font-style:italic;color:var(--graphite);border-bottom:1px solid var(--rule);padding-bottom:8px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;margin-top:36px;align-items:start}
+.work{grid-column:1/8;display:grid;grid-template-columns:1.15fr 1fr;gap:28px;text-decoration:none}
+.work img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top left;display:block;outline:1px solid var(--rule)}
+.work h2{font-family:"Young Serif",serif;font-weight:400;font-size:30px;line-height:1.1;margin:0 0 10px}
+.work p{margin:0 0 12px;font-size:18px}
+.work span{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.spec{grid-column:9/13;display:grid;gap:22px}
+.spec h3{margin:0 0 6px;font-size:14px;font-weight:500;font-style:italic;color:var(--graphite)}
+.aa{font-family:"Young Serif",serif;font-size:58px;line-height:1}
+.aa i{font-family:"Newsreader",serif;font-weight:300}
+.spec p{margin:4px 0 0;font-size:14px;color:var(--graphite)}
+.chips{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.chips span{display:block;height:34px;margin-bottom:4px;outline:1px solid var(--rule)}
+.chips div{font-size:12px;line-height:1.25}
+
+@media (max-width:860px){
+  .paper{height:78vh}
+  .plate{left:16px;bottom:56px;padding:22px 22px 18px}
+  .grid{grid-template-columns:1fr}
+  .work,.spec{grid-column:1}
+  .work{grid-template-columns:1fr}
+  .spec{margin-top:36px}
+  .chips{grid-template-columns:repeat(3,1fr)}
+  header nav a{font-size:14px;padding:3px 8px}
+}
+</style>
+</head>
+<body>
+<div class="paper" id="paper">
+  <canvas id="ink" aria-hidden="true"></canvas>
+  <header><nav aria-label="Primary"><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a><a href="#">Résumé</a></nav></header>
+  <div class="plate">
+    <p class="ex">Ex libris</p>
+    <h1>Kriish Tiwari</h1>
+    <p>Designs and builds software. Computer science at the University at Buffalo, graduating December 2026.</p>
+    <div class="tools"><button type="button" id="again">Marble a new sheet</button><button type="button" id="save">Keep this one</button></div>
+    <p class="no" id="no"></p>
+  </div>
+  <p class="cue">Drag to comb the ink. Click to drop more.</p>
+</div>
+
+<div class="page">
+  <div class="head"><span>Selected work</span><span>Kriish Tiwari</span></div>
+  <div class="grid">
+    <a class="work" href="#">
+      <img src="/src/assets/images/Screenshot 2025-07-03 185521.png" alt="DART Academy About page welcoming learners as Digital Agents for Reducing Trickery">
+      <div>
+        <h2>DART Academy</h2>
+        <p>Scam-awareness courses for older adults. I built the learning interfaces as a frontend intern, then came back as a researcher and ran usability sessions with 60+ learners.</p>
+        <span>Read the case study</span>
+      </div>
+    </a>
+    <div class="spec">
+      <div><h3>Type</h3><div class="aa">Aa <i>Aa</i></div><p>Young Serif for the bookplate (Bastien Sozeau, OFL). Newsreader for reading (Production Type, OFL).</p></div>
+      <div><h3>Inks on wove</h3><div class="chips">
+        <div><span style="background:#F4F1EA"></span>Wove<br>#F4F1EA</div>
+        <div><span style="background:#1F3A6B"></span>Prussian<br>#1F3A6B</div>
+        <div><span style="background:#CF9A2E"></span>Ochre<br>#CF9A2E</div>
+        <div><span style="background:#5E7A5A"></span>Verte<br>#5E7A5A</div>
+        <div><span style="background:#1B1A18"></span>Lamp black<br>#1B1A18</div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Endpaper: real marbling maths (after Lu, Jaffer et al., "Mathematical Marbling").
+// An ink drop pushes every existing contour outward, area-preserving; a comb drags contours along a line.
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const paper = document.getElementById("paper"), cv = document.getElementById("ink"), ctx = cv.getContext("2d");
+const INKS = ["#1F3A6B", "#CF9A2E", "#F4F1EA", "#1B1A18", "#5E7A5A", "#F4F1EA"];
+const GROUND = "#1F3A6B";
+let W, H, drops = [], seed, rand, inkIx = 0;
+
+function rng(s) { return () => (s = (s * 16807) % 2147483647) / 2147483647; }
+function circle(cx, cy, r) { const n = Math.max(40, Math.round(r * 1.1)), p = new Array(n * 2); for (let i = 0; i < n; i++) { const t = i / n * Math.PI * 2; p[2 * i] = cx + Math.cos(t) * r; p[2 * i + 1] = cy + Math.sin(t) * r; } return p; }
+function drop(cx, cy, r, c) {
+  const r2 = r * r;
+  for (const d of drops) { const p = d.p; for (let i = 0; i < p.length; i += 2) { const dx = p[i] - cx, dy = p[i + 1] - cy, f = Math.sqrt(1 + r2 / (dx * dx + dy * dy || 1e-6)); p[i] = cx + dx * f; p[i + 1] = cy + dy * f; } }
+  drops.push({ p: circle(cx, cy, r), c });
+}
+// keep contours smooth after stretching: split long edges
+function refine(d, max = 5) {
+  const p = d.p, out = [], n = p.length / 2;
+  for (let i = 0; i < n; i++) {
+    const x = p[2 * i], y = p[2 * i + 1], j = (i + 1) % n, x2 = p[2 * j], y2 = p[2 * j + 1];
+    out.push(x, y);
+    const len = Math.hypot(x2 - x, y2 - y);
+    if (len > max && out.length < 12000) { const k = Math.min(8, Math.ceil(len / max)); for (let s = 1; s < k; s++) out.push(x + (x2 - x) * s / k, y + (y2 - y) * s / k); }
+  }
+  d.p = out;
+}
+function comb(bx, by, mx, my, a, l) { // a tine drawn along direction m through b
+  const nx = -my, ny = mx;
+  for (const d of drops) { const p = d.p; for (let i = 0; i < p.length; i += 2) { const dist = Math.abs((p[i] - bx) * nx + (p[i + 1] - by) * ny), f = a * l / (dist + l); p[i] += f * mx; p[i + 1] += f * my; } refine(d); }
+}
+function stylus(qx, qy, mx, my, len) { // a local rake, for the pointer
+  const s2 = 2 * 26 * 26;
+  for (const d of drops) { const p = d.p; for (let i = 0; i < p.length; i += 2) { const dx = p[i] - qx, dy = p[i + 1] - qy, f = len * Math.exp(-(dx * dx + dy * dy) / s2); p[i] += f * mx; p[i + 1] += f * my; } refine(d); }
+}
+function paint() {
+  ctx.fillStyle = GROUND; ctx.fillRect(0, 0, W, H);
+  for (const d of drops) { const p = d.p; ctx.beginPath(); ctx.moveTo(p[0], p[1]); for (let i = 2; i < p.length; i += 2) ctx.lineTo(p[i], p[i + 1]); ctx.closePath(); ctx.fillStyle = d.c; ctx.fill(); }
+}
+function marble(s) {
+  seed = s; rand = rng(s); drops = []; inkIx = 0;
+  const r = paper.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1);
+  W = r.width; H = r.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  // 1. stone ground: drops of every ink, the paper-coloured ones open veins between the others
+  const n = Math.round(W * H / 2600);
+  for (let i = 0; i < n; i++) drop(rand() * W, rand() * H, 10 + rand() * 26, INKS[i % INKS.length]);
+  // 2. gel-git: a coarse comb dragged back and forth draws the stone into waves
+  const step = 30 + Math.round(rand() * 14), amp = 46 + rand() * 30;
+  for (let y = step / 2, k = 0; y < H; y += step, k++) comb(0, y, 1, 0, k % 2 ? amp : -amp, 12);
+  // 3. then, by the seed, either a single fine comb across them (nonpareil) or a bouquet of curls (none)
+  if (rand() > .35) for (let x = 9, k = 0; x < W; x += 18, k++) comb(x, 0, 0, 1, 26, 5);
+  paint();
+  document.getElementById("no").textContent = `Sheet no. ${s}. Nobody else has this one.`;
+}
+
+let last = null, moved = false, queued = null;
+paper.addEventListener("pointerdown", e => { if (e.target !== cv) return; last = { x: e.offsetX, y: e.offsetY }; moved = false; });
+paper.addEventListener("pointermove", e => {
+  if (!last || e.target !== cv) return;
+  const x = e.offsetX, y = e.offsetY, dx = x - last.x, dy = y - last.y, len = Math.hypot(dx, dy);
+  if (len < 3) return;
+  moved = true; queued = [last.x, last.y, dx / len, dy / len, Math.min(len, 40) * .9]; last = { x, y };
+});
+addEventListener("pointerup", e => {
+  if (last && !moved && e.target === cv) { drop(e.offsetX, e.offsetY, 22 + Math.random() * 20, INKS[inkIx++ % INKS.length]); paint(); }
+  last = null;
+});
+paper.addEventListener("pointercancel", () => { last = null; });
+(function tick() { if (queued) { stylus(...queued); queued = null; paint(); } requestAnimationFrame(tick); })();
+
+document.getElementById("again").addEventListener("click", () => marble(1 + Math.floor(Math.random() * 99998)));
+document.getElementById("save").addEventListener("click", () => { const a = document.createElement("a"); a.download = `endpaper-${seed}.png`; a.href = cv.toDataURL("image/png"); a.click(); });
+const q = new URLSearchParams(location.search).get("seed");
+marble(q ? +q : 1 + Math.floor(Math.random() * 99998));
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => marble(seed), 150); });
+</script>
+</body>
+</html>

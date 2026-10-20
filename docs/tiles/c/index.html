@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tile C: Dimensioned</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+/* Throwaway style tile. Not production code. */
+:root{
+  --film:#F0F1EC; --ink:#1F2324; --graphite:#4E5457; --blue:#8CC8E6; --red:#B8322A;
+  --d:"Barlow Semi Condensed","Barlow",system-ui,sans-serif; --u:"Barlow",system-ui,sans-serif; --t:"Source Serif 4",Georgia,serif;
+  --gut:24px; --m:clamp(16px,5vw,72px);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--film);color:var(--ink);font-family:var(--t);font-size:18px;line-height:1.5;min-height:100vh}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+.sheet{position:relative;max-width:1440px;margin:0 auto;min-height:100vh;padding:28px var(--m) 28px}
+/* sheet border, as on a drawing */
+.sheet::before{content:"";position:absolute;inset:12px;border:1.5px solid var(--ink);pointer-events:none}
+/* construction grid in non-photo blue: it would not reproduce, and in print it really doesn't */
+.grid{position:absolute;inset:12px calc(var(--m)) 12px;pointer-events:none;display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gut)}
+.grid i{border-left:1px solid var(--blue);border-right:1px solid var(--blue);opacity:.55;transform-origin:top;animation:draw .6s cubic-bezier(.3,.6,.2,1) both}
+.grid i:nth-child(n){animation-delay:calc(var(--k) * 30ms)}
+@keyframes draw{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@media print{.grid{display:none}}
+
+.inner{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut);padding:24px 0}
+h1{grid-column:1/11;margin:36px 0 0;font-family:var(--d);font-weight:600;font-size:clamp(44px,6.4vw,96px);line-height:.98;letter-spacing:-.012em;text-wrap:balance}
+.lede{grid-column:1/7;margin:26px 0 0;font-size:20px;max-width:62ch;color:var(--ink);text-wrap:pretty}
+
+.fig{grid-column:1/6;margin:52px 0 0;position:relative}
+.fig img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top left;outline:1px solid var(--ink)}
+.notes{grid-column:6/9;margin:52px 0 0;display:grid;gap:16px;align-content:start}
+.side{grid-column:9/13;margin-top:52px;display:grid;gap:20px;align-content:space-between}
+.notes ol{margin:0;padding:0;list-style:none;display:grid;gap:18px}
+.notes li{display:grid;grid-template-columns:28px 1fr;gap:12px;font-size:16px;line-height:1.4}
+.ball{width:26px;height:26px;border:1.5px solid var(--red);border-radius:50%;display:grid;place-items:center;font-family:var(--u);font-weight:600;font-size:13px;color:var(--red)}
+.notes h2{margin:0;font-family:var(--d);font-weight:600;font-size:30px;line-height:1.05}
+.notes a{padding-left:40px;font-family:var(--u);font-weight:500;font-size:16px;text-underline-offset:4px}
+
+.legend{display:grid;grid-template-columns:1fr 1.4fr;border:1.5px solid var(--ink);font-family:var(--u);font-size:13px;align-self:start}
+.legend>div{padding:10px 12px;border-right:1px solid var(--ink)}
+.legend>div:last-child{border-right:0}
+.legend h3{margin:0 0 6px;font-size:11px;font-weight:600;color:var(--graphite)}
+.legend .spec{font-family:var(--d);font-weight:600;font-size:40px;line-height:1}
+.legend .spec i{font-family:var(--t);font-weight:400}
+.legend p{margin:6px 0 0;line-height:1.35;color:var(--graphite)}
+.chips{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.chips span{display:block;height:28px;outline:1px solid var(--ink)}
+.chips div{font-size:10.5px;line-height:1.25}
+
+/* title block: identity, sheet and navigation, bottom right of the sheet */
+.tb{display:grid;grid-template-columns:2fr 1fr 1fr;border:1.5px solid var(--ink);font-family:var(--u)}
+.tb>*{padding:8px 12px;border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);margin:0}
+.tb>*:nth-child(3n){border-right:0}
+.tb .k{display:block;font-size:10.5px;font-weight:600;color:var(--graphite)}
+.tb .v{font-size:15px;font-weight:500}
+.tb nav{grid-column:1/-1;border-bottom:0;border-right:0;display:flex;gap:22px;font-size:16px;font-weight:500}
+.tb nav a{text-decoration:none;border-bottom:1.5px solid transparent}
+.tb nav a:hover,.tb nav a:focus-visible{border-bottom-color:var(--red)}
+.tb nav button{margin-left:auto;font:inherit;font-size:14px;color:var(--red);background:none;border:1.5px solid var(--red);padding:1px 10px;cursor:pointer}
+.tb nav button[aria-pressed=true]{background:var(--red);color:var(--film)}
+
+/* dimensions overlay */
+#dims{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:5}
+#dims line{stroke:var(--red);stroke-width:1}
+#dims .ext{stroke-width:.75}
+#dims text{fill:var(--red);font-family:"Barlow",sans-serif;font-weight:600;font-size:12.5px;font-variant-numeric:tabular-nums}
+#dims rect{fill:var(--film)}
+#dims .d line.main{stroke-dasharray:var(--L);stroke-dashoffset:var(--L);animation:dash .16s ease-out forwards}
+#dims .d text,#dims .d rect{opacity:0;animation:show 0s .12s forwards}
+@keyframes dash{to{stroke-dashoffset:0}}
+@keyframes show{to{opacity:1}}
+
+@media (max-width:860px){
+  .inner{grid-template-columns:1fr}
+  h1,.lede,.fig,.notes,.side{grid-column:1}
+  .side{margin-top:36px}
+  .legend{grid-template-columns:1fr}
+  .legend>div{border-right:0;border-bottom:1px solid var(--ink)}
+  .legend>div:last-child{border-bottom:0}
+  h1{margin-top:24px}
+  .fig,.notes,.legend{margin-top:36px}
+  .tb{grid-template-columns:1fr 1fr 1fr}
+  .tb nav{flex-wrap:wrap;gap:14px}
+  .tb nav button{margin-left:0}
+  .grid{grid-template-columns:repeat(4,1fr);column-gap:16px}
+  .grid i:nth-child(n+5){display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .grid i{animation:none}
+  #dims .d line.main{animation:none;stroke-dashoffset:0}
+  #dims .d text,#dims .d rect{animation:none;opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+  <div class="grid" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i><i style="--k:10"></i><i style="--k:11"></i></div>
+  <div class="inner">
+    <h1 data-dim="text">Kriish Tiwari designs and builds software.</h1>
+    <p class="lede" data-dim="ch">Computer science at the University at Buffalo, graduating December 2026. I research interfaces with the people who use them, then build them in React, React Native and Next.js.</p>
+
+    <figure class="fig" data-dim="wh">
+      <img src="/src/assets/images/Screenshot 2025-07-03 185521.png" alt="DART Academy About page welcoming learners as Digital Agents for Reducing Trickery">
+    </figure>
+    <div class="notes">
+      <h2>DART Academy</h2>
+      <ol>
+        <li><span class="ball">1</span><span>Built the learning interfaces in React and Next.js for a scam-awareness course used by 1,000+ older adults.</span></li>
+        <li><span class="ball">2</span><span>Came back as a UX researcher. Ran usability sessions with 60+ learners and logged 12 issues.</span></li>
+        <li><span class="ball">3</span><span>Bulk enrolment: CSV import with row-level validation for administrators.</span></li>
+      </ol>
+      <a href="#">Read the case study</a>
+    </div>
+
+    <div class="side">
+    <div class="legend" aria-label="Legend">
+      <div><h3>Type</h3><div class="spec">Aa <i>Aa</i></div><p>Barlow Semi Condensed and Barlow (Jeremy Tribby, OFL). Source Serif 4 (Adobe, OFL) for reading.</p></div>
+      <div><h3>Colour</h3>
+        <div class="chips">
+          <div><span style="background:#F0F1EC"></span>Film</div>
+          <div><span style="background:#1F2324"></span>Ink</div>
+          <div><span style="background:#4E5457"></span>Graphite</div>
+          <div><span style="background:#8CC8E6"></span>Non-photo blue</div>
+          <div><span style="background:#B8322A"></span>Red pencil</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tb">
+      <p><span class="k">Drawn by</span><span class="v">Kriish Tiwari</span></p>
+      <p><span class="k">Sheet</span><span class="v">1 of 6</span></p>
+      <p><span class="k">Scale</span><span class="v">1:1 px</span></p>
+      <nav aria-label="Primary"><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a><a href="#">Résumé</a><button type="button" id="all" aria-pressed="false" title="Shortcut: D">Dimension all</button></nav>
+    </div>
+    </div>
+  </div>
+  <svg id="dims" aria-hidden="true"></svg>
+</div>
+
+<script>
+// Every dimension is a live measurement of the layout you are looking at.
+const svg = document.getElementById("dims"), sheet = document.querySelector(".sheet");
+const NS = "http://www.w3.org/2000/svg";
+const targets = [...document.querySelectorAll("[data-dim]")];
+const active = new Set();
+let all = false;
+
+const fmt = n => Math.round(n).toLocaleString("en-US");
+function chWidth(el) {
+  const s = document.createElement("span"); s.textContent = "0".repeat(20);
+  s.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap"; el.appendChild(s);
+  const w = s.getBoundingClientRect().width / 20; s.remove(); return w;
+}
+function mk(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+function label(g, x, y, text) {
+  const t = mk("text", { x, y, "text-anchor": "middle" }, g); t.textContent = text;
+  const b = t.getBBox(); const r = mk("rect", { x: b.x - 4, y: b.y - 1, width: b.width + 8, height: b.height + 2 }, g); g.insertBefore(r, t);
+}
+function horiz(g, x1, x2, y, from, text) {
+  mk("line", { class: "ext", x1, x2: x1, y1: from - 4, y2: y - 6 }, g);
+  mk("line", { class: "ext", x1: x2, x2, y1: from - 4, y2: y - 6 }, g);
+  const L = x2 - x1, m = mk("line", { class: "main", x1, x2, y1: y, y2: y }, g); m.style.setProperty("--L", L);
+  for (const x of [x1, x2]) mk("line", { x1: x - 4, y1: y + 4, x2: x + 4, y2: y - 4 }, g); // architectural ticks
+  label(g, (x1 + x2) / 2, y - 6, text);
+}
+function vert(g, y1, y2, x, from, text) {
+  mk("line", { class: "ext", x1: from + 4, x2: x + 6, y1, y2: y1 }, g);
+  mk("line", { class: "ext", x1: from + 4, x2: x + 6, y1: y2, y2 }, g);
+  const L = y2 - y1, m = mk("line", { class: "main", x1: x, x2: x, y1, y2 }, g); m.style.setProperty("--L", L);
+  for (const y of [y1, y2]) mk("line", { x1: x - 4, y1: y + 4, x2: x + 4, y2: y - 4 }, g);
+  const t = mk("g", { transform: `rotate(-90 ${x - 8} ${(y1 + y2) / 2})` }, g);
+  label(t, x - 8, (y1 + y2) / 2 + 4, text);
+}
+function draw() {
+  svg.replaceChildren();
+  const o = sheet.getBoundingClientRect();
+  for (const el of targets) {
+    if (!all && !active.has(el)) continue;
+    const r = el.getBoundingClientRect(), x1 = r.left - o.left, x2 = r.right - o.left, top = r.top - o.top, bot = r.bottom - o.top;
+    const g = mk("g", { class: "d" }, svg), kind = el.dataset.dim;
+    if (kind === "text") {
+      // measure the set type, not its box: the longest line the browser actually laid out
+      const range = document.createRange(); range.selectNodeContents(el);
+      const lines = [...range.getClientRects()];
+      const l = Math.min(...lines.map(q => q.left)) - o.left, rr = Math.max(...lines.map(q => q.right)) - o.left;
+      horiz(g, l, rr, top - 14, top, `${fmt(rr - l)} px, ${lines.length > 1 ? new Set(lines.map(q => Math.round(q.top))).size + " lines" : "1 line"}`);
+    } else if (kind === "ch") {
+      const cs = getComputedStyle(el), w = r.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      horiz(g, x1, x1 + w, top - 14, top, `${fmt(w / chWidth(el))} ch measure`);
+    } else {
+      horiz(g, x1, x2, top - 14, top, `${fmt(r.width)} px`);
+      if (kind === "wh") vert(g, top, bot, x2 + 18, x2, `${fmt(r.height)} px`);
+    }
+  }
+}
+for (const el of targets) {
+  const on = () => { active.add(el); draw(); }, off = () => { active.delete(el); draw(); };
+  el.addEventListener("pointerenter", on); el.addEventListener("pointerleave", off);
+  el.addEventListener("focusin", on); el.addEventListener("focusout", off);
+}
+const btn = document.getElementById("all");
+function toggle() { all = !all; btn.setAttribute("aria-pressed", all); draw(); }
+btn.addEventListener("click", toggle);
+addEventListener("keydown", e => { if ((e.key === "d" || e.key === "D") && !e.metaKey && !e.ctrlKey && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) toggle(); });
+new ResizeObserver(draw).observe(sheet);
+if (new URLSearchParams(location.search).has("all")) { all = true; btn.setAttribute("aria-pressed", "true"); }
+document.fonts.ready.then(draw);
+</script>
+</body>
+</html>

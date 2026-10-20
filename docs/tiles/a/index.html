@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tile A: Raking Light</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet">
+<style>
+/* Throwaway style tile. Not production code. */
+:root{
+  --paper:#F1F1EE; --ink:#1C1C1A; --ink-2:#55554F; --accent:#2F3B63;
+  --hl:255,255,255; --sh:58,54,46; --tint:255,226,196; --tint-a:0;
+  --ux:-.8; --uy:-.5; --len:8; --grad:120deg;
+  --d:"Archivo",system-ui,sans-serif; --t:"Newsreader",Georgia,serif;
+}
+:root[data-phase=night]{
+  --paper:#16171A; --ink:#E7E5E0; --ink-2:#A8A69F; --accent:#A9B7EC;
+  --hl:255,214,160; --sh:0,0,0;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:
+    linear-gradient(var(--grad), rgba(var(--tint),var(--tint-a)), transparent 70%),
+    var(--paper);
+  color:var(--ink); font-family:var(--t); font-size:19px; line-height:1.5;
+  font-optical-sizing:auto; transition:background-color .7s, color .7s;
+  min-height:100vh;
+}
+:root[data-phase=night] body{
+  background:
+    radial-gradient(420px circle at var(--px,50%) var(--py,40%), rgba(255,214,160,.10), transparent 70%),
+    var(--paper);
+}
+a{color:inherit}
+.wrap{max-width:1440px;margin:0 auto;padding:28px clamp(16px,6.6vw,96px) 32px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:24px}
+.mark{font-family:var(--d);font-variation-settings:"wdth" 112;font-weight:600;font-size:15px;letter-spacing:.01em;text-decoration:none}
+nav{display:flex;gap:28px;font-size:17px}
+nav a{text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .18s cubic-bezier(.2,.7,.2,1)}
+nav a:hover,nav a:focus-visible{background-size:100% 1px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:2px}
+
+/* blind scores: the column grid is pressed into the sheet and only the light reveals it */
+.scores{position:fixed;inset:0;max-width:1440px;margin:0 auto;padding:0 clamp(16px,6.6vw,96px);display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;pointer-events:none;z-index:0;--s:.09;--h:.7}
+.scores i{position:relative}
+.scores i::before{content:"";position:absolute;top:0;bottom:0;left:-12px;width:1px;
+  box-shadow: calc(var(--ux) * 1px) 0 0 rgba(var(--sh),var(--s)), calc(var(--ux) * -1px) 0 0 rgba(var(--hl),var(--h))}
+/* at night the scores exist only inside the lamp's pool */
+:root[data-phase=night] .scores{--s:.6;--h:.22;
+  -webkit-mask-image:radial-gradient(380px circle at var(--px,50%) var(--py,40%),#000 20%,transparent 100%);
+          mask-image:radial-gradient(380px circle at var(--px,50%) var(--py,40%),#000 20%,transparent 100%)}
+:root{--bite:.9}
+:root[data-phase=night]{--bite:.18}
+.wrap{position:relative;z-index:1}
+.hero{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;row-gap:28px;align-items:start;margin-top:clamp(36px,6vh,80px)}
+h1{
+  grid-column:1/8; margin:0;
+  font-family:var(--d); font-weight:480; font-variation-settings:"wdth" 118;
+  font-size:clamp(40px,5.2vw,84px); line-height:.98; letter-spacing:-.025em;
+  /* letterpress bite: ink pressed in, with a highlight on the wall away from the light */
+  text-shadow: calc(var(--ux) * -1.5px) calc(var(--uy) * -1.5px) 0 rgba(var(--hl),var(--bite));
+  text-wrap:balance;
+}
+.lede{grid-column:1/7;grid-row:2;margin:0;font-size:clamp(19px,1.5vw,22px);color:var(--ink-2);max-width:60ch;text-wrap:pretty}
+
+.row{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;row-gap:32px;margin-top:clamp(36px,5vh,56px);align-items:start}
+.work{grid-column:9/13;grid-row:1/3;display:grid;gap:18px;text-decoration:none;align-self:start;margin-top:8px}
+/* tipped-in: the print sits slightly proud of the plate, so it casts a shadow that moves with the light */
+.plate img{box-shadow:calc(var(--ux) * -.18px * var(--len)) calc(var(--uy) * -.18px * var(--len)) calc(var(--len) * .25px) rgba(var(--sh),.28)}
+/* plate mark: the bevelled recess an intaglio plate leaves in the sheet */
+.plate{
+  padding:18px; border-radius:3px; background:var(--paper);
+  box-shadow:
+    inset calc(var(--ux) * -2px) calc(var(--uy) * -2px) 2px rgba(var(--sh),.30),
+    inset calc(var(--ux) * 1.5px) calc(var(--uy) * 1.5px) 1px rgba(var(--hl),.95);
+  transition:box-shadow .16s cubic-bezier(.2,.7,.2,1);
+}
+.work:hover .plate,.work:focus-visible .plate{
+  box-shadow:
+    inset calc(var(--ux) * -4px) calc(var(--uy) * -4px) 4px rgba(var(--sh),.34),
+    inset calc(var(--ux) * 2.5px) calc(var(--uy) * 2.5px) 1px rgba(var(--hl),1);
+}
+.plate img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left;border-radius:1px;filter:saturate(.9)}
+.work h2{font-family:var(--d);font-variation-settings:"wdth" 112;font-weight:560;font-size:28px;line-height:1.1;margin:0 0 10px;letter-spacing:-.01em}
+.work p{margin:0 0 14px;font-size:18px;color:var(--ink-2)}
+.work dl{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;margin:0;font-size:15px}
+.work dt{color:var(--ink-2)}
+.work dd{margin:0}
+.read{display:inline-block;margin-top:14px;font-size:17px;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+
+.spec{grid-column:1/9;display:grid;grid-template-columns:1fr 1.3fr;gap:32px}
+.spec h3{font-family:var(--d);font-weight:600;font-size:13px;font-variation-settings:"wdth" 100;margin:0 0 8px;color:var(--ink-2)}
+.aa{display:flex;align-items:baseline;gap:18px}
+.aa b{font-family:var(--d);font-weight:500;font-variation-settings:"wdth" 125;font-size:64px;line-height:1;letter-spacing:-.03em}
+.aa i{font-family:var(--t);font-size:60px;line-height:1;font-weight:400}
+.spec p{margin:0;font-size:15px;color:var(--ink-2)}
+.sw{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sw div{font-size:12.5px;line-height:1.3}
+.sw span{display:block;height:34px;border-radius:2px;margin-bottom:6px;box-shadow:inset 0 0 0 1px rgba(127,127,127,.25)}
+
+.light{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:clamp(32px,5vh,56px);padding-top:16px;border-top:1px solid rgba(var(--sh),.14);font-size:15px;color:var(--ink-2)}
+:root[data-phase=night] .light{border-top-color:rgba(255,255,255,.12)}
+.light input{width:min(360px,100%);accent-color:var(--accent)}
+.light output{font-family:var(--d);font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink);min-width:5ch}
+.light button{font:inherit;color:var(--ink);background:none;border:1px solid currentColor;border-radius:999px;padding:4px 14px;cursor:pointer}
+.tileonly{margin-left:auto;font-size:13px}
+
+@media (max-width:860px){
+  .hero,.row{grid-template-columns:1fr}
+  h1,.lede,.work,.spec{grid-column:1;grid-row:auto}
+  .spec{grid-template-columns:1fr}
+  .scores{grid-template-columns:repeat(4,1fr);column-gap:16px}
+  .scores i:nth-child(n+5){display:none}
+  header{flex-direction:column;gap:10px}
+  nav{gap:18px;font-size:16px}
+  .tileonly{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="scores" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+  <header>
+    <a class="mark" href="#">Kriish Tiwari</a>
+    <nav aria-label="Primary"><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a><a href="#">Résumé</a></nav>
+  </header>
+
+  <section class="hero">
+    <h1>I design and build software, from the research to the release.</h1>
+    <p class="lede">Computer science at the University at Buffalo, graduating December 2026. Right now I build research apps at the ESC Lab and run usability studies with older adults at DART.</p>
+    <a class="work" href="#">
+      <div class="plate"><img src="/src/assets/images/Screenshot 2025-07-03 185521.png" alt="DART Academy About page welcoming learners as Digital Agents for Reducing Trickery"></div>
+      <div>
+        <h2>DART Academy</h2>
+        <p>Scam-awareness courses for older adults. I built the learning interfaces as a frontend intern, then came back as a researcher and tested them with 60+ learners.</p>
+        <dl><dt>Role</dt><dd>Frontend, then UX research</dd><dt>Years</dt><dd>2024 to now</dd><dt>Reach</dt><dd>1,000+ learners</dd></dl>
+        <span class="read">Read the case study</span>
+      </div>
+    </a>
+  </section>
+
+  <section class="row">
+    <aside class="spec" aria-label="Type and colour">
+      <div>
+        <h3>Type</h3>
+        <div class="aa"><b>Aa</b><i>Aa</i></div>
+        <p>Archivo Expanded for display (Omnibus-Type, OFL). Newsreader for reading (Production Type, OFL).</p>
+      </div>
+      <div>
+        <h3>Colour</h3>
+        <div class="sw">
+          <div><span style="background:#F1F1EE"></span>Cotton<br>#F1F1EE</div>
+          <div><span style="background:#1C1C1A"></span>Bone black<br>#1C1C1A</div>
+          <div><span style="background:#55554F"></span>Graphite<br>#55554F</div>
+          <div><span style="background:#2F3B63"></span>Blue hour<br>#2F3B63</div>
+          <div><span style="background:#16171A"></span>Unlit sheet<br>#16171A</div>
+          <div><span style="background:#FFD6A0"></span>Lamp 2700K<br>#FFD6A0</div>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <div class="light">
+    <label for="t">Light at</label>
+    <input id="t" type="range" min="0" max="24" step="0.25">
+    <output id="o" for="t">--:--</output>
+    <button type="button" id="now">Now</button>
+    <span id="lit" aria-live="polite"></span>
+    <span class="tileonly">The slider exists only on this tile. On the site the light follows your clock.</span>
+  </div>
+</div>
+
+<script>
+// Light model: a sun that crosses the sheet from left (dawn) to right (dusk), low and raking.
+const root = document.documentElement;
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const t = document.getElementById("t"), o = document.getElementById("o");
+let lampOn = false;
+
+function setVars(ux, uy, len) {
+  root.style.setProperty("--ux", ux.toFixed(3));
+  root.style.setProperty("--uy", uy.toFixed(3));
+  root.style.setProperty("--len", len.toFixed(2));
+  root.style.setProperty("--grad", (Math.atan2(-uy, -ux) * 180 / Math.PI + 90).toFixed(1) + "deg");
+}
+
+function apply(h) {
+  o.value = String(Math.floor(h)).padStart(2, "0") + ":" + String(Math.round((h % 1) * 60)).padStart(2, "0");
+  const day = h >= 6 && h <= 20;
+  root.dataset.phase = day ? "day" : "night";
+  lampOn = !day;
+  document.getElementById("lit").textContent = !day ? "Night. The lamp is yours: move the pointer or Tab."
+    : h < 10 ? "Lit low from the east." : h < 15 ? "Lit from high overhead." : "Lit low from the west.";
+  if (day) {
+    const th = Math.PI * (h - 6) / 14;               // 0 at dawn, PI at dusk
+    const s = Math.sin(th);
+    setVars(-Math.cos(th), -(0.35 + 0.55 * s), 3 + 16 * (1 - s));
+    const warm = 1 - s;                               // warmer and longer near the horizon
+    const blue = h > 19 ? (h - 19) : 0;               // blue hour after sunset
+    root.style.setProperty("--tint", blue ? "196,208,240" : "255,226,196");
+    root.style.setProperty("--tint-a", (blue ? .22 * blue : .20 * warm).toFixed(3));
+  } else {
+    root.style.setProperty("--tint-a", "0");
+    lampAt(innerWidth * .5, innerHeight * .25);
+  }
+}
+
+// At night the visitor holds the lamp: pointer or keyboard focus moves it.
+function lampAt(x, y) {
+  root.style.setProperty("--px", x + "px");
+  root.style.setProperty("--py", y + "px");
+  const m = document.querySelector(".plate").getBoundingClientRect();
+  const dx = x - (m.left + m.width / 2), dy = y - (m.top + m.height / 2);
+  const dist = Math.hypot(dx, dy) || 1;
+  setVars(dx / dist, dy / dist, Math.min(22, 4 + dist / 60));
+}
+let raf = 0;
+addEventListener("pointermove", e => {
+  if (!lampOn || reduce) return;
+  cancelAnimationFrame(raf);
+  raf = requestAnimationFrame(() => lampAt(e.clientX, e.clientY));
+});
+addEventListener("focusin", e => {
+  if (!lampOn) return;
+  const r = e.target.getBoundingClientRect();
+  lampAt(r.left + r.width / 2, r.top + r.height / 2);
+});
+
+function nowHours() { const d = new Date(); return d.getHours() + d.getMinutes() / 60; }
+const q = new URLSearchParams(location.search).get("h");
+const start = q !== null ? +q : nowHours();
+t.value = start;
+t.addEventListener("input", () => apply(+t.value));
+document.getElementById("now").addEventListener("click", () => { t.value = nowHours(); apply(+t.value); });
+
+// Orchestrated moment: the sheet loads flat-lit, then the light rakes across into place (700ms).
+if (reduce || q !== null) apply(start);
+else {
+  setVars(0, -1, 0.5);
+  const from = 12, t0 = performance.now();
+  const ease = x => 1 - Math.pow(1 - x, 3);
+  (function step(now) {
+    const k = Math.min(1, (now - t0) / 700);
+    apply(start >= 6 && start <= 20 ? from + (start - from) * ease(k) : start);
+    if (k < 1 && start >= 6 && start <= 20) requestAnimationFrame(step);
+  })(t0);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tile E: Cast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Hanken+Grotesk:wght@400..700&display=swap" rel="stylesheet">
+<style>
+/* Throwaway style tile. Not production code. */
+:root{
+  --wall:#EDEDE9; --ink:#151515; --graphite:#55534E; --shadow:#1E1C19; --brass:#F2C230; --rule:#D6D5CF;
+  --sx:6; --sy:6;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--wall);color:var(--ink);font-family:"Hanken Grotesk",system-ui,sans-serif;font-size:18px;line-height:1.5}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.wrap{max-width:1440px;margin:0 auto;padding:22px clamp(16px,5vw,72px) 64px}
+header{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:16px;position:relative;z-index:2}
+header nav{display:flex;gap:26px}
+header a{text-decoration:none}
+header nav a:hover,header nav a:focus-visible{text-decoration:underline;text-underline-offset:5px}
+
+.hero{position:relative;height:min(74vh,700px);min-height:440px;margin:0 calc(-1 * clamp(16px,5vw,72px));touch-action:pan-y;cursor:none}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero h1{position:absolute;left:clamp(16px,5vw,72px);bottom:16%;margin:0;font-family:"Archivo",sans-serif;font-weight:900;font-size:clamp(64px,13vw,200px);line-height:.88;letter-spacing:-.03em}
+.cast-on .hero h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero .cue{position:absolute;right:clamp(16px,5vw,72px);bottom:18px;margin:0;font-size:14px;color:var(--graphite);text-align:right}
+.below{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;row-gap:40px;margin-top:28px}
+.sub{grid-column:1/7;margin:0;font-size:clamp(20px,1.7vw,24px);line-height:1.4;max-width:34ch}
+.sub b{font-family:"Archivo",sans-serif;font-weight:800;font-variation-settings:"wdth" 110}
+
+.work{grid-column:7/13;grid-row:1/3;display:grid;grid-template-columns:1.2fr 1fr;gap:20px;text-decoration:none;align-items:start}
+/* every shadow on the page follows the same light as the sculpture */
+.work img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top left;display:block;
+  box-shadow:calc(var(--sx) * 1px) calc(var(--sy) * 1px) 0 rgba(30,28,25,.85);transition:transform .16s ease-out}
+.work:hover img,.work:focus-visible img{transform:translate(calc(var(--sx) * -.3px),calc(var(--sy) * -.3px))}
+.work h2{font-family:"Archivo",sans-serif;font-weight:800;font-variation-settings:"wdth" 110;font-size:26px;line-height:1.05;margin:0 0 8px}
+.work p{margin:0 0 10px;font-size:16px;color:var(--graphite)}
+.work span{font-weight:700;font-size:16px;border-bottom:2px solid var(--ink)}
+
+.spec{grid-column:1/7;display:grid;grid-template-columns:1fr 1.3fr;gap:28px;border-top:1px solid var(--rule);padding-top:18px}
+.spec h3{margin:0 0 8px;font-size:13px;font-weight:700;color:var(--graphite)}
+.aa{font-family:"Archivo",sans-serif;font-weight:900;font-size:60px;line-height:1;letter-spacing:-.03em}
+.aa i{font-family:"Hanken Grotesk",sans-serif;font-style:normal;font-weight:400}
+.spec p{margin:6px 0 0;font-size:14px;color:var(--graphite)}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.chips div{font-size:12.5px;line-height:1.25}
+.chips span{display:block;height:30px;margin-bottom:5px;outline:1px solid var(--rule)}
+
+@media (max-width:860px){
+  .hero{height:62vh;min-height:380px;cursor:auto}
+  .below{grid-template-columns:1fr}
+  .sub,.work,.spec{grid-column:1;grid-row:auto}
+  .work,.spec{grid-template-columns:1fr}
+  header nav{gap:14px;font-size:15px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><a href="#">KT</a><nav aria-label="Primary"><a href="#">Work</a><a href="#">About</a><a href="#">Contact</a><a href="#">Résumé</a></nav></header>
+
+  <div class="hero" id="hero">
+    <canvas id="cast" aria-hidden="true"></canvas>
+    <h1>Kriish Tiwari</h1>
+    <p class="cue" id="cue">The sun is in the top-left corner. Move it.</p>
+  </div>
+
+  <div class="below">
+    <p class="sub"><b>Designs and builds software.</b> Computer science at the University at Buffalo, graduating December 2026. The pieces up there are scattered on purpose. From one angle, they line up.</p>
+    <a class="work" href="#">
+      <img src="/src/assets/images/Screenshot 2025-07-03 185521.png" alt="DART Academy About page welcoming learners as Digital Agents for Reducing Trickery">
+      <div>
+        <h2>DART Academy</h2>
+        <p>Scam-awareness courses for older adults. I built the interfaces, then tested them with 60+ learners.</p>
+        <span>Read the case study</span>
+      </div>
+    </a>
+    <div class="spec">
+      <div><h3>Type</h3><div class="aa">Aa <i>Aa</i></div><p>Archivo Black (Omnibus-Type, OFL) for the cast name. Hanken Grotesk (OFL) for reading.</p></div>
+      <div><h3>Colour</h3><div class="chips">
+        <div><span style="background:#EDEDE9"></span>Plaster<br>#EDEDE9</div>
+        <div><span style="background:#1E1C19"></span>Cast shadow<br>#1E1C19</div>
+        <div><span style="background:#F2C230"></span>Brass<br>#F2C230</div>
+        <div><span style="background:#151515"></span>Ink<br>#151515</div>
+        <div><span style="background:#55534E"></span>Graphite<br>#55534E</div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Cast: the name is never drawn. Pieces float at different heights in front of the wall,
+// placed so that only when the light sits at its home position do their shadows line up into words.
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const hero = document.getElementById("hero"), cv = document.getElementById("cast"), ctx = cv.getContext("2d");
+const root = document.documentElement;
+let W, H, bars = [], C, P0, P, target, K = .42, lastMove = 0, active = false;
+
+function rng(seed) { return () => (seed = (seed * 16807) % 2147483647) / 2147483647; }
+
+async function build() {
+  await document.fonts.load('900 100px "Archivo"');
+  const r = hero.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1);
+  W = r.width; H = r.height;
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  // 1. set the name where its shadow should land
+  const narrow = W < 700;
+  const lines = narrow ? ["Kriish", "Tiwari"] : ["Kriish Tiwari"];
+  const off = document.createElement("canvas"); off.width = Math.ceil(W); off.height = Math.ceil(H);
+  const o = off.getContext("2d");
+  let fs = narrow ? W * .25 : Math.min(W * .13, H * .3);
+  o.font = `900 ${fs}px Archivo`;
+  const tw = Math.max(...lines.map(l => o.measureText(l).width));
+  const lh = fs * .9, x0 = W - tw - Math.max(16, W * .05), y0 = H - Math.max(40, H * .12) - lh * (lines.length - 1);
+  lines.forEach((l, i) => o.fillText(l, x0, y0 + i * lh));
+  C = { x: x0 + tw / 2, y: y0 - fs * .35 + lh * (lines.length - 1) / 2 };
+
+  // 2. slice the set type into horizontal bars, one piece each
+  const cell = Math.max(2, Math.round(fs / 48)), img = o.getImageData(0, 0, off.width, off.height).data, rand = rng(1979);
+  bars = [];
+  for (let y = 0; y < off.height; y += cell) {
+    const yy = Math.min(off.height - 1, y + (cell >> 1));
+    let x = 0;
+    while (x < off.width) {
+      while (x < off.width && img[(yy * off.width + x) * 4 + 3] < 128) x++;
+      let start = x;
+      while (x < off.width && img[(yy * off.width + x) * 4 + 3] >= 128) x++;
+      // cut long runs into irregular pieces so the scatter looks like junk, not stripes
+      for (let s = start; s < x;) { const len = Math.min(x - s, 10 + rand() * 34); bars.push({ x: s, y, w: len, h: cell, z: .38 + rand() * .62, t: rand() }); s += len; }
+    }
+  }
+
+  // 3. home light: low, top-left. Each piece hangs in front of its shadow by z * s0.
+  P0 = { x: W * .07, y: H * .1 };
+  P = P || { ...P0 };
+  target = { ...P0 };
+}
+
+function draw() {
+  const sx = (C.x - P.x) * K, sy = (C.y - P.y) * K, s0x = (C.x - P0.x) * K, s0y = (C.y - P0.y) * K;
+  ctx.clearRect(0, 0, W, H);
+  // shadows on the wall
+  ctx.fillStyle = "rgba(30,28,25,.92)";
+  ctx.beginPath();
+  for (const b of bars) ctx.rect(b.x + b.z * (sx - s0x) - .3, b.y + b.z * (sy - s0y) - .3, b.w + .6, b.h + .6);
+  ctx.fill();
+  // the pieces, hanging between you and the wall: brass, lit on top, nearer ones brighter
+  for (const b of bars) {
+    const px = b.x - b.z * s0x, py = b.y - b.z * s0y;
+    ctx.fillStyle = `hsl(44 ${78 + b.z * 10}% ${50 + b.z * 10}%)`;
+    ctx.fillRect(px, py, b.w, b.h);
+  }
+  // the sun
+  ctx.beginPath(); ctx.arc(P.x, P.y, 11, 0, Math.PI * 2); ctx.fillStyle = "#F2C230"; ctx.fill();
+  ctx.lineWidth = 1.5; ctx.strokeStyle = "#151515"; ctx.stroke();
+  // page-wide shadows follow the same light
+  const n = Math.hypot(sx, sy) || 1;
+  root.style.setProperty("--sx", (sx / n * 7).toFixed(2)); root.style.setProperty("--sy", (sy / n * 7).toFixed(2));
+}
+
+function loop(now) {
+  // stand still for a moment and the light drifts home, so the name always comes back
+  if (!active || now - lastMove > 1600) target = { ...P0 };
+  P.x += (target.x - P.x) * .09; P.y += (target.y - P.y) * .09;
+  draw();
+  requestAnimationFrame(loop);
+}
+
+function aim(e) { const r = hero.getBoundingClientRect(); target = { x: e.clientX - r.left, y: e.clientY - r.top }; lastMove = performance.now(); active = true; }
+hero.addEventListener("pointermove", e => { if (e.pointerType === "mouse" || e.buttons) aim(e); });
+hero.addEventListener("pointerdown", aim);
+hero.addEventListener("pointerleave", () => { active = false; });
+
+build().then(() => {
+  document.body.classList.add("cast-on");
+  if (reduce) { draw(); document.getElementById("cue").textContent = "Reduced motion: the light stays where the name reads."; }
+  else requestAnimationFrame(loop);
+});
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => build().then(draw), 120); });
+</script>
+</body>
+</html>
