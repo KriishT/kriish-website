@@ -1,0 +1,55 @@
+---
+import Seo from "../components/Seo.astro";
+import CopyEmail from "../components/CopyEmail.astro";
+import { site } from "../data/site";
+import "../styles/base.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  person?: boolean;
+}
+
+const nav = [
+  { label: "Work", href: "/#work" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <Seo {...Astro.props} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="wordmark" href="/" aria-current={path === "/" ? "page" : undefined}>{site.name}</a>
+      <nav aria-label="Primary">
+        <ul>
+          {nav.map((item) => (
+            <li><a href={item.href} aria-current={path === item.href ? "page" : undefined}>{item.label}</a></li>
+          ))}
+          {site.resume && <li><a href={site.resume}>Résumé</a></li>}
+        </ul>
+      </nav>
+    </header>
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>Write to me: <CopyEmail /></p>
+      <ul>
+        {site.links.map((l) => <li><a href={l.href} rel="me">{l.label}</a></li>)}
+        {site.resume && <li><a href={site.resume}>Résumé (PDF)</a></li>}
+      </ul>
+    </footer>
+  </body>
+</html>

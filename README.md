@@ -1,58 +1,36 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
-=======
 # kriish-website
->>>>>>> 7264a1c9c7e24ad57201193e6e05abb5b9fc5bb2
+
+The portfolio of Kriish Tiwari, live at [kriisht.vercel.app](https://kriisht.vercel.app).
+
+A static [Astro](https://astro.build) site. There's no client framework: the little interaction there is runs as small TypeScript modules.
+
+## Run it
+
+```sh
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # static output in dist/
+npm run check    # type-check .astro and .ts files
+```
+
+Node 22.22 or newer.
+
+## Where things live
+
+| Path | What |
+|---|---|
+| `src/content/work/` | One file per project. `flagship: true` gets a case-study page; the rest are listed in the archive. |
+| `src/content/roles.json` | Work and research roles, shown on About. |
+| `src/data/site.ts` | Name, email, links, the homepage statement and education. |
+| `src/components/Edit.astro` | Marks an edit to the copy (old text, new text, margin note). |
+| `src/components/Todo.astro` | A visible gap only Kriish can fill. Search for `<Todo` before launch. |
+| `src/pages/system.astro` | The design system: tokens and primitives (not indexed). |
+| `docs/` | The design audit, concepts, style tiles and screenshots behind this redesign. |
+
+## Résumé
+
+Put the PDF at `public/resume.pdf`. The Résumé links appear across the site only once that file exists.
+
+## Deploy
+
+Vercel builds `main` with `npm run build` and serves `dist/`.

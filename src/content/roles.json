@@ -1,0 +1,78 @@
+[
+  {
+    "id": "esc-lab",
+    "org": "ESC Lab, University at Buffalo",
+    "role": "Software engineering intern, mobile and data systems",
+    "where": "Buffalo, New York",
+    "when": "Jan 2026 to now",
+    "current": true,
+    "points": [
+      "Built ImpairMate from scratch: a nine-game React Native and Firebase research app with offline media capture that syncs when connectivity returns. In testing.",
+      "Combined REDCap, Empatica wearable data and app records into one research dataset covering 40+ participants.",
+      "Extended Sense2Quit, an existing smoking-cessation research app on Google Play, with Firebase-backed watch-gesture capture."
+    ],
+    "tools": ["React Native", "Expo", "Firebase", "Flutter", "Python", "REDCap", "Empatica"],
+    "links": [{ "label": "ESC Lab on LinkedIn", "href": "https://www.linkedin.com/company/embedded-sensing-and-computing-lab" }]
+  },
+  {
+    "id": "studio23labs",
+    "org": "Studio23labs",
+    "role": "Software engineering intern",
+    "where": "Toronto, Canada",
+    "when": "May 2026 to Jul 2026",
+    "current": false,
+    "points": [
+      "Built and shipped, solo, a communications platform for 50+ small and medium-sized businesses on Next.js and Supabase.",
+      "Unified four channels (chat, email, SMS and voice) in one shared real-time inbox with role-based conversation assignment.",
+      "Built configurable website chatbots, Retell AI voice calling and an admin console for automated customer interactions, integrating Twilio and SendGrid."
+    ],
+    "tools": ["Next.js", "Supabase", "WebSockets", "Twilio", "SendGrid", "Retell AI"],
+    "links": [{ "label": "studio23labs.com", "href": "https://studio23labs.com/" }]
+  },
+  {
+    "id": "dart-ux",
+    "org": "DART Collective, University at Buffalo",
+    "role": "UX researcher",
+    "where": "Buffalo, New York",
+    "when": "Jan 2026 to now",
+    "current": true,
+    "points": [
+      "Ran usability research with 60+ older adults on digital-literacy and scam-awareness learning.",
+      "Identified 12 usability issues and turned them into recommendations for the interface."
+    ],
+    "tools": ["Usability testing", "User research", "Research synthesis"],
+    "links": [{ "label": "DART Academy", "href": "https://dartacademy.net/about" }],
+    "work": "dart-academy"
+  },
+  {
+    "id": "dart-frontend",
+    "org": "DART Collective, University at Buffalo",
+    "role": "Frontend engineering intern",
+    "where": "Buffalo, New York",
+    "when": "Sep 2024 to Aug 2025",
+    "current": false,
+    "points": [
+      "Built and shipped React and Next.js learning interfaces for a scam-awareness platform serving 1,000+ older adults.",
+      "Turned UI designs into Tailwind components, and built bulk enrolment with CSV import and validation on Next.js and PostgreSQL.",
+      "Built real-time presenter-note sync between the presentation and speaker-notes views."
+    ],
+    "tools": ["React", "Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Prisma", "NeonDB"],
+    "links": [{ "label": "DART Academy", "href": "https://dartacademy.net/about" }],
+    "work": "dart-academy"
+  },
+  {
+    "id": "project-manager",
+    "org": "University at Buffalo",
+    "role": "Project manager, Software Project Management course",
+    "where": "Buffalo, New York",
+    "when": "Academic project",
+    "current": false,
+    "academic": true,
+    "points": [
+      "Coordinate two five-person teams and track progress against a roadmap with Agile practices.",
+      "Keep the Scrum board and write the progress reports and lessons learned."
+    ],
+    "tools": ["Agile", "Scrum", "Roadmapping"],
+    "links": []
+  }
+]

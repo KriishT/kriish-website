@@ -1,0 +1,49 @@
+/* Foundation only: a readable, unbranded baseline. Each version replaces this with its own system. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  font: 18px/1.5 system-ui, sans-serif;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.skip {
+  position: absolute;
+  left: 8px;
+  top: -100px;
+}
+.skip:focus {
+  top: 8px;
+}
+main:focus {
+  outline: none;
+}
+.site-header,
+.site-footer,
+main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.site-header ul,
+.site-footer ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+.todo {
+  border: 2px dashed currentColor;
+  padding: 0.5rem 0.75rem;
+  margin: 1rem 0;
+}

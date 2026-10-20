@@ -1,0 +1,23 @@
+---
+import { site } from "../data/site";
+---
+<span class="copy-email">
+  <a href={`mailto:${site.email}`}>{site.email}</a>
+  <button type="button" data-copy={site.email}>Copy</button>
+  <span class="copy-status" role="status" aria-live="polite"></span>
+</span>
+
+<script>
+  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-copy]")) {
+    button.addEventListener("click", async () => {
+      const status = button.nextElementSibling as HTMLElement;
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? "");
+        status.textContent = "Copied";
+      } catch {
+        status.textContent = "Couldn’t copy. Use the address instead.";
+      }
+      setTimeout(() => (status.textContent = ""), 2400);
+    });
+  }
+</script>

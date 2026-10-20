@@ -1,0 +1,53 @@
+---
+title: Trailmap
+summary: "Point it at a repository and it draws the architecture: services, databases and dependencies, with every connection linked to the code it came from."
+was: "Scans codebases into source-linked architecture and dependency graphs that refresh as the code changes."
+wasNote: "Say what someone does with it."
+description: "Case study: Trailmap, a tool that turns a codebase into an architecture graph where every connection links back to its evidence."
+flagship: true
+order: 3
+kind: Developer tool
+role: Design and engineering
+stack: [TypeScript, GitHub webhooks, Supabase]
+links:
+  - { label: GitHub, href: "https://github.com/KriishT/Trailmap-Dev" }
+cover: ../../assets/work/trailmap.webp
+coverAlt: "Trailmap dependency graph generated from a scan of the Trailmap monorepo, showing web and worker services connected to Supabase, Redis and the scanner package"
+---
+
+## The problem
+
+Architecture diagrams go stale the day they’re drawn. Trailmap draws the diagram from the code instead, and redraws it when the code changes.
+
+## My role
+
+<Todo>Solo or with others, the timeline, and who it was for.</Todo>
+
+## The system
+
+- It scans a repository to find its services, databases and external dependencies, and renders them as a graph.
+- Every connection carries the evidence it was inferred from and a confidence level, and links to the files that implement it.
+- It re-scans on pushes to the default branch through GitHub webhooks, so the map stays current.
+- It stores graph snapshots in Supabase and uses them to post dependency-impact summaries on pull requests.
+
+## Decisions and tradeoffs
+
+### Show the evidence, not just the line
+
+<Todo>Why every connection carries its evidence and a confidence level, and what the graph looked like before it did.</Todo>
+
+### Snapshots, so a pull request can see what it changes
+
+<Todo>How the impact summary is worked out, and what a reviewer actually sees.</Todo>
+
+## Craft details
+
+<Todo>One detail you sweated: how low-confidence connections look, how the graph stays readable as it grows, or how a node leads you to the code.</Todo>
+
+## Outcome
+
+<Todo>Real results only: repositories scanned, people using it, or honest qualitative findings.</Todo>
+
+## What I’d do next
+
+<Todo>Your call.</Todo>

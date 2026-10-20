@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import { site, headline, lede } from "../data/site";
+
+const work = (await getCollection("work")).sort((a, b) => a.data.order - b.data.order);
+const flagships = work.filter((w) => w.data.flagship);
+const archive = work.filter((w) => !w.data.flagship);
+---
+<Base person>
+  <section class="hero" aria-labelledby="hero-title">
+    <h1 id="hero-title">{site.name} {headline.now}</h1>
+    <p class="lede">{lede}</p>
+  </section>
+
+  <section id="work" aria-labelledby="work-title">
+    <h2 id="work-title">Work</h2>
+    <ol class="flagships">
+      {flagships.map((w) => (
+        <li>
+          <a href={`/work/${w.id}/`}>
+            {w.data.cover && <Image src={w.data.cover} alt={w.data.coverAlt ?? ""} widths={[480, 800, 1200]} sizes="(min-width: 60rem) 50vw, 100vw" />}
+            <h3>{w.data.title}</h3>
+            <p>{w.data.summary}</p>
+            <span>Read the case study</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+
+    <h3>Also built</h3>
+    <table class="archive">
+      <thead><tr><th scope="col">Project</th><th scope="col">What it is</th><th scope="col">Links</th></tr></thead>
+      <tbody>
+        {archive.map((w) => (
+          <tr>
+            <th scope="row">{w.data.title}</th>
+            <td>{w.data.summary}</td>
+            <td>{w.data.links.map((l) => <a href={l.href}>{l.label}</a>)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+</Base>

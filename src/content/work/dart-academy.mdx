@@ -1,0 +1,69 @@
+---
+title: DART Academy
+summary: "Scam-awareness courses for older adults. I built the learning interfaces as an intern, then came back as a researcher and tested them with 60+ learners."
+was: "A digital-literacy and scam-awareness learning platform for older adults, built with DART Collective."
+wasNote: "Built by whom? Say “I”. And give the number."
+description: "Case study: building scam-awareness courses for older adults at DART Collective, then testing them with 60+ learners."
+flagship: true
+order: 1
+kind: Research and frontend
+role: Frontend engineering intern, then UX researcher
+when: Sep 2024 to now
+team: DART Collective, University at Buffalo
+stack: [React, Next.js 15, Tailwind CSS, shadcn/ui, Prisma, NeonDB]
+links:
+  - { label: DART Academy, href: "https://dartacademy.net/about" }
+cover: ../../assets/work/dart-academy.png
+coverAlt: "DART Academy About page welcoming learners as Digital Agents for Reducing Trickery"
+---
+
+## The problem
+
+Scammers go after older adults with romance, gift-card, IRS and “grandparent” scams, and now with deepfakes and crypto schemes too. DART Academy teaches people to recognise them through short, interactive courses. Its learners are older adults, so the interface can’t lean on the habits most apps take for granted.
+
+## My role
+
+I worked on DART twice, from two sides.
+
+- **Frontend engineering intern, Sep 2024 to Aug 2025.** I built the learning interfaces in React and Next.js, turned the UI designs into Tailwind components, built bulk enrolment, and built real-time presenter-note sync.
+- **UX researcher, Jan 2026 to now.** I ran usability research with 60+ older adults and turned what I found into 12 issues and recommendations.
+
+<Todo>Team size, who designed the screens you implemented, and your constraints: deadlines, accessibility requirements, the devices learners actually used.</Todo>
+
+## Process
+
+<Todo>The moment the direction changed. What did you see in the usability sessions that you didn’t expect, and which of the 12 issues changed the design?</Todo>
+
+## Decisions and tradeoffs
+
+### Enrolling a whole class from a spreadsheet
+
+Administrators enrol groups of learners by importing a CSV, and every row is validated before anything is written.
+
+<Todo>Why a spreadsheet import rather than an invite form? What does a failed row look like to an administrator, and what happens to the valid rows around it?</Todo>
+
+### Sign-in protection that doesn’t punish the people it protects
+
+Repeated failed sign-ins trigger rate limiting, then a CAPTCHA, then a lockout.
+
+<Todo>How you set those thresholds for an audience that mistypes more often, and what a locked-out learner sees.</Todo>
+
+## Craft details
+
+- Course modules for romance, gift-card, IRS, grandparent, password, deepfake and crypto scams.
+- Account, accessibility, privacy and terms pages.
+- An admin dashboard for learner analytics and announcements.
+- Presenter notes that stay in sync between the presentation and the speaker’s view, in real time.
+
+<Todo>One sweated detail with a screenshot: a state, an edge case or an accessibility fix you’re proud of.</Todo>
+
+## Outcome
+
+- The platform serves 1,000+ older adults.
+- Usability research with 60+ learners surfaced 12 issues, each turned into a recommendation.
+
+<Todo>Which recommendations shipped, and what changed after they did. Real results only.</Todo>
+
+## What I’d do next
+
+<Todo>Your call.</Todo>

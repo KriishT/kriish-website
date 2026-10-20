@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Todo from "../components/Todo.astro";
+import { education } from "../data/site";
+
+const roles = await getCollection("roles");
+const work = roles.filter((r) => !r.data.academic);
+const academic = roles.filter((r) => r.data.academic);
+---
+<Base title="About" description="About Kriish Tiwari: work history, research and education.">
+  <article class="about">
+    <h1>About</h1>
+    <p class="lede">I’m a computer science senior at the University at Buffalo, graduating in December 2026. I build web, mobile and desktop software, and I’ve sat on the other side of the screen too, running usability sessions with the people it’s for.</p>
+    <Todo>Two or three sentences only you can write: what you care about in your work, and something specific about you outside it.</Todo>
+
+    <section aria-labelledby="roles-title">
+      <h2 id="roles-title">Where I’ve worked</h2>
+      {work.map((r) => (
+        <article class="role">
+          <h3>{r.data.role}</h3>
+          <p class="meta">{r.data.org}, {r.data.where}. {r.data.when}.</p>
+          <ul>{r.data.points.map((p) => <li>{p}</li>)}</ul>
+          {r.data.work && <p><a href={`/work/${r.data.work}/`}>Read the case study</a></p>}
+        </article>
+      ))}
+      {academic.map((r) => (
+        <article class="role">
+          <h3>{r.data.role}</h3>
+          <p class="meta">{r.data.org}. {r.data.when}.</p>
+          <ul>{r.data.points.map((p) => <li>{p}</li>)}</ul>
+        </article>
+      ))}
+    </section>
+
+    <section aria-labelledby="edu-title">
+      <h2 id="edu-title">Education</h2>
+      {education.map((e) => (
+        <article class="role">
+          <h3>{e.school}</h3>
+          <p class="meta">{e.what}. {e.when}.</p>
+          <p>{e.detail}</p>
+        </article>
+      ))}
+    </section>
+  </article>
+</Base>

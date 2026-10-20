@@ -1,0 +1,61 @@
+---
+title: Tangent
+summary: "A desktop app for catching a thought without leaving what you’re doing. One shortcut opens capture, and the note remembers the window you were in."
+was: "A Windows/macOS productivity app that captures notes alongside your active-window context, then turns them into scheduled follow-ups."
+wasNote: "Lead with the moment it’s for, not the feature list."
+description: "Case study: Tangent, a local-first desktop app for Windows and macOS that captures a thought without breaking your flow."
+flagship: true
+order: 2
+kind: Desktop app
+role: Design and engineering
+stack: [React, TypeScript, Tauri, Rust, SQLite, Whisper]
+links:
+  - { label: Website, href: "https://usetangent.vercel.app/" }
+  - { label: GitHub, href: "https://github.com/KriishT/Tangent" }
+  - { label: Download, href: "https://github.com/KriishT/Tangent/releases/latest" }
+cover: ../../assets/work/tangent.webp
+coverAlt: "Tangent website hero reading “Catch the thought. Keep the flow.” with Download for Windows and Download for Mac buttons"
+---
+
+## The problem
+
+Thoughts arrive at bad times: halfway through a function, a paragraph, a call. Stopping to file one breaks the work; not filing it loses it. Tangent is a local-first desktop app for Windows and macOS built around that moment.
+
+## My role
+
+<Todo>Solo or with others? When you built it, how long it took, and why you started.</Todo>
+
+## The hard interaction: capture without leaving
+
+- A global shortcut opens quick capture over whatever you’re doing. Type, or hold to speak; speech is transcribed on the device with Whisper.
+- Each note saves the app and the window or file you were in, automatically.
+
+<Todo>How capture appears and gets out of the way: focus handling, what happens to the app underneath, and the time from shortcut to typing. A short clip or a sequence of screenshots would carry this section.</Todo>
+
+## Decisions and tradeoffs
+
+### Local-first, no account
+
+Notes live in a local SQLite database, and there is no sign-up. Installers ship through GitHub Releases.
+
+<Todo>What you gave up by having no accounts or sync, and why it was worth it.</Todo>
+
+### Triage by keyboard
+
+Notes move through five buckets (Do Now, Do Soon, Later, Idea and Drop) without touching the mouse.
+
+<Todo>Why five, and which buckets you tried before these.</Todo>
+
+### Dates in plain words
+
+Due dates are typed the way people say them, “tomorrow” or “Friday 3pm”. Follow-ups can go to Google Calendar or to native OS reminders.
+
+## Outcome
+
+Installers for Windows and macOS are public on GitHub Releases.
+
+<Todo>Real usage or feedback only. Any download count must match what GitHub shows.</Todo>
+
+## What I’d do next
+
+<Todo>Your call.</Todo>

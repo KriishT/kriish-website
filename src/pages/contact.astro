@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import CopyEmail from "../components/CopyEmail.astro";
+import Todo from "../components/Todo.astro";
+import { site } from "../data/site";
+---
+<Base title="Contact" description="How to reach Kriish Tiwari: email, LinkedIn, GitHub and résumé.">
+  <article class="contact">
+    <h1>Contact</h1>
+    <p class="lede">Email is the fastest way to reach me.</p>
+    <Todo>Say what you’re looking for and from when (roles, locations, start date).</Todo>
+    <p class="email"><CopyEmail /></p>
+    <ul class="links">
+      {site.links.map((l) => <li><a href={l.href} rel="me">{l.label}</a></li>)}
+      {site.resume ? <li><a href={site.resume}>Résumé (PDF)</a></li> : null}
+    </ul>
+    {!site.resume && <Todo>Add your résumé as <code>public/resume.pdf</code>. The links appear on every page once the file exists.</Todo>}
+  </article>
+</Base>
