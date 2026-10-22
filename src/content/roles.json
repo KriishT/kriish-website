@@ -54,6 +54,10 @@
     ],
     "links": [
       {
+        "label": "Sense2Quit on Google Play",
+        "href": "https://play.google.com/store/apps/details?id=com.theprojectfactory.s2q&hl=en_US"
+      },
+      {
         "label": "ESC Lab on LinkedIn",
         "href": "https://www.linkedin.com/company/embedded-sensing-and-computing-lab"
       }
@@ -121,7 +125,7 @@
     "id": "project-manager",
     "order": 5,
     "org": "University at Buffalo",
-    "role": "Project manager, Software Project Management course",
+    "role": "Project manager",
     "where": "Buffalo, New York",
     "when": "Academic project",
     "current": false,

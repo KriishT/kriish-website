@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Painted from "../components/Painted.astro";
 import CopyEmail from "../components/CopyEmail.astro";
+import Status from "../components/Status.astro";
 import { site, intro, about, lookingFor, education, skills } from "../data/site";
 
 const work = (await getCollection("work")).sort((a, b) => a.data.order - b.data.order);
@@ -126,6 +127,7 @@ const leadership = roles.filter((r) => r.data.academic);
           )}
           <div class="work__text">
             <p class="meta">{w.data.kind}{w.data.when && `. ${w.data.when}`}</p>
+            {w.data.status && <Status label={w.data.status} />}
             <h3 class="work__title"><a href={`/work/${w.id}/`} class="work__link">{w.data.title}</a></h3>
             <p class="work__summary">{w.data.summary}</p>
             <p class="work__more" aria-hidden="true">Read the case study</p>

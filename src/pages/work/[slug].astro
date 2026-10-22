@@ -9,6 +9,7 @@ import Edit from "../../components/Edit.astro";
 import Todo from "../../components/Todo.astro";
 import Figure from "../../components/Figure.astro";
 import Video from "../../components/Video.astro";
+import Status from "../../components/Status.astro";
 
 export async function getStaticPaths() {
   const flagships = (await getCollection("work")).filter((w) => w.data.flagship).sort((a, b) => a.data.order - b.data.order);
@@ -26,6 +27,7 @@ const d = entry.data;
     <header class="case__head frame grid">
       <p class="case__back meta"><a href="/#projects">All projects</a></p>
       <Painted as="h1" top class="case__title">{d.title}</Painted>
+      {d.status && <div class="case__status"><Status label={d.status} /></div>}
       <p class="case__summary">{d.summary}</p>
     </header>
 
@@ -66,6 +68,9 @@ const d = entry.data;
   }
   .case__back,
   .case__title {
+    grid-column: 1 / -1;
+  }
+  .case__status {
     grid-column: 1 / -1;
   }
   .case__summary {

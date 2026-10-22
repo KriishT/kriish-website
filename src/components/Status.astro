@@ -1,0 +1,57 @@
+---
+// A small badge for a project that is still being built. The two rings echo the site's
+// signature: they drift apart and line up again, and stay lined up under reduced motion.
+interface Props {
+  label: string;
+}
+const { label } = Astro.props;
+---
+<span class="status"><span class="status__rings" aria-hidden="true"></span>{label}</span>
+
+<style>
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    width: fit-content;
+    padding: 0.2em 0.8em 0.2em 0.55em;
+    border: 1.5px solid var(--paint);
+    color: var(--paint);
+    font-family: var(--display);
+    font-size: var(--step--1);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .status__rings {
+    position: relative;
+    width: 0.9em;
+    height: 0.9em;
+    flex: none;
+  }
+  .status__rings::before,
+  .status__rings::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--paint);
+    border-radius: 50%;
+    animation: drift 3.6s var(--ease-paint) infinite alternate;
+  }
+  .status__rings::after {
+    animation-name: drift-back;
+  }
+  @keyframes drift {
+    from { transform: translateX(-0.22em); }
+    to { transform: translateX(0); }
+  }
+  @keyframes drift-back {
+    from { transform: translateX(0.22em); }
+    to { transform: translateX(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .status__rings::before,
+    .status__rings::after {
+      animation: none;
+    }
+  }
+</style>

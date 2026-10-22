@@ -29,16 +29,16 @@ Thoughts arrive at bad times: halfway through a function, a paragraph, a call. S
 
 ## My role
 
-<Todo>Solo or with others? When you built it, how long it took, and why you started.</Todo>
+I built Tangent on my own. It took about a month to build, test and keep improving. A good part of that went into the Mac build: Apple flags apps that aren’t from a verified developer, and I haven’t paid for the $99-a-year Apple developer account, so I had to work out how to get people past those security warnings.
 
 ## The hard interaction: capture without leaving
 
 - A global shortcut opens quick capture over whatever you’re doing. Type, or hold to speak; speech is transcribed on the device with Whisper.
 - Each note saves the app and the window or file you were in, automatically.
 
-<Figure src={capture} alt="Tangent’s website demo: a capture bar reading “check if the retry logic”, tagged voice, floating over code in VS Code" caption="From Tangent’s site: a spoken thought caught over the code it’s about, without leaving the editor." />
+You press the shortcut and it’s done. There’s no switching tabs and no reaching for your phone, and the thought is stored in the app. Notifications bring it back later, when you can deal with it.
 
-<Todo>How capture appears and gets out of the way: focus handling, what happens to the app underneath, and the time from shortcut to typing.</Todo>
+<Figure src={capture} alt="Tangent’s website demo: a capture bar reading “check if the retry logic”, tagged voice, floating over code in VS Code" caption="From Tangent’s site: a spoken thought caught over the code it’s about, without leaving the editor." />
 
 ## Decisions and tradeoffs
 
@@ -48,13 +48,13 @@ Notes live in a local SQLite database, and there is no sign-up. Installers ship 
 
 <Figure src={privacy} alt="Tangent’s privacy section: no account, no telemetry; your data in a plain SQLite file; optional on-device voice with Whisper; work-context capture you can switch off or limit per app" caption="Local-first, as Tangent’s site promises it: no account, no telemetry, and a plain SQLite file you own." />
 
-<Todo>What you gave up by having no accounts or sync, and why it was worth it.</Todo>
+I didn’t give up anything I needed. Tangent is version 1 and I’m not planning to charge for it, so keeping everything on the device is the simplest way to keep it safe and earn people’s trust.
 
 ### Triage by keyboard
 
 Notes move through five buckets (Do Now, Do Soon, Later, Idea and Drop) without touching the mouse.
 
-<Todo>Why five, and which buckets you tried before these.</Todo>
+At first I merged Do Now and Do Soon into a single bucket. Users told me the difference mattered, so I split them in two.
 
 ### Dates in plain words
 
@@ -62,10 +62,12 @@ Due dates are typed the way people say them, “tomorrow” or “Friday 3pm”.
 
 ## Outcome
 
-Installers for Windows and macOS are public on GitHub Releases.
-
-<Todo>Real usage or feedback only. Any download count must match what GitHub shows.</Todo>
+- Installers for Windows and macOS are public on GitHub Releases.
+- GitHub’s raw download count across all releases is 150, as of October 2026. That includes the files the app fetches to check for updates; the installers themselves account for 51 of them.
+- People have given good feedback on how easy Tangent is to use and how easy the Windows download is. The Mac setup still needs to be easier.
 
 ## What I’d do next
 
-<Todo>Your call.</Todo>
+- **An anchor on screen.** A small element that stays visible, so that seeing it reminds you to capture a thought.
+- **Easier Mac setup.** Smoothing the path past Apple’s security warnings.
+- **Making it more robust**, as more people use it.

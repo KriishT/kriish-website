@@ -16,6 +16,8 @@ const work = defineCollection({
       wasNote: z.string().optional(),
       description: z.string(),
       flagship: z.boolean(),
+      // shown as a badge on the project, e.g. "Currently building"
+      status: z.string().optional(),
       order: z.number(),
       kind: z.string(),
       role: z.string(),

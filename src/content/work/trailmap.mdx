@@ -1,53 +1,56 @@
 ---
 title: Trailmap
-summary: "Point it at a repository and it draws the architecture: services, databases and dependencies, with every connection linked to the code it came from."
+summary: "Reads your repositories and draws the architecture diagrams that security and compliance reviews ask for, with the file and line behind every box and arrow."
 was: "Scans codebases into source-linked architecture and dependency graphs that refresh as the code changes."
 wasNote: "Say what someone does with it."
-description: "Case study: Trailmap, a tool that turns a codebase into an architecture graph where every connection links back to its evidence."
+description: "Case study: Trailmap, a tool being built to draw architecture and data-flow diagrams from code, with the evidence behind every connection."
 flagship: true
+status: Currently building
 order: 3
 kind: Personal project, developer tool
-role: Design and engineering
-stack: [TypeScript, GitHub webhooks, Supabase]
+role: Solo, design and engineering
+when: Apr 2026 to now
+stack: [TypeScript, Next.js, React, Supabase, GitHub App webhooks, MCP]
 links:
   - { label: GitHub, href: "https://github.com/KriishT/Trailmap-Dev" }
-cover: ../../assets/work/trailmap.webp
-coverAlt: "Trailmap dependency graph generated from a scan of the Trailmap monorepo, showing web and worker services connected to Supabase, Redis and the scanner package"
+cover: ../../assets/work/trailmap-sheet.png
+coverAlt: "A Trailmap system sheet drawn on survey-sheet paper: services, databases and vendors as boxes joined by solid, dashed and dotted lines, with a title block along the bottom"
 ---
 
 ## The problem
 
-Architecture diagrams go stale the day they’re drawn. Trailmap draws the diagram from the code instead, and redraws it when the code changes.
+Security and compliance reviews (PCI DSS, SOC 2, DORA) ask for diagrams of how a system is put together and where regulated data moves. Teams draw them by hand, and they are out of date almost immediately. Trailmap draws them from the code instead.
+
+## Where it stands
+
+Trailmap is still being built. I started it in April 2026 and I’m still working on it. There’s no hosted version yet, but the whole product runs on a laptop with no accounts: an embedded database and a mocked GitHub stand in for the real ones.
 
 ## My role
 
-<Todo>Solo or with others, the timeline, and who it was for.</Todo>
+I’m building it on my own, from the design to the scanner to the web app.
 
-## The system
+## What it does
 
-- It scans a repository to find its services, databases and external dependencies, and renders them as a graph.
-- Every connection carries the evidence it was inferred from and a confidence level, and links to the files that implement it.
-- It re-scans on pushes to the default branch through GitHub webhooks, so the map stays current.
-- It stores graph snapshots in Supabase and uses them to post dependency-impact summaries on pull requests.
+- **Three sheets.** System architecture, data flow, and network exposure, drawn on survey-sheet paper with a title block that carries the commit, the date and a hash of the data.
+- **Evidence behind every line.** Select any box or arrow and you see the code that proves it.
+- **Drift checks on pull requests.** A check and one comment on each pull request say when a change adds a vendor, exposes a datastore or moves regulated data across a scope boundary.
+- **Revisions and export.** Every scan is a revision (Rev A, B, C), and a sheet exports as PDF, SVG, JSON or CSV.
+- **Where you already work.** A command line, a GitHub Action and an MCP server for coding agents.
 
 ## Decisions and tradeoffs
 
-### Show the evidence, not just the line
+### Show the evidence, and how sure it is
 
-<Todo>Why every connection carries its evidence and a confidence level, and what the graph looked like before it did.</Todo>
+A diagram you can’t check is just a claim. So every connection links to the code it was inferred from, and the line style shows how confident the scanner is: solid, dashed or dotted. A question mark means “possible, not confirmed in code”.
 
-### Snapshots, so a pull request can see what it changes
+### Support an assessment, don’t certify anything
 
-<Todo>How the impact summary is worked out, and what a reviewer actually sees.</Todo>
+Trailmap makes no claim that anyone is compliant. The notes in every export say what a person still has to verify, because code can’t show who has access or whether a policy is followed.
 
-## Craft details
+### Run locally first
 
-<Todo>One detail you sweated: how low-confidence connections look, how the graph stays readable as it grows, or how a node leads you to the code.</Todo>
+The scanner runs on your machine, and nothing is uploaded unless you ask for it. That keeps a codebase’s architecture private until its owner chooses to share it.
 
-## Outcome
+## What’s next
 
-<Todo>Real results only: repositories scanned, people using it, or honest qualitative findings.</Todo>
-
-## What I’d do next
-
-<Todo>Your call.</Todo>
+The scanner can’t resolve everything: URLs built at runtime, service discovery through a registry and generated code stay out of reach. Those connections show up dashed or dotted, so a person can confirm, hide or add them. Making that review fast is the next thing to get right.
