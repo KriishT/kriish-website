@@ -165,8 +165,13 @@ const leadership = roles.filter((r) => r.data.academic);
 
 <style>
   /* ---------- hero ---------- */
+  /* every section fills the screen, so each one is a page of its own */
   .hero {
-    padding-top: var(--s-8);
+    min-height: calc(100svh - 4.5rem);
+    padding-top: var(--s-6);
+    padding-bottom: var(--s-8);
+    display: flex;
+    flex-direction: column;
   }
   .hero__who {
     margin-top: var(--s-6);
@@ -180,8 +185,8 @@ const leadership = roles.filter((r) => r.data.academic);
   }
   .pillars {
     list-style: none;
-    margin: var(--s-8) 0 0;
-    padding: 0;
+    margin: auto 0 0;
+    padding: var(--s-7) 0 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--s-6) var(--gutter);
@@ -209,7 +214,8 @@ const leadership = roles.filter((r) => r.data.academic);
 
   /* ---------- shared section parts ---------- */
   .section {
-    margin-top: var(--s-11);
+    min-height: 100svh;
+    padding-block: var(--s-9);
   }
   .sub {
     margin-top: var(--s-9);
@@ -480,6 +486,13 @@ const leadership = roles.filter((r) => r.data.academic);
   }
 
   /* ---------- contact ---------- */
+  /* Contact and the footer together fill the last screen */
+  #contact {
+    min-height: calc(100svh - 7rem);
+  }
+  :global(.site-footer) {
+    margin-top: 0;
+  }
   .contact {
     margin-top: var(--s-6);
     display: grid;

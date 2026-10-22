@@ -11,7 +11,23 @@ html {
   text-size-adjust: 100%;
   background: var(--wall);
   color: var(--ink);
-  scroll-padding-top: var(--s-6);
+  scroll-padding-top: 0;
+}
+/* on big screens the whole design scales up, so it never looks small and lost */
+@media (min-width: 1700px) {
+  html {
+    font-size: 112.5%;
+  }
+}
+@media (min-width: 2300px) {
+  html {
+    font-size: 150%;
+  }
+}
+@media (min-width: 3000px) {
+  html {
+    font-size: 190%;
+  }
 }
 body {
   margin: 0;

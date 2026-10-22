@@ -18,6 +18,7 @@ interface Heading {
   el: HTMLElement;
   planes: HTMLElement[];
   top: boolean;
+  section: HTMLElement | null;
 }
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)");
@@ -25,7 +26,7 @@ const ease = (t: number) => 1 - Math.pow(1 - t, 3);
 
 const headings: Heading[] = [...document.querySelectorAll<HTMLElement>("[data-painted]:not([data-lost])")]
   .filter((el) => !el.closest("[data-static]"))
-  .map((el) => ({ el, planes: [...el.querySelectorAll<HTMLElement>(".painted__plane")], top: el.hasAttribute("data-top") }));
+  .map((el) => ({ el, planes: [...el.querySelectorAll<HTMLElement>(".painted__plane")], top: el.hasAttribute("data-top"), section: el.closest<HTMLElement>("section[id]") }));
 
 let pointer = { x: 0, y: 0 };
 let settled = { x: 0, y: 0 };
@@ -51,18 +52,25 @@ function frame(now: number) {
   const arrival = Math.max(0, 1 - ease(Math.min(1, (now - start) / ARRIVAL_MS))) * ARRIVAL_PX;
   settled.x += (pointer.x - settled.x) * POINTER_DECAY;
   settled.y += (pointer.y - settled.y) * POINTER_DECAY;
-  const vx = Math.max(-260, Math.min(260, pointer.x - settled.x));
-  const vy = Math.max(-260, Math.min(260, pointer.y - settled.y));
+  const vx = Math.max(-110, Math.min(110, pointer.x - settled.x));
+  const vy = Math.max(-110, Math.min(110, pointer.y - settled.y));
   const moving = arrival > 0.5 || Math.abs(vx) > 0.5 || Math.abs(vy) > 0.5;
 
   const maxScroll = document.documentElement.scrollHeight - innerHeight;
   for (const h of headings) {
     const r = h.el.getBoundingClientRect();
     if (r.bottom < -MAX_OFFSET || r.top > innerHeight + MAX_OFFSET) continue;
-    // a heading near the end of the page may never scroll up to the line, so it
-    // aligns where it will sit once the page can't scroll any further
-    const topAtEnd = r.top - Math.max(0, maxScroll - scrollY);
-    let d = h.top ? scrollY + arrival : r.top - Math.max(innerHeight * LINE, topAtEnd);
+    let d: number;
+    if (h.top) {
+      d = scrollY + arrival;
+    } else {
+      // a heading in a full-screen section lines up when its section reaches the top of the
+      // screen; any other heading lines up 18% down. Near the end of a page, where that
+      // can't be reached, it lines up where it rests at maximum scroll.
+      const ref = h.section ? h.section.getBoundingClientRect().top : r.top;
+      const target = h.section ? 0 : innerHeight * LINE;
+      d = ref - Math.max(target, ref - Math.max(0, maxScroll - scrollY));
+    }
     d = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, d));
     // the pointer only disturbs a page title while you're near it
     const near = h.top && pointer.y < r.bottom + 120;
