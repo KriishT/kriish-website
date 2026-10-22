@@ -8,16 +8,17 @@ import { site } from "../data/site";
 <Base title="Contact" description="How to reach Kriish Tiwari: email, LinkedIn, GitHub and résumé.">
   <article class="contact frame grid">
     <Painted as="h1" top class="span-all">Contact</Painted>
-    <p class="lede contact__lede">Email is the fastest way to reach me.</p>
+    <p class="lede contact__lede">I’m looking for design roles (product designer, design engineer, creative technologist) and software engineering roles, starting after I graduate in December 2026. Email is the fastest way to reach me.</p>
     <p class="contact__email"><CopyEmail /></p>
     <ul class="contact__links">
       {site.links.map((l) => <li><a href={l.href} rel="me">{l.label}</a></li>)}
       {site.resume ? <li><a href={site.resume}>Résumé (PDF)</a></li> : null}
     </ul>
-    <div class="contact__todo">
-      <Todo>Say what you’re looking for and from when (roles, locations, start date).</Todo>
-      {!site.resume && <Todo>Add your résumé as <code>public/resume.pdf</code>. The links appear on every page once the file exists.</Todo>}
-    </div>
+    {!site.resume && (
+      <div class="contact__todo">
+        <Todo>Add your résumé as <code>public/resume.pdf</code>. The links appear on every page once the file exists.</Todo>
+      </div>
+    )}
   </article>
 </Base>
 

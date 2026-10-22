@@ -31,6 +31,7 @@ const work = defineCollection({
 const roles = defineCollection({
   loader: file("./src/content/roles.json"),
   schema: z.object({
+    order: z.number(),
     org: z.string(),
     role: z.string(),
     where: z.string(),

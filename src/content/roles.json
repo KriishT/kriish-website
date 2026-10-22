@@ -1,21 +1,7 @@
 [
   {
-    "id": "esc-lab",
-    "org": "ESC Lab, University at Buffalo",
-    "role": "Software engineering intern, mobile and data systems",
-    "where": "Buffalo, New York",
-    "when": "Jan 2026 to now",
-    "current": true,
-    "points": [
-      "Built ImpairMate from scratch: a nine-game React Native and Firebase research app with offline media capture that syncs when connectivity returns. In testing.",
-      "Combined REDCap, Empatica wearable data and app records into one research dataset covering 40+ participants.",
-      "Extended Sense2Quit, an existing smoking-cessation research app on Google Play, with Firebase-backed watch-gesture capture."
-    ],
-    "tools": ["React Native", "Expo", "Firebase", "Flutter", "Python", "REDCap", "Empatica"],
-    "links": [{ "label": "ESC Lab on LinkedIn", "href": "https://www.linkedin.com/company/embedded-sensing-and-computing-lab" }]
-  },
-  {
     "id": "studio23labs",
+    "order": 1,
     "org": "Studio23labs",
     "role": "Software engineering intern",
     "where": "Toronto, Canada",
@@ -30,7 +16,24 @@
     "links": [{ "label": "studio23labs.com", "href": "https://studio23labs.com/" }]
   },
   {
+    "id": "esc-lab",
+    "order": 2,
+    "org": "ESC Lab, University at Buffalo",
+    "role": "Software engineering intern, mobile and data systems",
+    "where": "Buffalo, New York",
+    "when": "Jan 2026 to now",
+    "current": true,
+    "points": [
+      "Built ImpairMate from scratch: a nine-game React Native and Firebase research app with offline media capture that syncs on reconnect for cloud ML processing. In testing.",
+      "Combined REDCap, Empatica wearable data and app records into one research dataset covering 40+ participants.",
+      "Extended Sense2Quit, an existing smoking-cessation research app on Google Play, with Firebase-backed watch-gesture capture that collects labelled recordings for its model."
+    ],
+    "tools": ["React Native", "Expo", "Firebase", "Flutter", "Python", "REDCap", "Empatica"],
+    "links": [{ "label": "ESC Lab on LinkedIn", "href": "https://www.linkedin.com/company/embedded-sensing-and-computing-lab" }]
+  },
+  {
     "id": "dart-ux",
+    "order": 3,
     "org": "DART Collective, University at Buffalo",
     "role": "UX researcher",
     "where": "Buffalo, New York",
@@ -46,14 +49,15 @@
   },
   {
     "id": "dart-frontend",
+    "order": 4,
     "org": "DART Collective, University at Buffalo",
     "role": "Frontend engineering intern",
     "where": "Buffalo, New York",
     "when": "Sep 2024 to Aug 2025",
     "current": false,
     "points": [
-      "Built and shipped React and Next.js learning interfaces for a scam-awareness platform serving 1,000+ older adults.",
-      "Turned UI designs into Tailwind components, and built bulk enrolment with CSV import and validation on Next.js and PostgreSQL.",
+      "Built and shipped React and Next.js learning interfaces for a scam-awareness platform serving 1,000+ older adults, turning UI designs into production Tailwind components.",
+      "Automated bulk enrolment on Next.js and PostgreSQL: CSV import with real-time validation.",
       "Built real-time presenter-note sync between the presentation and speaker-notes views."
     ],
     "tools": ["React", "Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Prisma", "NeonDB"],
@@ -62,6 +66,7 @@
   },
   {
     "id": "project-manager",
+    "order": 5,
     "org": "University at Buffalo",
     "role": "Project manager, Software Project Management course",
     "where": "Buffalo, New York",

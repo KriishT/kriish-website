@@ -55,10 +55,14 @@ function frame(now: number) {
   const vy = Math.max(-260, Math.min(260, pointer.y - settled.y));
   const moving = arrival > 0.5 || Math.abs(vx) > 0.5 || Math.abs(vy) > 0.5;
 
+  const maxScroll = document.documentElement.scrollHeight - innerHeight;
   for (const h of headings) {
     const r = h.el.getBoundingClientRect();
     if (r.bottom < -MAX_OFFSET || r.top > innerHeight + MAX_OFFSET) continue;
-    let d = h.top ? scrollY + arrival : r.top - innerHeight * LINE;
+    // a heading near the end of the page may never scroll up to the line, so it
+    // aligns where it will sit once the page can't scroll any further
+    const topAtEnd = r.top - Math.max(0, maxScroll - scrollY);
+    let d = h.top ? scrollY + arrival : r.top - Math.max(innerHeight * LINE, topAtEnd);
     d = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, d));
     // the pointer only disturbs a page title while you're near it
     const near = h.top && pointer.y < r.bottom + 120;

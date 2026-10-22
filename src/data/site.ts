@@ -34,9 +34,10 @@ export const lede = "Computer science at the University at Buffalo, graduating D
 export const education = [
   {
     school: "University at Buffalo",
-    what: "B.S. in Computer Science and Engineering",
+    what: "B.S. in Computer Science, GPA 3.82",
     when: "Aug 2023 to Dec 2026 (expected)",
-    detail: "Software project management, AI, web development, systems programming, algorithms, data structures, computer organization.",
+    detail: "Software project management, data models and SQL, algorithms for modern compute systems, systems programming, computer architecture, algorithms and complexity.",
+    honours: "Two-time hackathon winner. Grace Capen Scholar. Dean’s List, 2023 to 2026.",
   },
   {
     school: "Gravity",
@@ -44,4 +45,12 @@ export const education = [
     when: "2021 to 2023",
     detail: "Physics, chemistry, linear algebra and mathematics.",
   },
+];
+
+export const skills = [
+  { group: "Languages", items: "JavaScript, TypeScript, Python, Java, C" },
+  { group: "Frontend and mobile", items: "React, Next.js, React Native, Flutter, Tailwind CSS, HTML and CSS, shadcn/ui" },
+  { group: "Backend and data", items: "Node.js, Express, REST APIs, WebSockets, PostgreSQL, MongoDB, Firebase, Supabase" },
+  { group: "Tools", items: "Git and GitHub, Vercel, Docker, Figma, Stripe, Clerk, Inngest, OpenAI and Anthropic APIs" },
+  { group: "Ways of working", items: "Usability research, Agile and Scrum" },
 ];

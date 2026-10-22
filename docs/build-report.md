@@ -96,14 +96,34 @@ Other checks:
 6. **Static font weights.** A rendering bug in one engine was a better reason than file size to give up the variable file.
 7. **Never invent.** Case-study gaps are visible `TODO(kriish)` boxes. All numbers are the confirmed ones (1,000+, 60+, 12, 50+, 40+, nine games).
 
+## After the choice (2026-10-21)
+
+Kriish chose this version and supplied the SWE résumé (`Kriish_Tiwari_Resume_SWE.pdf`).
+
+- **Résumé:** published as `public/resume.pdf`, so the Résumé links now appear in the nav, the footer and on Contact.
+- **Education:** GPA 3.82, awards (two-time hackathon winner, Grace Capen Scholar, Dean’s List 2023 to 2026) and the résumé’s coursework. The degree now reads “B.S. in Computer Science”, as on the résumé.
+- **Skills:** a plain-text list on About, grouped as on the résumé.
+- **Roles:** shown in the résumé’s order, with an explicit `order` field, because the file loader sorts by id. Two verifiable details were added: ImpairMate syncs for cloud ML processing, and DART’s CSV import validates in real time.
+- **Contact:** says what you’re looking for (from the brief): design roles and software engineering roles, after graduating in December 2026.
+- **Fix:** headings near the end of a page couldn’t scroll up to the alignment line, so they never resolved (the home page’s “Contact”, the next-case-study title). They now align where they sit at maximum scroll. Verified at 1440, 768 and 390.
+
+**Kept off the site, as decided on 2026-10-20:** the résumé-only metrics.
+
+- 30,000+ monthly conversations and a 40% assignment-time cut (Studio23labs)
+- 50% dataset-prep time and 5,000+ recordings (ESC Lab)
+- 85% administration time and “rollback” (DART); the enrolment code has no rollback
+- 100+ downloads (Tangent); GitHub Releases showed 46 installer downloads
+- A 60% faster capture (Tangent); there’s no benchmark
+
+**Not added:** the phone number. It’s in the published PDF, but not in the page itself.
+
 ## Open items
 
-- `TODO(kriish)` in the case studies:
+- `TODO(kriish)` in the case studies. The résumé doesn’t answer these, because they ask for reasoning, not results:
   - DART: 7 (team and constraints, the turning point, CSV, sign-in thresholds, a sweated detail, what shipped, next).
   - Tangent: 6.
   - Trailmap: 6.
-- About: two or three sentences about you. Contact: what you're looking for and from when.
-- `public/resume.pdf`.
+- About: two or three sentences about you.
 - Approve or rewrite every sentence I drafted, especially "then tests it with the people who use it", which generalises from the DART research.
 - Confirm the flagships (DART, Tangent, Trailmap), and whether LOOPHOLE belongs in the archive.
 - Approve §8: the large scroll-linked motion.

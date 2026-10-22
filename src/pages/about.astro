@@ -3,9 +3,10 @@ import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Painted from "../components/Painted.astro";
 import Todo from "../components/Todo.astro";
-import { education } from "../data/site";
+import { education, skills } from "../data/site";
 
-const roles = await getCollection("roles");
+// the file loader returns entries by id, so order them explicitly (the résumé's order)
+const roles = (await getCollection("roles")).sort((a, b) => a.data.order - b.data.order);
 const work = roles.filter((r) => !r.data.academic);
 const academic = roles.filter((r) => r.data.academic);
 ---
@@ -47,10 +48,25 @@ const academic = roles.filter((r) => r.data.academic);
               <p class="meta">{e.what}</p>
               <p class="meta">{e.when}</p>
             </div>
-            <div class="role__what"><p>{e.detail}</p></div>
+            <div class="role__what">
+              <p>{e.detail}</p>
+              {e.honours && <p class="role__honours">{e.honours}</p>}
+            </div>
           </li>
         ))}
       </ol>
+    </section>
+
+    <section class="frame about__section" aria-labelledby="skills-title">
+      <h2 id="skills-title" class="about__h2">What I work with</h2>
+      <dl class="skills">
+        {skills.map((s) => (
+          <div class="skills__row grid">
+            <dt>{s.group}</dt>
+            <dd>{s.items}</dd>
+          </div>
+        ))}
+      </dl>
     </section>
   </article>
 </Base>
@@ -121,11 +137,34 @@ const academic = roles.filter((r) => r.data.academic);
     font-family: var(--display);
     font-weight: 600;
   }
+  .role__honours {
+    margin-top: var(--s-3);
+    color: var(--shade);
+  }
+  .skills {
+    margin: var(--s-6) 0 0;
+    border-top: var(--border);
+  }
+  .skills__row {
+    padding-block: var(--s-4);
+    border-bottom: var(--border);
+  }
+  .skills dt {
+    grid-column: 1 / span 4;
+    font-family: var(--display);
+    font-weight: 700;
+  }
+  .skills dd {
+    grid-column: 6 / -1;
+    margin: 0;
+  }
   @media (max-width: 52rem) {
     .about__lede,
     .about__todo,
     .role__who,
-    .role__what {
+    .role__what,
+    .skills dt,
+    .skills dd {
       grid-column: 1 / -1;
     }
   }
