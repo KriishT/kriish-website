@@ -17,6 +17,8 @@ cover: ../../assets/work/dart-academy.png
 coverAlt: "DART Academy About page welcoming learners as Digital Agents for Reducing Trickery"
 ---
 
+import browse from "../../assets/work/dart-browse.png";
+
 ## The problem
 
 Scammers go after older adults with romance, gift-card, IRS and “grandparent” scams, and now with deepfakes and crypto schemes too. DART Academy teaches people to recognise them through short, interactive courses. Its learners are older adults, so the interface can’t lean on the habits most apps take for granted.
@@ -25,14 +27,22 @@ Scammers go after older adults with romance, gift-card, IRS and “grandparent�
 
 I worked on DART twice, from two sides.
 
-- **Frontend engineering intern, Sep 2024 to Aug 2025.** I built the learning interfaces in React and Next.js, turned the UI designs into Tailwind components, built bulk enrolment, and built real-time presenter-note sync.
-- **UX researcher, Jan 2026 to now.** I ran usability research with 60+ older adults and turned what I found into 12 issues and recommendations.
+- **Frontend engineering intern, Sep 2024 to Aug 2025.** I built the learning interfaces in React and Next.js, built bulk enrolment, and built real-time presenter-note sync.
+- **UX researcher, Jan 2026 to now.** I ran usability research with older adults and turned what I found into 12 issues and recommendations.
 
-<Todo>Team size, who designed the screens you implemented, and your constraints: deadlines, accessibility requirements, the devices learners actually used.</Todo>
+The team was two people. I designed the screens and I built them. We met every week, and each meeting was a deadline.
 
 ## Process
 
-<Todo>The moment the direction changed. What did you see in the usability sessions that you didn’t expect, and which of the 12 issues changed the design?</Todo>
+Our learners aren’t tech savvy, so most of the work went into making the site very easy to use: clear, familiar screens that don’t assume anyone has used an app like this before. The weekly meetings kept the work honest. Each week there was something to show, and we judged it by whether an older learner could use it without help.
+
+## The browse page
+
+I designed the browse page, where learners choose what to learn, on my own.
+
+<Figure src={browse} alt="DART Academy’s browse page: a grid of course cards, each with a picture, a Level 1, 2 or 3 tag, the number of chapters or questions, and about how long it takes, with a search box and a sort control above" caption="The browse page. Every course says its level, its length and how long it takes before anyone opens it." />
+
+It’s one grid of courses. Each card shows a picture, a level tag (1 for lessons, 2 for practice, 3 for evaluations), how many chapters or questions it has and roughly how long it will take. Someone can see what a course asks of them before they start.
 
 ## Decisions and tradeoffs
 
@@ -40,13 +50,7 @@ I worked on DART twice, from two sides.
 
 Administrators enrol groups of learners by importing a CSV, and every row is validated in real time before anything is written.
 
-<Todo>Why a spreadsheet import rather than an invite form? What does a failed row look like to an administrator, and what happens to the valid rows around it?</Todo>
-
-### Sign-in protection that doesn’t punish the people it protects
-
-Repeated failed sign-ins trigger rate limiting, then a CAPTCHA, then a lockout.
-
-<Todo>How you set those thresholds for an audience that mistypes more often, and what a locked-out learner sees.</Todo>
+I chose a spreadsheet over an invite form because administrators usually already have their learners listed in one. A class of thirty is one upload, where a form means thirty trips through the same screen. Checking each row as it’s read means a typo is flagged before anything is saved, so the administrator fixes it rather than finding it later.
 
 ## Craft details
 
@@ -55,15 +59,7 @@ Repeated failed sign-ins trigger rate limiting, then a CAPTCHA, then a lockout.
 - An admin dashboard for learner analytics and announcements.
 - Presenter notes that stay in sync between the presentation and the speaker’s view, in real time.
 
-<Todo>One sweated detail with a screenshot: a state, an edge case or an accessibility fix you’re proud of.</Todo>
-
 ## Outcome
 
 - The platform serves 1,000+ older adults.
-- Usability research with 60+ learners surfaced 12 issues, each turned into a recommendation.
-
-<Todo>Which recommendations shipped, and what changed after they did. Real results only.</Todo>
-
-## What I’d do next
-
-<Todo>Your call.</Todo>
+- Usability research with 60+ older adults surfaced 12 issues, each turned into a recommendation.
