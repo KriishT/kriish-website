@@ -16,18 +16,21 @@ const jobs = roles.filter((r) => !r.data.academic);
 const leadership = roles.filter((r) => r.data.academic);
 ---
 <Base person>
-  <!-- who: the first screen is about what Kriish does; school is a side note -->
-  <section class="hero frame grid" aria-label="Introduction">
-    <Painted as="h1" size="xl" top class="hero__name">Kriish <br />Tiwari</Painted>
-    <p class="hero__verbs">{intro.verbs.map((v) => <span>{v}.</span>)}</p>
+  <!-- who Kriish is and what Kriish does -->
+  <section class="hero frame" aria-label="Introduction">
+    <Painted as="h1" size="xl" top>Kriish <br />Tiwari</Painted>
     <p class="hero__who">{intro.who}</p>
-    <aside class="hero__aside" aria-label="Side note">
-      <p class="hero__note">{intro.note}</p>
-      <p class="hero__hint">Every heading here is painted across four depths and reads from one point only. Scroll, and it comes apart.</p>
-    </aside>
+    <ul class="pillars" aria-label="What I do">
+      {intro.pillars.map((p) => (
+        <li class="pillar">
+          <span class="pillar__verb">{p.verb}.</span>
+          <span class="pillar__what">{p.what}</span>
+        </li>
+      ))}
+    </ul>
   </section>
 
-  <!-- about: who, then the facts (education), then the tools -->
+  <!-- about: in Kriish's own words, then education, then the toolkit -->
   <section id="about" class="section frame" aria-labelledby="about-title">
     <Painted id="about-title">About</Painted>
     <div class="about grid">
@@ -48,20 +51,71 @@ const leadership = roles.filter((r) => r.data.academic);
         </ol>
       </div>
     </div>
-    <h3 class="sub">What I work with</h3>
-    <dl class="rows">
-      {skills.map((s) => (
-        <div class="rows__row grid">
-          <dt>{s.group}</dt>
-          <dd>{s.items}</dd>
-        </div>
-      ))}
-    </dl>
+    <div class="toolkit">
+      <h3 class="label">Toolkit</h3>
+      <div class="toolkit__groups">
+        {skills.map((s) => (
+          <div class="toolkit__group">
+            <h4>{s.group}</h4>
+            <ul>{s.items.map((i) => <li>{i}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
   </section>
 
-  <!-- work: three case studies, then everything else -->
-  <section id="work" class="section frame" aria-labelledby="work-title">
-    <Painted id="work-title">Work</Painted>
+  <!-- experience: roles, then leadership. Text-led, with each organisation's mark -->
+  <section id="experience" class="section frame" aria-labelledby="experience-title">
+    <Painted id="experience-title">Experience</Painted>
+    <ol class="roles">
+      {jobs.map((r) => (
+        <li class="role grid">
+          <div class="role__who">
+            {r.data.logo && <Image class="role__logo" src={r.data.logo} alt="" width={56} height={56} />}
+            <h3>{r.data.role}</h3>
+            <p class="role__org">{r.data.org}</p>
+            <p class="meta">{r.data.when}</p>
+            <p class="meta">{r.data.where}</p>
+          </div>
+          <div class="role__what">
+            <ul class="role__points">{r.data.points.map((p) => <li>{p}</li>)}</ul>
+            <p class="meta role__tools">{r.data.tools.join(", ")}</p>
+            {r.data.shot && (
+              <figure class="role__shot">
+                <Image src={r.data.shot} alt={r.data.shotAlt ?? ""} widths={[420, 840]} sizes="(min-width: 52rem) 26rem, 100vw" loading="lazy" />
+                <figcaption>{r.data.links[0]?.label ?? r.data.org}, the company’s site.</figcaption>
+              </figure>
+            )}
+            <p class="role__links">
+              {r.data.work && <a href={`/work/${r.data.work}/`}>Read the case study</a>}
+              {r.data.links.map((l) => <a href={l.href}>{l.label}</a>)}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <h3 class="sub">Leadership</h3>
+    <ol class="roles">
+      {leadership.map((r) => (
+        <li class="role grid">
+          <div class="role__who">
+            {r.data.logo && <Image class="role__logo" src={r.data.logo} alt="" width={56} height={56} />}
+            <h3>{r.data.role}</h3>
+            <p class="role__org">{r.data.org}</p>
+            <p class="meta">{r.data.when}</p>
+          </div>
+          <div class="role__what">
+            <ul class="role__points">{r.data.points.map((p) => <li>{p}</li>)}</ul>
+            <p class="meta role__tools">{r.data.tools.join(", ")}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- projects: image-led, so they never read as jobs -->
+  <section id="projects" class="section frame" aria-labelledby="projects-title">
+    <Painted id="projects-title">Projects</Painted>
     <ol class="works">
       {flagships.map((w, i) => (
         <li class="work grid">
@@ -71,7 +125,7 @@ const leadership = roles.filter((r) => r.data.academic);
             </div>
           )}
           <div class="work__text">
-            <p class="meta">{w.data.kind}{w.data.when && `, ${w.data.when}`}</p>
+            <p class="meta">{w.data.kind}{w.data.when && `. ${w.data.when}`}</p>
             <h3 class="work__title"><a href={`/work/${w.id}/`} class="work__link">{w.data.title}</a></h3>
             <p class="work__summary">{w.data.summary}</p>
             <p class="work__more" aria-hidden="true">Read the case study</p>
@@ -94,43 +148,6 @@ const leadership = roles.filter((r) => r.data.academic);
     </ul>
   </section>
 
-  <!-- experience: jobs and research, then leadership -->
-  <section id="experience" class="section frame" aria-labelledby="experience-title">
-    <Painted id="experience-title">Experience</Painted>
-    <ol class="roles">
-      {jobs.map((r) => (
-        <li class="role grid">
-          <div class="role__who">
-            <h3>{r.data.role}</h3>
-            <p class="meta">{r.data.org}</p>
-            <p class="meta">{r.data.when}, {r.data.where}</p>
-          </div>
-          <div class="role__what">
-            <ul>{r.data.points.map((p) => <li>{p}</li>)}</ul>
-            <p class="meta role__tools">{r.data.tools.join(", ")}</p>
-            {r.data.work && <p class="role__case"><a href={`/work/${r.data.work}/`}>Read the case study</a></p>}
-          </div>
-        </li>
-      ))}
-    </ol>
-    <h3 class="sub">Leadership</h3>
-    <ol class="roles">
-      {leadership.map((r) => (
-        <li class="role grid">
-          <div class="role__who">
-            <h3>{r.data.role}</h3>
-            <p class="meta">{r.data.org}</p>
-            <p class="meta">{r.data.when}</p>
-          </div>
-          <div class="role__what">
-            <ul>{r.data.points.map((p) => <li>{p}</li>)}</ul>
-            <p class="meta role__tools">{r.data.tools.join(", ")}</p>
-          </div>
-        </li>
-      ))}
-    </ol>
-  </section>
-
   <section id="contact" class="section frame" aria-labelledby="contact-title">
     <Painted id="contact-title">Contact</Painted>
     <div class="contact">
@@ -148,48 +165,47 @@ const leadership = roles.filter((r) => r.data.academic);
   /* ---------- hero ---------- */
   .hero {
     padding-top: var(--s-8);
-    row-gap: var(--s-5);
   }
-  .hero__name {
-    grid-column: 1 / -1;
+  .hero__who {
+    margin-top: var(--s-6);
+    max-width: 28ch;
+    font-family: var(--display);
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: var(--track-heading);
+    text-wrap: balance;
   }
-  .hero__verbs {
-    grid-column: 1 / span 8;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 0.45em;
-    margin-top: var(--s-2);
+  .pillars {
+    list-style: none;
+    margin: var(--s-8) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--s-6) var(--gutter);
+    position: relative;
+    z-index: 1;
+  }
+  .pillar {
+    display: grid;
+    gap: var(--s-3);
+    align-content: start;
+    padding-top: var(--s-4);
+    border-top: 2px solid var(--ink);
+  }
+  .pillar__verb {
     font-family: var(--display);
     font-size: var(--step-3);
     font-weight: 800;
     line-height: 1;
     letter-spacing: var(--track-heading);
   }
-  .hero__who {
-    grid-column: 1 / span 6;
-    font-size: var(--step-1);
-    line-height: 1.45;
-    max-width: 38ch;
-  }
-  .hero__aside {
-    grid-column: 9 / -1;
-    grid-row: 2 / span 2;
-    align-self: end;
-    display: grid;
-    gap: var(--s-3);
-    padding-left: var(--s-4);
-    border-left: 2px solid var(--paint);
-    font-size: var(--step--1);
+  .pillar__what {
+    max-width: 30ch;
     color: var(--shade);
-    max-width: 34ch;
-  }
-  .hero__note {
-    font-family: var(--display);
-    font-weight: 600;
-    color: var(--ink);
   }
 
-  /* ---------- sections ---------- */
+  /* ---------- shared section parts ---------- */
   .section {
     margin-top: var(--s-11);
   }
@@ -205,9 +221,9 @@ const leadership = roles.filter((r) => r.data.academic);
     color: var(--shade);
   }
 
-  /* about */
+  /* ---------- about ---------- */
   .about {
-    margin-top: var(--s-6);
+    margin-top: var(--s-7);
     row-gap: var(--s-7);
     align-items: start;
   }
@@ -239,25 +255,118 @@ const leadership = roles.filter((r) => r.data.academic);
     margin-top: var(--s-2);
     font-size: var(--step--1);
   }
-  .rows {
-    margin: var(--s-5) 0 0;
-    border-top: var(--border);
+  /* the toolkit reads like a colophon: five short columns under one rule */
+  .toolkit {
+    margin-top: var(--s-9);
   }
-  .rows__row {
-    padding-block: var(--s-4);
-    border-bottom: var(--border);
+  .toolkit__groups {
+    margin-top: var(--s-4);
+    padding-top: var(--s-5);
+    border-top: 2px solid var(--ink);
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--s-6) var(--gutter);
   }
-  .rows dt {
-    grid-column: 1 / span 4;
-    font-family: var(--display);
-    font-weight: 700;
+  .toolkit__group h4 {
+    font-size: var(--step-0);
+    font-weight: 800;
+    letter-spacing: 0;
+    margin-bottom: var(--s-3);
   }
-  .rows dd {
-    grid-column: 6 / -1;
+  .toolkit__group ul {
+    list-style: none;
     margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--s-1);
+    color: var(--shade);
   }
 
-  /* work: content hangs in front of the paint, so drifting fragments pass behind it */
+  /* ---------- experience ---------- */
+  .roles {
+    list-style: none;
+    margin: var(--s-7) 0 0;
+    padding: 0;
+    border-top: var(--border);
+    position: relative;
+    z-index: 1;
+    background: var(--wall);
+  }
+  .role {
+    padding-block: var(--s-7);
+    border-bottom: var(--border);
+    row-gap: var(--s-4);
+    align-items: start;
+  }
+  .role__who {
+    grid-column: 1 / span 4;
+  }
+  .role__logo {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    padding: 6px;
+    background: #fff;
+    outline: 1px solid var(--rule);
+    margin-bottom: var(--s-4);
+  }
+  .role__who h3 {
+    font-size: var(--step-1);
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .role__org {
+    margin: var(--s-1) 0 var(--s-2);
+    font-family: var(--display);
+    font-weight: 600;
+  }
+  .role__what {
+    grid-column: 6 / -1;
+    max-width: var(--measure);
+  }
+  .role__points {
+    margin: 0;
+    padding-left: 1.1em;
+  }
+  .role__points li + li {
+    margin-top: var(--s-2);
+  }
+  .role__points li::marker {
+    color: var(--paint);
+  }
+  .role__tools {
+    margin-top: var(--s-4);
+  }
+  .role__shot {
+    margin: var(--s-6) 0 0;
+    max-width: 26rem;
+  }
+  .role__shot img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top center;
+    outline: 1px solid var(--rule);
+  }
+  .role__shot figcaption {
+    margin-top: var(--s-2);
+    font-family: var(--display);
+    font-size: var(--step--1);
+    color: var(--shade);
+  }
+  .role__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-5);
+    margin-top: var(--s-4);
+    font-family: var(--display);
+    font-weight: 600;
+  }
+  .role__links:empty {
+    display: none;
+  }
+
+  /* ---------- projects ---------- */
   .works {
     list-style: none;
     margin: var(--s-7) 0 0;
@@ -278,7 +387,7 @@ const leadership = roles.filter((r) => r.data.academic);
     width: 100%;
     aspect-ratio: 16 / 10;
     object-fit: cover;
-    object-position: top left;
+    object-position: top center;
     outline: 1px solid var(--rule);
   }
   .work__text {
@@ -331,7 +440,6 @@ const leadership = roles.filter((r) => r.data.academic);
   .work__link:focus-visible {
     outline: none;
   }
-
   .more {
     list-style: none;
     margin: var(--s-6) 0 0;
@@ -369,54 +477,7 @@ const leadership = roles.filter((r) => r.data.academic);
     font-weight: 600;
   }
 
-  /* experience */
-  .roles {
-    list-style: none;
-    margin: var(--s-7) 0 0;
-    padding: 0;
-    border-top: var(--border);
-    position: relative;
-    z-index: 1;
-    background: var(--wall);
-  }
-  .role {
-    padding-block: var(--s-6);
-    border-bottom: var(--border);
-    row-gap: var(--s-4);
-  }
-  .role__who {
-    grid-column: 1 / span 4;
-  }
-  .role__who h3 {
-    font-size: var(--step-1);
-    font-weight: 700;
-    letter-spacing: 0;
-    margin-bottom: var(--s-2);
-  }
-  .role__what {
-    grid-column: 6 / -1;
-    max-width: var(--measure);
-  }
-  .role__what ul {
-    margin: 0;
-    padding-left: 1.1em;
-  }
-  .role__what li + li {
-    margin-top: var(--s-2);
-  }
-  .role__what li::marker {
-    color: var(--paint);
-  }
-  .role__tools {
-    margin-top: var(--s-4);
-  }
-  .role__case {
-    margin-top: var(--s-3);
-    font-family: var(--display);
-    font-weight: 600;
-  }
-
-  /* contact */
+  /* ---------- contact ---------- */
   .contact {
     margin-top: var(--s-6);
     display: grid;
@@ -445,28 +506,32 @@ const leadership = roles.filter((r) => r.data.academic);
     font-weight: 600;
   }
 
+  /* ---------- tablet ---------- */
+  @media (max-width: 64rem) {
+    .toolkit__groups {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  /* ---------- phone ---------- */
   @media (max-width: 52rem) {
-    .hero__verbs,
-    .hero__who,
-    .hero__aside,
+    .pillars {
+      grid-template-columns: 1fr;
+      margin-top: var(--s-7);
+    }
     .about__text,
     .about__edu,
-    .rows dt,
-    .rows dd,
+    .role__who,
+    .role__what,
     .work__shot,
     .work__text,
     .work:nth-child(even) .work__shot,
-    .work:nth-child(even) .work__text,
-    .role__who,
-    .role__what {
+    .work:nth-child(even) .work__text {
       grid-column: 1 / -1;
       grid-row: auto;
     }
-    .hero__aside {
-      margin-top: var(--s-3);
-    }
-    .hero__verbs {
-      font-size: var(--step-2);
+    .toolkit__groups {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .work {
       row-gap: var(--s-4);

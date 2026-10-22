@@ -131,6 +131,18 @@ Kriish asked for the hero to say what Kriish does rather than where Kriish studi
 - **Phones:** the header stacks (name above a one-line nav), the verbs stay on one line, and the section-heading minimum dropped to 3.5rem so “Experience” fits at 390px.
 - **Checks:** 0 overflow at 390, 768 and 1440; every section heading resolves on its line; 0 broken links, 0 contrast failures, 0 script errors; Lighthouse mobile 97 / 100 / 100 / 100.
 
+## Experience first, LOOPHOLE, snapshots (2026-10-22)
+
+- **Hero:** the name, then who Kriish is (“I’m a software engineer who cares as much about how a product feels as how it works”), then **Design. Build. Create.** as three pillars, each with one line covering design and research, building, and making from scratch. The graduation note and the hint line are gone; graduation lives in About’s Education.
+- **About:** the grey skills table became a **Toolkit**: five short columns under one rule, with Design first (Figma, usability research, interaction design, accessibility).
+- **Order:** About, Experience, Projects, Contact. Experience comes before projects, and the nav follows.
+- **Experience vs projects at a glance:** experience is text-led, with each organisation’s logo (Studio23labs, ESC Lab, DART, UB). Projects are image-led, with large screenshots. Studio23labs shows a snapshot of studio23labs.com.
+- **LOOPHOLE:** a new case study, second after Tangent. Every claim comes from the LOOPHOLE repo’s README and DECISIONS.md, git history (solo, October 2026) and the live site (beta). It shows the landing page, the studio and the 8 × 10 contact sheet.
+- **Tangent:** the demo video (`public/tangent-demo.mp4`; poster frame shown, nothing downloads until play), plus live-site snapshots of capture and the privacy promise.
+- **Labels:** every project says whether it was personal or built at an organisation (“Built at DART Collective”).
+- **Housekeeping:** `esc.jpg` and `studio23.ico` moved from `public/` into `src/assets/logos/` so they’re optimised. The video was renamed to lower case. Live-site snapshots were retaken without the browser scrollbar. Projects without their own share card fall back to the default one.
+- **Checks:** 0 overflow at 320, 390, 768 and 1440; nav on one line from 390px; 0 broken links, contrast failures, missing alt text or script errors. Lighthouse mobile: home 99 / 100 / 100 / 100, Tangent 98, LOOPHOLE 96 (its LCP sits at the 2.5s budget, set by the busy cover image).
+
 ## Open items
 
 - `TODO(kriish)` in the case studies. The résumé doesn’t answer these, because they ask for reasoning, not results:

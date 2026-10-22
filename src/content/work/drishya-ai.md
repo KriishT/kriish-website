@@ -5,7 +5,7 @@ description: "Drishya.ai, an AI-assisted algorithm visualizer."
 flagship: false
 cover: ../../assets/work/drishya.png
 coverAlt: "Drishya.ai visualizing an array loop at step 8 of 13, with a variables table and playback controls"
-order: 4
+order: 5
 kind: Learning tool
 role: Personal project
 stack: [React, Anthropic API]

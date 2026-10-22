@@ -1,0 +1,32 @@
+---
+import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+
+interface Props {
+  src: string;
+  poster: ImageMetadata;
+  label: string;
+  caption?: string;
+}
+
+// Nothing downloads until someone presses play: the poster is a frame from the video.
+const { src, poster, label, caption } = Astro.props;
+const still = await getImage({ src: poster, width: 1280, format: "webp" });
+---
+<figure class="figure video">
+  <video controls playsinline preload="none" poster={still.src} aria-label={label} width={poster.width} height={poster.height}>
+    <source src={src} type="video/mp4" />
+    <a href={src}>Download the video</a>
+  </video>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--ink);
+    outline: 1px solid var(--rule);
+  }
+</style>

@@ -15,11 +15,14 @@ export const site = {
   resume: existsSync(join(process.cwd(), "public", "resume.pdf")) ? "/resume.pdf" : null,
 };
 
-// The first screen: what Kriish does and who Kriish is. School is a side note, not the headline.
+// The first screen: who Kriish is and what Kriish does. School lives in About, not here.
 export const intro = {
-  verbs: ["Design", "Build", "Create"],
-  who: "A software engineer who designs, building full-stack web, mobile and desktop products.",
-  note: "Computer science at the University at Buffalo, graduating December 2026.",
+  who: "I’m a software engineer who cares as much about how a product feels as how it works.",
+  pillars: [
+    { verb: "Design", what: "Interfaces and interactions, shaped by usability research with the people who use them." },
+    { verb: "Build", what: "Full-stack web, mobile and desktop software, from the database to the pixel." },
+    { verb: "Create", what: "Products from a blank page: a desktop app, a motion-poster tool, a research app with nine games." },
+  ],
 };
 
 // Kriish's own About text from the previous site, lightly tightened.
@@ -48,9 +51,9 @@ export const education = [
 ];
 
 export const skills = [
-  { group: "Languages", items: "JavaScript, TypeScript, Python, Java, C" },
-  { group: "Frontend and mobile", items: "React, Next.js, React Native, Flutter, Tailwind CSS, HTML and CSS, shadcn/ui" },
-  { group: "Backend and data", items: "Node.js, Express, REST APIs, WebSockets, PostgreSQL, MongoDB, Firebase, Supabase" },
-  { group: "Tools", items: "Git and GitHub, Vercel, Docker, Figma, Stripe, Clerk, Inngest, OpenAI and Anthropic APIs" },
-  { group: "Ways of working", items: "Usability research, Agile and Scrum" },
+  { group: "Design", items: ["Figma", "Usability research", "Interaction design", "Accessibility"] },
+  { group: "Frontend and mobile", items: ["React", "Next.js", "React Native", "Flutter", "Tailwind CSS", "Tauri"] },
+  { group: "Backend and data", items: ["Node.js", "Express", "PostgreSQL", "MongoDB", "Supabase", "Firebase"] },
+  { group: "Languages", items: ["TypeScript", "JavaScript", "Python", "Java", "C", "Rust"] },
+  { group: "Tools", items: ["Git and GitHub", "Docker", "Vercel", "Playwright", "OpenAI and Anthropic APIs"] },
 ];

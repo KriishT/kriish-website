@@ -1,0 +1,78 @@
+---
+title: LOOPHOLE
+summary: "A motion-poster tool that runs entirely in the browser: eight animated layout machines turn your pictures into posters that loop without a seam."
+description: "Case study: LOOPHOLE, a browser-only motion-poster tool with eight layout machines, ten style recipes and loops that are seamless by construction."
+flagship: true
+order: 2
+kind: Personal project, web app
+role: Solo, from design to engine
+when: Oct 2026, in beta
+stack: [React, TypeScript, three.js, Canvas 2D, WebCodecs, zustand, zod, IndexedDB, Playwright]
+links:
+  - { label: Open LOOPHOLE, href: "https://loophole-delta.vercel.app/" }
+cover: ../../assets/work/loophole-landing.png
+coverAlt: "LOOPHOLE's landing page: a sphere of poster cards spinning in front of the LOOPHOLE wordmark"
+---
+
+import studio from "../../assets/work/loophole-studio.png";
+import sheet from "../../assets/work/loophole-contact-sheet.png";
+
+## The problem
+
+A motion poster lives or dies on its loop. If anything in the frame reads the clock, the last frame won’t line up with the first, and the seam flickers past every few seconds.
+
+I wanted a tool anyone could pick up: drop in pictures, or use LOOPHOLE’s own procedurally drawn specimens, pick a machine and a style, and export a loop that closes without a seam. No accounts, no server, and images never leave the device.
+
+## My role
+
+I built LOOPHOLE on my own in October 2026: the design, the rendering engine and the front end. It’s live, in beta.
+
+## How it works
+
+- Eight machines (Sphere, Tower, Helix, Tunnel, Shuffle Stack, Orbit, Index Grid and Ransom) arrange cards of artwork into a moving poster.
+- Ten style recipes change the palette, type and effects; a typographic frame sets the title.
+- Posters export to MP4, WebM, GIF, PNG or an embed snippet.
+- The landing page is a toy in its own right: spin the sphere, feed it your images, or try a recipe on and watch the whole page re-skin.
+
+<Figure src={studio} alt="The LOOPHOLE studio: eight machines on the left, a portrait poster with a sphere of cards in the centre, and sliders for cards, radius, card size and turns on the right" caption="The studio. Pick a machine on the left, tune it on the right, and the poster in the middle loops without a seam." />
+
+## Decisions and tradeoffs
+
+### The loop’s phase, not the clock
+
+A machine is a pure function: given card *i* and a loop phase *p* between 0 and 1, it returns a position, rotation, scale and opacity, and *p* = 1 equals *p* = 0. Cards only change their artwork while turned away, and every time-varying effect reads the phase, never the clock. So loops close by construction, and an end-to-end test checks the wrap pixel by pixel.
+
+### Energy and steps, not a speed slider
+
+A speed slider was the obvious control, but any speed that isn’t a whole number breaks the loop. Instead each recipe scales the motion’s amplitude (energy) and can quantise the phase into stop-motion steps. You still get “faster” or “choppier”, and the loop stays seamless.
+
+### One instanced mesh, painted back to front
+
+Each card is five quads: shadow, card, two strips of tape and a label. Drawing every card as one instance, sorted back to front, keeps each shadow and label attached to its own card and keeps the draw count flat however many cards there are.
+
+### Never more than two WebGL contexts
+
+Browsers cap WebGL contexts, and phones cap them hard. The catalogue, thumbnails, stills and exports all share one offscreen context and copy into ordinary canvases. Even hardware detection reads the engine’s own context rather than opening a throwaway one.
+
+## Craft details
+
+- **Undo by gesture.** A slider drag, a burst of arrow-key presses, a text edit or a spin of the sphere is one undo step, not hundreds.
+- **Links never cost work.** Shared links are decoded strictly (“that link is scrambled”), while autosaved projects are repaired section by section. Opening a link layers it over your project as a single undoable step.
+- **Safe imports.** Files are checked by their signature and end marker before decoding, because Chrome will happily decode half a JPEG.
+- **WebKit’s private mode.** Images are stored as raw bytes rather than Blobs, because WebKit’s private sessions refuse Blobs in IndexedDB.
+- **Contrast in every skin.** Small text on every recipe’s interface skin has to reach 4.5:1. Two accent colours were darkened to pass.
+- **Weak hardware.** Software renderers start on a lower tier, slow devices get adaptive frame pacing, and devices without WebGL get pre-rendered posters instead.
+
+<Figure src={sheet} alt="A grid of small posters: all eight LOOPHOLE machines across all ten style recipes" caption="All eight machines across all ten recipes, rendered by the app’s own contact-sheet script." />
+
+## Outcome
+
+- LOOPHOLE is live and in beta at [loophole-delta.vercel.app](https://loophole-delta.vercel.app/).
+- One command checks everything: type checks, lint, unit and component tests, the build, bundle budgets, end-to-end tests (in full on Chromium, plus smoke tests on Firefox, WebKit, a Pixel 7 and an iPhone 14), visual regression, accessibility and Lighthouse.
+- Every bug that was fixed has a regression test.
+
+<Todo>Any real usage or feedback since launch.</Todo>
+
+## What I’d do next
+
+A Content Security Policy. React’s style props, the export previews and the thumbnails need a carefully tested policy, so for now it’s a documented limitation rather than a rushed header.

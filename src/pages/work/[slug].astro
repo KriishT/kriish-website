@@ -1,10 +1,14 @@
 ---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 import Base from "../../layouts/Base.astro";
 import Painted from "../../components/Painted.astro";
 import Edit from "../../components/Edit.astro";
 import Todo from "../../components/Todo.astro";
+import Figure from "../../components/Figure.astro";
+import Video from "../../components/Video.astro";
 
 export async function getStaticPaths() {
   const flagships = (await getCollection("work")).filter((w) => w.data.flagship).sort((a, b) => a.data.order - b.data.order);
@@ -12,20 +16,22 @@ export async function getStaticPaths() {
 }
 
 const { entry, next } = Astro.props;
+// a project without its own share card uses the site's
+const og = existsSync(join(process.cwd(), "public", "og", `${entry.id}.png`)) ? `/og/${entry.id}.png` : "/og/default.png";
 const { Content } = await render(entry);
 const d = entry.data;
 ---
-<Base title={d.title} description={d.description} image={`/og/${entry.id}.png`}>
+<Base title={d.title} description={d.description} image={og}>
   <article class="case">
     <header class="case__head frame grid">
-      <p class="case__back meta"><a href="/#work">All work</a></p>
+      <p class="case__back meta"><a href="/#projects">All projects</a></p>
       <Painted as="h1" top class="case__title">{d.title}</Painted>
       <p class="case__summary">{d.summary}</p>
     </header>
 
     {d.cover && (
       <figure class="case__cover frame">
-        <Image src={d.cover} alt={d.coverAlt ?? ""} widths={[640, 1024, 1600]} sizes="(min-width: 90rem) 90rem, 100vw" loading="eager" fetchpriority="high" />
+        <Image src={d.cover} alt={d.coverAlt ?? ""} widths={[640, 1024, 1600]} sizes="(min-width: 90rem) 90rem, 100vw" quality={68} loading="eager" fetchpriority="high" />
       </figure>
     )}
 
@@ -42,7 +48,7 @@ const d = entry.data;
         )}
       </aside>
       <div class="prose case__prose">
-        <Content components={{ Edit, Todo }} />
+        <Content components={{ Edit, Todo, Figure, Video }} />
       </div>
     </div>
 

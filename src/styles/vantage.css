@@ -153,7 +153,8 @@ main:focus {
     gap: var(--s-2);
   }
   .site-header ul {
-    gap: var(--s-2) var(--s-4);
+    gap: var(--s-2) var(--s-3);
+    font-size: 0.875rem;
   }
 }
 
@@ -295,4 +296,10 @@ main :where(p, ol, ul, dl, figure, aside, table, .todo):not(.painted, .painted *
 }
 .prose strong {
   font-weight: 600;
+}
+.prose .figure {
+  margin-block: var(--s-7);
+}
+.prose .figure img {
+  width: 100%;
 }

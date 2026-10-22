@@ -12,8 +12,23 @@
       "Unified four channels (chat, email, SMS and voice) in one shared real-time inbox with role-based conversation assignment.",
       "Built configurable website chatbots, Retell AI voice calling and an admin console for automated customer interactions, integrating Twilio and SendGrid."
     ],
-    "tools": ["Next.js", "Supabase", "WebSockets", "Twilio", "SendGrid", "Retell AI"],
-    "links": [{ "label": "studio23labs.com", "href": "https://studio23labs.com/" }]
+    "tools": [
+      "Next.js",
+      "Supabase",
+      "WebSockets",
+      "Twilio",
+      "SendGrid",
+      "Retell AI"
+    ],
+    "links": [
+      {
+        "label": "studio23labs.com",
+        "href": "https://studio23labs.com/"
+      }
+    ],
+    "logo": "../assets/logos/studio23.png",
+    "shot": "../assets/work/studio23-site.png",
+    "shotAlt": "The Studio23labs website: “Onboard, manage, and offboard employees without missed steps” over a forest photo, with a diagram of tasks flowing to Google Workspace, BambooHR and Slack"
   },
   {
     "id": "esc-lab",
@@ -28,8 +43,22 @@
       "Combined REDCap, Empatica wearable data and app records into one research dataset covering 40+ participants.",
       "Extended Sense2Quit, an existing smoking-cessation research app on Google Play, with Firebase-backed watch-gesture capture that collects labelled recordings for its model."
     ],
-    "tools": ["React Native", "Expo", "Firebase", "Flutter", "Python", "REDCap", "Empatica"],
-    "links": [{ "label": "ESC Lab on LinkedIn", "href": "https://www.linkedin.com/company/embedded-sensing-and-computing-lab" }]
+    "tools": [
+      "React Native",
+      "Expo",
+      "Firebase",
+      "Flutter",
+      "Python",
+      "REDCap",
+      "Empatica"
+    ],
+    "links": [
+      {
+        "label": "ESC Lab on LinkedIn",
+        "href": "https://www.linkedin.com/company/embedded-sensing-and-computing-lab"
+      }
+    ],
+    "logo": "../assets/logos/esc-lab.jpg"
   },
   {
     "id": "dart-ux",
@@ -43,9 +72,19 @@
       "Ran usability research with 60+ older adults on digital-literacy and scam-awareness learning.",
       "Identified 12 usability issues and turned them into recommendations for the interface."
     ],
-    "tools": ["Usability testing", "User research", "Research synthesis"],
-    "links": [{ "label": "DART Academy", "href": "https://dartacademy.net/about" }],
-    "work": "dart-academy"
+    "tools": [
+      "Usability testing",
+      "User research",
+      "Research synthesis"
+    ],
+    "links": [
+      {
+        "label": "DART Academy",
+        "href": "https://dartacademy.net/about"
+      }
+    ],
+    "work": "dart-academy",
+    "logo": "../assets/logos/dart.svg"
   },
   {
     "id": "dart-frontend",
@@ -60,9 +99,23 @@
       "Automated bulk enrolment on Next.js and PostgreSQL: CSV import with real-time validation.",
       "Built real-time presenter-note sync between the presentation and speaker-notes views."
     ],
-    "tools": ["React", "Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Prisma", "NeonDB"],
-    "links": [{ "label": "DART Academy", "href": "https://dartacademy.net/about" }],
-    "work": "dart-academy"
+    "tools": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Prisma",
+      "NeonDB"
+    ],
+    "links": [
+      {
+        "label": "DART Academy",
+        "href": "https://dartacademy.net/about"
+      }
+    ],
+    "work": "dart-academy",
+    "logo": "../assets/logos/dart.svg"
   },
   {
     "id": "project-manager",
@@ -77,7 +130,12 @@
       "Coordinate two five-person teams and track progress against a roadmap with Agile practices.",
       "Keep the Scrum board and write the progress reports and lessons learned."
     ],
-    "tools": ["Agile", "Scrum", "Roadmapping"],
-    "links": []
+    "tools": [
+      "Agile",
+      "Scrum",
+      "Roadmapping"
+    ],
+    "links": [],
+    "logo": "../assets/logos/ub.png"
   }
 ]

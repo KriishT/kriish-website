@@ -30,19 +30,24 @@ const work = defineCollection({
 
 const roles = defineCollection({
   loader: file("./src/content/roles.json"),
-  schema: z.object({
-    order: z.number(),
-    org: z.string(),
-    role: z.string(),
-    where: z.string(),
-    when: z.string(),
-    current: z.boolean(),
-    academic: z.boolean().default(false),
-    points: z.array(z.string()),
-    tools: z.array(z.string()),
-    links: z.array(link).default([]),
-    work: z.string().optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      order: z.number(),
+      org: z.string(),
+      role: z.string(),
+      where: z.string(),
+      when: z.string(),
+      current: z.boolean(),
+      academic: z.boolean().default(false),
+      points: z.array(z.string()),
+      tools: z.array(z.string()),
+      links: z.array(link).default([]),
+      work: z.string().optional(),
+      logo: image().optional(),
+      // a snapshot of the organisation's own site, when it helps to see it
+      shot: image().optional(),
+      shotAlt: z.string().optional(),
+    }),
 });
 
 export const collections = { work, roles };
