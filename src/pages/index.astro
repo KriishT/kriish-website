@@ -167,17 +167,23 @@ const leadership = roles.filter((r) => r.data.academic);
   /* ---------- hero ---------- */
   /* every section fills the screen, so each one is a page of its own */
   .hero {
+    min-height: calc(100vh - 4.5rem);
     min-height: calc(100svh - 4.5rem);
     padding-top: var(--s-6);
     padding-bottom: var(--s-8);
     display: flex;
     flex-direction: column;
+    clip-path: inset(-4.5rem -100vmax 0);
+  }
+  /* the name and the gaps size themselves to the screen height, so the hero fits one screen */
+  .hero :global(.painted--xl) {
+    font-size: min(var(--paint-xl), 21vh);
   }
   .hero__who {
-    margin-top: var(--s-6);
-    max-width: 28ch;
+    margin-top: min(var(--s-6), 3vh);
+    max-width: 34ch;
     font-family: var(--display);
-    font-size: var(--step-2);
+    font-size: min(var(--step-2), 3.8vh);
     font-weight: 600;
     line-height: 1.15;
     letter-spacing: var(--track-heading);
@@ -186,7 +192,7 @@ const leadership = roles.filter((r) => r.data.academic);
   .pillars {
     list-style: none;
     margin: auto 0 0;
-    padding: var(--s-7) 0 0;
+    padding: min(var(--s-7), 4vh) 0 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--s-6) var(--gutter);
@@ -202,7 +208,7 @@ const leadership = roles.filter((r) => r.data.academic);
   }
   .pillar__verb {
     font-family: var(--display);
-    font-size: var(--step-3);
+    font-size: min(var(--step-3), 6vh);
     font-weight: 800;
     line-height: 1;
     letter-spacing: var(--track-heading);
@@ -214,8 +220,15 @@ const leadership = roles.filter((r) => r.data.academic);
 
   /* ---------- shared section parts ---------- */
   .section {
+    min-height: 100vh;
     min-height: 100svh;
-    padding-block: var(--s-9);
+    padding-block: min(var(--s-9), 6vh);
+    /* a heading's drifting pieces never leave their own screen: clipped top and bottom,
+       free to the sides */
+    clip-path: inset(0 -100vmax);
+  }
+  .section :global(.painted--l) {
+    font-size: min(var(--paint-l), 16vh);
   }
   .sub {
     margin-top: var(--s-9);
@@ -231,8 +244,8 @@ const leadership = roles.filter((r) => r.data.academic);
 
   /* ---------- about ---------- */
   .about {
-    margin-top: var(--s-7);
-    row-gap: var(--s-7);
+    margin-top: min(var(--s-7), 3.5vh);
+    row-gap: var(--s-6);
     align-items: start;
   }
   .about__text {
@@ -265,7 +278,7 @@ const leadership = roles.filter((r) => r.data.academic);
   }
   /* the toolkit reads like a colophon: five short columns under one rule */
   .toolkit {
-    margin-top: var(--s-9);
+    margin-top: min(var(--s-9), 5vh);
   }
   .toolkit__groups {
     margin-top: var(--s-4);
@@ -488,6 +501,7 @@ const leadership = roles.filter((r) => r.data.academic);
   /* ---------- contact ---------- */
   /* Contact and the footer together fill the last screen */
   #contact {
+    min-height: calc(100vh - 7rem);
     min-height: calc(100svh - 7rem);
   }
   :global(.site-footer) {
@@ -519,6 +533,44 @@ const leadership = roles.filter((r) => r.data.academic);
     font-family: var(--display);
     font-size: var(--step-1);
     font-weight: 600;
+  }
+
+  /* ---------- short screens (small laptops): About stays on one screen ---------- */
+  @media (max-height: 56rem) and (min-width: 52rem) {
+    .section {
+      padding-block: 4vh;
+    }
+    .section :global(.painted--l) {
+      font-size: min(var(--paint-l), 13vh);
+    }
+    .about {
+      margin-top: 2vh;
+      row-gap: var(--s-4);
+    }
+    .about__text {
+      font-size: min(var(--step-1), 2.5vh);
+      gap: var(--s-3);
+    }
+    .edu {
+      gap: var(--s-3);
+    }
+    .edu__school {
+      font-size: min(var(--step-1), 2.5vh);
+    }
+    .toolkit {
+      margin-top: 2.5vh;
+    }
+    .toolkit__groups {
+      padding-top: var(--s-3);
+      margin-top: var(--s-2);
+    }
+    .toolkit__group h4 {
+      margin-bottom: var(--s-2);
+    }
+    .toolkit__group ul {
+      gap: 0;
+      font-size: min(var(--step-0), 2.3vh);
+    }
   }
 
   /* ---------- tablet ---------- */
