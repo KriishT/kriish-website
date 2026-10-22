@@ -6,7 +6,7 @@ export const site = {
   url: "https://kriisht.vercel.app",
   email: "kriish2205@gmail.com",
   description:
-    "Kriish Tiwari designs and builds software, and tests it with the people who use it. Computer science at the University at Buffalo, graduating December 2026.",
+    "Kriish Tiwari designs, builds and creates software: full-stack web, mobile and desktop products, with UX research behind the work.",
   links: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/kriishtiwari" },
     { label: "GitHub", href: "https://github.com/KriishT" },
@@ -15,21 +15,21 @@ export const site = {
   resume: existsSync(join(process.cwd(), "public", "resume.pdf")) ? "/resume.pdf" : null,
 };
 
-// The homepage statement, and the live site's real headline it replaces.
-export const headline = {
-  now: "designs and builds software, then tests it with the people who use it.",
-  was: {
-    greeting: "Hi, I’m ",
-    rest: ". I’m a computer science student at the University at Buffalo and a full-stack developer passionate about creating human-centered products that combine logic, design, and user experience.",
-  },
-  notes: {
-    greeting: "It’s a portfolio, not a greeting card.",
-    rest: "Everyone is “passionate”. Say what you do. School moves to the next line.",
-    now: "Keep. It’s true: 60+ usability sessions at DART.",
-  },
+// The first screen: what Kriish does and who Kriish is. School is a side note, not the headline.
+export const intro = {
+  verbs: ["Design", "Build", "Create"],
+  who: "A software engineer who designs, building full-stack web, mobile and desktop products.",
+  note: "Computer science at the University at Buffalo, graduating December 2026.",
 };
 
-export const lede = "Computer science at the University at Buffalo, graduating December 2026.";
+// Kriish's own About text from the previous site, lightly tightened.
+export const about = [
+  "I’m a software engineer first, building full-stack web, mobile and desktop products, and I bring UX research and project coordination experience to that work.",
+  "I love collaborating. Every project is a chance to learn, refine, and build experiences that connect with the people who use them.",
+];
+
+export const lookingFor =
+  "I’m looking for design roles (product designer, design engineer, creative technologist) and software engineering roles, starting after I graduate in December 2026.";
 
 export const education = [
   {

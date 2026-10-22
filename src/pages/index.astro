@@ -4,20 +4,62 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Painted from "../components/Painted.astro";
 import CopyEmail from "../components/CopyEmail.astro";
-import { lede } from "../data/site";
+import { site, intro, about, lookingFor, education, skills } from "../data/site";
 
 const work = (await getCollection("work")).sort((a, b) => a.data.order - b.data.order);
 const flagships = work.filter((w) => w.data.flagship);
 const archive = work.filter((w) => !w.data.flagship);
+
+// the file loader returns entries by id, so order them explicitly (the résumé's order)
+const roles = (await getCollection("roles")).sort((a, b) => a.data.order - b.data.order);
+const jobs = roles.filter((r) => !r.data.academic);
+const leadership = roles.filter((r) => r.data.academic);
 ---
 <Base person>
+  <!-- who: the first screen is about what Kriish does; school is a side note -->
   <section class="hero frame grid" aria-label="Introduction">
     <Painted as="h1" size="xl" top class="hero__name">Kriish <br />Tiwari</Painted>
-    <p class="hero__statement"><strong>Designs and builds software,</strong> then tests it with the people who use&nbsp;it.</p>
-    <p class="hero__lede">{lede}</p>
-    <p class="hero__hint">Every heading here is painted across four depths and reads from one point only. Scroll, and it comes apart.</p>
+    <p class="hero__verbs">{intro.verbs.map((v) => <span>{v}.</span>)}</p>
+    <p class="hero__who">{intro.who}</p>
+    <aside class="hero__aside" aria-label="Side note">
+      <p class="hero__note">{intro.note}</p>
+      <p class="hero__hint">Every heading here is painted across four depths and reads from one point only. Scroll, and it comes apart.</p>
+    </aside>
   </section>
 
+  <!-- about: who, then the facts (education), then the tools -->
+  <section id="about" class="section frame" aria-labelledby="about-title">
+    <Painted id="about-title">About</Painted>
+    <div class="about grid">
+      <div class="about__text">
+        {about.map((p) => <p>{p}</p>)}
+      </div>
+      <div class="about__edu">
+        <h3 class="label">Education</h3>
+        <ol class="edu">
+          {education.map((e) => (
+            <li>
+              <p class="edu__school">{e.school}</p>
+              <p class="meta">{e.what}</p>
+              <p class="meta">{e.when}</p>
+              {e.honours && <p class="edu__honours">{e.honours}</p>}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+    <h3 class="sub">What I work with</h3>
+    <dl class="rows">
+      {skills.map((s) => (
+        <div class="rows__row grid">
+          <dt>{s.group}</dt>
+          <dd>{s.items}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- work: three case studies, then everything else -->
   <section id="work" class="section frame" aria-labelledby="work-title">
     <Painted id="work-title">Work</Painted>
     <ol class="works">
@@ -38,84 +80,181 @@ const archive = work.filter((w) => !w.data.flagship);
       ))}
     </ol>
 
-    <h3 class="archive__title">Also built</h3>
-    <ul class="archive">
+    <h3 class="sub">Also built</h3>
+    <ul class="more">
       {archive.map((w) => (
-        <li class="archive__row">
-          <span class="archive__name">{w.data.title}</span>
-          <span class="archive__what">{w.data.summary}</span>
-          <span class="archive__links">{w.data.links.map((l) => <a href={l.href}>{l.label}<span class="visually-hidden"> for {w.data.title}</span></a>)}</span>
+        <li class="more__item">
+          {w.data.cover && <Image src={w.data.cover} alt={w.data.coverAlt ?? ""} widths={[400, 640, 900]} sizes="(min-width: 52rem) 45vw, 100vw" loading="lazy" />}
+          <p class="meta">{w.data.kind}</p>
+          <h4 class="more__title">{w.data.title}</h4>
+          <p class="more__summary">{w.data.summary}</p>
+          <p class="more__links">{w.data.links.map((l) => <a href={l.href}>{l.label}<span class="visually-hidden"> for {w.data.title}</span></a>)}</p>
         </li>
       ))}
     </ul>
   </section>
 
-  <section class="section frame grid" aria-labelledby="about-title">
-    <Painted id="about-title" class="span-all">About</Painted>
-    <p class="section__body">I build web, mobile and desktop software, and I’ve sat on the other side of the screen too, running usability sessions with the people it’s for. Right now that means research apps at the ESC Lab and usability research at DART, both at the University at Buffalo.</p>
-    <p class="section__more"><a href="/about">Where I’ve worked, and what I study</a></p>
+  <!-- experience: jobs and research, then leadership -->
+  <section id="experience" class="section frame" aria-labelledby="experience-title">
+    <Painted id="experience-title">Experience</Painted>
+    <ol class="roles">
+      {jobs.map((r) => (
+        <li class="role grid">
+          <div class="role__who">
+            <h3>{r.data.role}</h3>
+            <p class="meta">{r.data.org}</p>
+            <p class="meta">{r.data.when}, {r.data.where}</p>
+          </div>
+          <div class="role__what">
+            <ul>{r.data.points.map((p) => <li>{p}</li>)}</ul>
+            <p class="meta role__tools">{r.data.tools.join(", ")}</p>
+            {r.data.work && <p class="role__case"><a href={`/work/${r.data.work}/`}>Read the case study</a></p>}
+          </div>
+        </li>
+      ))}
+    </ol>
+    <h3 class="sub">Leadership</h3>
+    <ol class="roles">
+      {leadership.map((r) => (
+        <li class="role grid">
+          <div class="role__who">
+            <h3>{r.data.role}</h3>
+            <p class="meta">{r.data.org}</p>
+            <p class="meta">{r.data.when}</p>
+          </div>
+          <div class="role__what">
+            <ul>{r.data.points.map((p) => <li>{p}</li>)}</ul>
+            <p class="meta role__tools">{r.data.tools.join(", ")}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
   </section>
 
-  <section class="section frame grid" aria-labelledby="contact-title">
-    <Painted id="contact-title" class="span-all">Contact</Painted>
-    <p class="section__body">Email is the fastest way to reach me.</p>
-    <p class="section__email"><CopyEmail /></p>
+  <section id="contact" class="section frame" aria-labelledby="contact-title">
+    <Painted id="contact-title">Contact</Painted>
+    <div class="contact">
+      <p class="contact__looking">{lookingFor} Email is the fastest way to reach me.</p>
+      <p class="contact__email"><CopyEmail /></p>
+      <ul class="contact__links">
+        {site.links.map((l) => <li><a href={l.href} rel="me">{l.label}</a></li>)}
+        {site.resume && <li><a href={site.resume}>Résumé (PDF)</a></li>}
+      </ul>
+    </div>
   </section>
 </Base>
 
 <style>
+  /* ---------- hero ---------- */
   .hero {
     padding-top: var(--s-8);
-    row-gap: var(--s-6);
+    row-gap: var(--s-5);
   }
   .hero__name {
     grid-column: 1 / -1;
   }
-  .hero__statement {
-    grid-column: 1 / span 6;
+  .hero__verbs {
+    grid-column: 1 / span 8;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.45em;
+    margin-top: var(--s-2);
     font-family: var(--display);
-    font-size: var(--step-2);
-    line-height: 1.15;
+    font-size: var(--step-3);
+    font-weight: 800;
+    line-height: 1;
     letter-spacing: var(--track-heading);
   }
-  .hero__statement strong {
-    font-weight: 800;
-  }
-  .hero__lede {
-    grid-column: 1 / span 5;
+  .hero__who {
+    grid-column: 1 / span 6;
     font-size: var(--step-1);
-    color: var(--shade);
-    max-width: 36ch;
+    line-height: 1.45;
+    max-width: 38ch;
   }
-  .hero__hint {
+  .hero__aside {
     grid-column: 9 / -1;
-    grid-row: 2;
-    align-self: start;
-    padding-top: var(--s-2);
+    grid-row: 2 / span 2;
+    align-self: end;
+    display: grid;
+    gap: var(--s-3);
+    padding-left: var(--s-4);
+    border-left: 2px solid var(--paint);
     font-size: var(--step--1);
     color: var(--shade);
     max-width: 34ch;
   }
+  .hero__note {
+    font-family: var(--display);
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ---------- sections ---------- */
   .section {
     margin-top: var(--s-11);
   }
-  .span-all {
-    grid-column: 1 / -1;
+  .sub {
+    margin-top: var(--s-9);
+    font-size: var(--step-2);
+    font-weight: 800;
   }
-  .section__body {
-    grid-column: 1 / span 7;
+  .label {
+    font-size: var(--step--1);
+    font-weight: 700;
+    letter-spacing: 0;
+    color: var(--shade);
+  }
+
+  /* about */
+  .about {
     margin-top: var(--s-6);
+    row-gap: var(--s-7);
+    align-items: start;
+  }
+  .about__text {
+    grid-column: 1 / span 7;
+    display: grid;
+    gap: var(--s-4);
     font-size: var(--step-1);
-    line-height: 1.45;
+    line-height: 1.5;
     max-width: 44ch;
   }
-  .section__more,
-  .section__email {
-    grid-column: 1 / span 7;
-    margin-top: var(--s-4);
+  .about__edu {
+    grid-column: 9 / -1;
+  }
+  .edu {
+    list-style: none;
+    margin: var(--s-3) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--s-5);
+  }
+  .edu__school {
     font-family: var(--display);
     font-size: var(--step-1);
-    font-weight: 600;
+    font-weight: 700;
+    margin-bottom: var(--s-1);
+  }
+  .edu__honours {
+    margin-top: var(--s-2);
+    font-size: var(--step--1);
+  }
+  .rows {
+    margin: var(--s-5) 0 0;
+    border-top: var(--border);
+  }
+  .rows__row {
+    padding-block: var(--s-4);
+    border-bottom: var(--border);
+  }
+  .rows dt {
+    grid-column: 1 / span 4;
+    font-family: var(--display);
+    font-weight: 700;
+  }
+  .rows dd {
+    grid-column: 6 / -1;
+    margin: 0;
   }
 
   /* work: content hangs in front of the paint, so drifting fragments pass behind it */
@@ -125,8 +264,6 @@ const archive = work.filter((w) => !w.data.flagship);
     padding: 0;
     display: grid;
     gap: var(--s-9);
-    position: relative;
-    z-index: 1;
   }
   .work {
     position: relative;
@@ -136,7 +273,8 @@ const archive = work.filter((w) => !w.data.flagship);
     grid-column: 1 / span 7;
     background: var(--wall);
   }
-  .work__shot img {
+  .work__shot img,
+  .more__item img {
     width: 100%;
     aspect-ratio: 16 / 10;
     object-fit: cover;
@@ -194,72 +332,147 @@ const archive = work.filter((w) => !w.data.flagship);
     outline: none;
   }
 
-  .archive__title {
-    margin-top: var(--s-10);
-    font-size: var(--step-2);
-    font-weight: 800;
+  .more {
+    list-style: none;
+    margin: var(--s-6) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-8) var(--gutter);
     position: relative;
     z-index: 1;
   }
-  .archive {
+  .more__item {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    background: var(--wall);
+  }
+  .more__item img {
+    margin-bottom: var(--s-3);
+  }
+  .more__title {
+    font-size: var(--step-1);
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+  .more__summary {
+    color: var(--shade);
+    max-width: 46ch;
+  }
+  .more__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    font-family: var(--display);
+    font-size: var(--step--1);
+    font-weight: 600;
+  }
+
+  /* experience */
+  .roles {
     list-style: none;
-    margin: var(--s-5) 0 0;
+    margin: var(--s-7) 0 0;
     padding: 0;
     border-top: var(--border);
     position: relative;
     z-index: 1;
     background: var(--wall);
   }
-  .archive__row {
-    display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr);
-    gap: var(--gutter);
-    padding-block: var(--s-4);
+  .role {
+    padding-block: var(--s-6);
     border-bottom: var(--border);
+    row-gap: var(--s-4);
   }
-  .archive__name {
-    font-family: var(--display);
+  .role__who {
+    grid-column: 1 / span 4;
+  }
+  .role__who h3 {
+    font-size: var(--step-1);
     font-weight: 700;
+    letter-spacing: 0;
+    margin-bottom: var(--s-2);
   }
-  .archive__what {
-    color: var(--shade);
+  .role__what {
+    grid-column: 6 / -1;
+    max-width: var(--measure);
   }
-  .archive__links {
+  .role__what ul {
+    margin: 0;
+    padding-left: 1.1em;
+  }
+  .role__what li + li {
+    margin-top: var(--s-2);
+  }
+  .role__what li::marker {
+    color: var(--paint);
+  }
+  .role__tools {
+    margin-top: var(--s-4);
+  }
+  .role__case {
+    margin-top: var(--s-3);
+    font-family: var(--display);
+    font-weight: 600;
+  }
+
+  /* contact */
+  .contact {
+    margin-top: var(--s-6);
+    display: grid;
+    gap: var(--s-5);
+  }
+  .contact__looking {
+    font-size: var(--step-1);
+    line-height: 1.45;
+    max-width: 46ch;
+  }
+  .contact__email {
+    font-family: var(--display);
+    font-size: var(--step-2);
+    font-weight: 700;
+    letter-spacing: var(--track-heading);
+  }
+  .contact__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--s-2) var(--s-4);
+    gap: var(--s-3) var(--s-6);
     font-family: var(--display);
-    font-size: var(--step--1);
-    font-weight: 500;
-    justify-content: end;
+    font-size: var(--step-1);
+    font-weight: 600;
   }
 
   @media (max-width: 52rem) {
-    .hero__statement,
-    .hero__lede,
-    .hero__hint,
-    .section__body,
-    .section__more,
-    .section__email,
+    .hero__verbs,
+    .hero__who,
+    .hero__aside,
+    .about__text,
+    .about__edu,
+    .rows dt,
+    .rows dd,
     .work__shot,
     .work__text,
     .work:nth-child(even) .work__shot,
-    .work:nth-child(even) .work__text {
+    .work:nth-child(even) .work__text,
+    .role__who,
+    .role__what {
       grid-column: 1 / -1;
       grid-row: auto;
     }
-    .hero__hint {
-      grid-row: auto;
+    .hero__aside {
+      margin-top: var(--s-3);
+    }
+    .hero__verbs {
+      font-size: var(--step-2);
     }
     .work {
       row-gap: var(--s-4);
     }
-    .archive__row {
+    .more {
       grid-template-columns: 1fr;
-      gap: var(--s-1);
-    }
-    .archive__links {
-      justify-content: start;
     }
   }
 </style>

@@ -3,6 +3,8 @@ title: AI Career Coach
 summary: "Interview practice with instant feedback, industry insights, and AI-assisted résumé and cover-letter writing."
 description: "AI Career Coach, a full-stack career-preparation app."
 flagship: false
+cover: ../../assets/work/ai-career-coach.png
+coverAlt: "AI Career Coach landing page with the headline “Your AI Career Coach for Professional Success”"
 order: 6
 kind: Web app
 role: Personal project

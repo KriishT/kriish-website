@@ -117,13 +117,27 @@ Kriish chose this version and supplied the SWE résumé (`Kriish_Tiwari_Resume_S
 
 **Not added:** the phone number. It’s in the published PDF, but not in the page itself.
 
+## One-page structure (2026-10-22)
+
+Kriish asked for the hero to say what Kriish does rather than where Kriish studies, and for the home page to carry the old site’s sections in a clean, structured way.
+
+- **Hero:** the painted name, then **Design. Build. Create.**, then one line about who Kriish is. School became a side note beside them, set off by a paint-coloured rule.
+- **Home sections, in the old site’s order:** About, Work, Experience, Contact. Each has a painted heading that resolves on its line.
+  - **About:** Kriish’s own words from the old site, lightly tightened. Education sits beside the text; skills follow as grouped rows.
+  - **Work:** the three case studies, then all four other projects with their screenshots, restored from git history, as a two-column grid.
+  - **Experience:** every role, then **Leadership** (the project-manager role).
+  - **Contact:** what Kriish is looking for, email with a copy button, LinkedIn, GitHub and the résumé.
+- **Navigation:** jumps to the four sections, plus Résumé. The separate About and Contact pages were removed, because they only repeated the home page.
+- **Phones:** the header stacks (name above a one-line nav), the verbs stay on one line, and the section-heading minimum dropped to 3.5rem so “Experience” fits at 390px.
+- **Checks:** 0 overflow at 390, 768 and 1440; every section heading resolves on its line; 0 broken links, 0 contrast failures, 0 script errors; Lighthouse mobile 97 / 100 / 100 / 100.
+
 ## Open items
 
 - `TODO(kriish)` in the case studies. The résumé doesn’t answer these, because they ask for reasoning, not results:
   - DART: 7 (team and constraints, the turning point, CSV, sign-in thresholds, a sweated detail, what shipped, next).
   - Tangent: 6.
   - Trailmap: 6.
-- About: two or three sentences about you.
+- About now uses your own words from the old site; rewrite them if they no longer sound like you.
 - Approve or rewrite every sentence I drafted, especially "then tests it with the people who use it", which generalises from the DART research.
 - Confirm the flagships (DART, Tangent, Trailmap), and whether LOOPHOLE belongs in the archive.
 - Approve §8: the large scroll-linked motion.
